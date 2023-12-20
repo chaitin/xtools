@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 export default function App({
   Component,
   emotionCache = clientSideEmotionCache,
-}: AppProps & { emotionCache: EmotionCache }) {
+}: any) {
   return (
     <>
       <meta
