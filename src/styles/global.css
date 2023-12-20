@@ -31,3 +31,7 @@
   text-decoration: unset; /* 设置鼠标悬停时链接文本的下划线 */
   color: unset;
 }
+
+#root,body,html{
+  overflow: auto!important;
+}

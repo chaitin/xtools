@@ -6,12 +6,11 @@ import "@/styles/static/swiper-customize.css";
 import "@/styles/static/swiper.css";
 import theme from "@/styles/theme";
 import createEmotionCache from "@/utils/emotionCache";
-import { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { AppProps } from "next/app";
+
 import PropTypes from "prop-types";
 
 const clientSideEmotionCache = createEmotionCache();
