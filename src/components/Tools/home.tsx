@@ -46,11 +46,6 @@ export default function App() {
                   // autoFocus
                   {...params}
                   sx={{ height: '100%' }}
-                // value={searchText}
-                // onChange={(event) => setSearchText(event.target.value)}
-                // placeholder="输入关键词搜索工具"
-                // inputProps={{ 'aria-label': 'search icons' }}
-                // sx={{ grow: 1 }}
                 />
               </Stack>
             }
