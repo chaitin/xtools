@@ -21,14 +21,28 @@ const queryClient = new QueryClient({
 });
 
 export default function App({
+  Component,
   emotionCache = clientSideEmotionCache,
 }: AppProps & { emotionCache: EmotionCache }) {
   return (
     <>
+      <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+      />
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <QueryClientProvider client={queryClient}>
+            <Component />
+          </QueryClientProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </>
   );
 }
 
 App.propTypes = {
+  Component: PropTypes.elementType.isRequired,
   emotionCache: PropTypes.object,
 };

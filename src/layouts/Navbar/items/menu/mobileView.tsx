@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
-import Image, { StaticImageData } from "next/image";
-import { styled } from "@mui/material/styles";
-import { NavMenuProps } from "@/types";
-import { useRouter } from "next/router";
-import { useDebounce } from "@/hooks";
-import MenuItem from "./item";
-import { Drawer, TextField } from "@mui/material";
-import { Side_Margin, grayLight, primary } from "@/styles/colors";
 import search_icon from "@/asset/img/search_icon.webp";
-import ClearIcon from "@mui/icons-material/Clear";
+import { useDebounce } from "@/hooks";
+import { Side_Margin, grayLight, primary } from "@/styles/colors";
 import { ApplicationInfo } from "@/types";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Drawer, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Image, { StaticImageData } from "next/image";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import MenuItem from "./item";
 import { NavPanelProps } from "./panel";
 
 const PanelContent = styled("div")(() => ({

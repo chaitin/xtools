@@ -8,10 +8,8 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "dev": "NODE_ENV=test next dev",
-    "build:test": "NODE_ENV=test next build",
-    "build": "NODE_ENV=production next build",
-    "start:test": "NODE_ENV=test next start",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

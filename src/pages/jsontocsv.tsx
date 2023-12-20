@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import Table from 'rc-table'
-import { Box, Button, Divider, OutlinedInput, Stack, Switch, TextField } from "@mui/material"
-import { useCSV } from '@/hooks';
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import alert from "@/components/Alert";
-import MenuView from '@/components/MenuView'
-import { json2csv } from 'json-2-csv'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CusTabs from '@/components/CusTabs';
+import MenuView from '@/components/MenuView';
+import { useCSV } from '@/hooks';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Box, Button, Divider, Stack, Switch, TextField } from "@mui/material";
+import { json2csv } from 'json-2-csv';
+import Table from 'rc-table';
+import { useCallback, useEffect, useState } from 'react';
 import AceEditor from "react-ace";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
+import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/ext-language_tools";
 
 const tabs = [
   { label: 'CSV', value: 1 },

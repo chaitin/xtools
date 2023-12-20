@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Image, { StaticImageData } from "next/image";
-import { styled } from "@mui/material/styles";
-import { NavMenuProps } from "@/types";
-import { useDebounce } from "@/hooks";
-import MenuItem from "./item";
-import { Drawer, TextField } from "@mui/material";
-import { Side_Margin, grayLight } from "@/styles/colors";
-import { useRouter } from "next/router";
 import search_icon from "@/asset/img/search_icon.webp";
+import { useDebounce } from "@/hooks";
+import { Side_Margin, grayLight } from "@/styles/colors";
 import { ApplicationInfo } from "@/types";
-import qs from "qs";
-import { encodeUrl } from "@/utils/url";
+import { Drawer, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Image, { StaticImageData } from "next/image";
+import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import MenuItem from "./item";
 
 export interface NavPanelProps {
   open: boolean;

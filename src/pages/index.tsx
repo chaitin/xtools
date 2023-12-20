@@ -1,21 +1,9 @@
-import createEmotionCache from "@/utils/emotionCache";
-import { EmotionCache } from "@emotion/cache";
 import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
 import InputBase from '@mui/material/InputBase';
-import { QueryClient } from "@tanstack/react-query";
-import type { AppProps } from "next/app";
-
-const clientSideEmotionCache = createEmotionCache();
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
-});
 
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function App({
-  emotionCache = clientSideEmotionCache,
-}: AppProps & { emotionCache: EmotionCache }) {
+export default function App() {
   return (
     <Box sx={{ width: '100%', height: '100%', pt: 4 }}>
       <Stack direction='row' justifyContent='center' alignItems='center'>

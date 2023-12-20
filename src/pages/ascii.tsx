@@ -15,11 +15,11 @@ import Paper from '@mui/material/Paper';
 import React from "react";
 
 const Hash: React.FC = () => {
-  function createData(
+  const createData = (
     dec: number,
     hex: string,
     char: string
-  ) {
+  )=> {
     char = {
       "0x00": "{NUL}",
       "0x01": "{SOH}",
@@ -58,11 +58,11 @@ const Hash: React.FC = () => {
     }[hex] || char
     return { hex, dec, char };
   }
-  
+
   const rows = Array(128).fill(0).map((_, x) => {
     return createData(x, '0x' + x.toString(16).padStart(2, '0'), String.fromCharCode(x))
   })
-  
+
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -85,9 +85,9 @@ const Hash: React.FC = () => {
           <TableBody>
             {rows.slice(x * 0x20, x * 0x20 + 0x20).map((row) => (
               <TableRow key={row.dec} sx={{ fontFamily: "Mono" }}>
-              <TableCell sx={{ fontFamily: "Mono" }}>{row.dec}</TableCell>
-              <TableCell sx={{ fontFamily: "Mono" }}>{row.hex}</TableCell>
-              <TableCell sx={{ fontFamily: "Mono", fontWeight: 900 }}>{row.char}</TableCell>
+                <TableCell sx={{ fontFamily: "Mono" }}>{row.dec}</TableCell>
+                <TableCell sx={{ fontFamily: "Mono" }}>{row.hex}</TableCell>
+                <TableCell sx={{ fontFamily: "Mono", fontWeight: 900 }}>{row.char}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -99,15 +99,15 @@ const Hash: React.FC = () => {
   return (
     <MenuView>
       <Stack sx={{
-          mt: "24px",
-          gap: "18px",
-          maxWidth: "1020px",
-          fontFamily: "Mono",
-          width: '838px',
-          mx: 'auto',
+        mt: "24px",
+        gap: "18px",
+        maxWidth: "1020px",
+        fontFamily: "Mono",
+        width: '838px',
+        mx: 'auto',
       }}>
         <Grid container spacing={1}>
-        {tables}
+          {tables}
         </Grid>
       </Stack>
     </MenuView>

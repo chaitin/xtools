@@ -1,16 +1,14 @@
-import React, { useState } from "react";
 import MenuView from "@/components/MenuView";
+import { count } from "@homegrown/word-counter";
 import {
   Box,
-  Card,
-  CardContent,
   Divider,
   Stack,
   Typography,
-  styled,
+  styled
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { count } from "@homegrown/word-counter";
+import React, { useState } from "react";
 
 interface IWordStatisticiansResult {
   lines: number;

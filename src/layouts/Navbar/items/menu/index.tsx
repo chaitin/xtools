@@ -1,14 +1,12 @@
-import React, { useCallback, useState } from "react";
+import { useMobileView } from "@/hooks";
+import { ApplicationInfo, NavMenuProps } from "@/types";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
-import { useMobileView } from "@/hooks";
-import DehazeIcon from "@mui/icons-material/Dehaze";
+import React, { useCallback, useState } from "react";
 import MenuItem from "./item";
-import data from "@/asset/data/data.json";
-import { NavMenuProps } from "@/types";
-import NavPanel from "./panel";
 import MobilPanel from "./mobileView";
-import { ApplicationInfo } from "@/types";
+import NavPanel from "./panel";
 
 const NavMenuComponent = styled("div")(() => ({
   display: "flex",

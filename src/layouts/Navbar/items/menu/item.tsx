@@ -1,7 +1,7 @@
-import React from "react";
-import { styled, SxProps } from "@mui/material/styles";
-import { primary, defaultText, secondaryText } from "@/styles/colors";
 import { ArrowDown } from "@/icon";
+import { defaultText, primary, secondaryText } from "@/styles/colors";
+import { styled, SxProps } from "@mui/material/styles";
+import React from "react";
 
 export interface MenuItemProps {
   title: string | React.ReactElement;
