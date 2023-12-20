@@ -5,6 +5,9 @@ const withTM = require('next-transpile-modules')(['react-syntax-highlighter']);
 
 const nextConfig = withPlugins([withTM, withFonts], {
   reactStrictMode: false,
+  images: {
+    unoptimized: true
+  }
 });
 
 module.exports = nextConfig;
