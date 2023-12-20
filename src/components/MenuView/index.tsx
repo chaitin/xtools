@@ -1,6 +1,8 @@
-import { defaultTextClick } from "@/constant";
+import { defaultTextClick, secondaryClick } from "@/constant";
 import { usePath } from "@/hooks";
+import { AllTags, Tags, Tool, routesMenu } from "@/utils/tools";
 import ErrorIcon from "@mui/icons-material/Error";
+import SearchIcon from '@mui/icons-material/Search';
 import {
   Box,
   Button,
@@ -11,13 +13,14 @@ import {
   Paper,
   Typography
 } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Container, Main, MenuPage, SideMenu } from "./components";
+import Link from "next/link";
+
 
 export interface MenuProps {
   children: React.ReactElement;
@@ -27,114 +30,18 @@ const ifChecked = (currentPath: string, itemPath: string) => {
   return currentPath === itemPath;
 };
 
-enum Tags {
-  CODE = 'code',
-  TEXT = 'text',
-  DEV = 'dev',
-  PASSWORD = 'password',
-  JSON = 'json',
-  OTHER = 'other'
-}
 
-const routesMenu = [
-  // { icon: dot_blue, label: '网络', children: [] },
-  {
-    label: "URL 编解码",
-    tags: [Tags.CODE],
-    path: "/urlencoder",
-    subTitle: "URL 编码解码小工具。",
-  },
-  {
-    label: "Base64 编解码",
-    tags: [Tags.CODE],
-    path: "/base64",
-    subTitle: "Base64 编码解码小工具。",
-  },
-  {
-    label: "图片转 Base64",
-    tags: [Tags.CODE],
-    path: "/img2base64",
-    subTitle:
-      "图片的 BASE64 编码就是将图片数据编码成字符串，使用该字符串代替图片地址，从而不需要使用图片的 URL 地址。",
-  },
-  {
-    label: "进制转换",
-    tags: [Tags.CODE],
-    path: "/radix_convert",
-    subTitle:
-      "进制转换小工具，支持二进制、八进制、十进制、十六进制等之间的互相转换。",
-  },
-  {
-    label: "字数统计",
-    tags: [Tags.TEXT],
-    path: "/word_count",
-    subTitle:
-      "字数统计小工具，支持中文、英文、数字、标点符号等的统计。",
-  },
-  {
-    label: "大小写转换",
-    tags: [Tags.TEXT],
-    path: "/case_convert",
-    subTitle:
-      "大小写转换小工具，支持大写、小写、首字母大写、大小写互转等。",
-  },
-  {
-    label: "Unix 时间戳转换",
-    tags: [Tags.DEV],
-    path: "/unix",
-    subTitle:
-      "Unix 时间戳是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数，不考虑闰秒。",
-  },
-  {
-    label: "ASCII 码表",
-    tags: [Tags.DEV],
-    path: "/ascii",
-    subTitle: "ASCII 码查询表。",
-  },
-  {
-    label: "密码哈希",
-    tags: [Tags.PASSWORD],
-    path: "/hash",
-    subTitle: "在线 MD5，SHA256 哈希算法计算小工具。",
-  },
-  {
-    label: "AES 加解密",
-    tags: [Tags.PASSWORD],
-    path: "/aes",
-    subTitle: "在线 AES 算法加解密工具。",
-  },
-  {
-    label: "JSON 转 CSV",
-    tags: [Tags.JSON],
-    path: "/jsontocsv",
-    subTitle: "JSON 转 CSV 和 EXCEL 小工具。",
-  },
-
-  {
-    label: "随机数/密码生成",
-    tags: [Tags.OTHER],
-    path: "/random",
-    subTitle: "该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。",
-  },
-  {
-    label: "图片去色",
-    tags: [Tags.OTHER],
-    path: "/uncolor",
-    subTitle:
-      "将彩色图片转换为黑白图片",
-  },
-];
 const MenuView: React.FC<MenuProps> = ({ children }) => {
   const { path } = usePath();
+  const [tags, setTags] = React.useState<Tags[]>([])
+  const [tools, setTools] = React.useState<Tool[]>(routesMenu)
+  const [searchText, setSearchText] = React.useState<string>('')
+
   const [openStaus, setOpenStatus] = React.useState(
     routesMenu.map((item) => true)
   );
   const router = useRouter();
-  const handleClick = (index: number) => {
-    const _value = [...openStaus];
-    _value[index] = !openStaus[index];
-    setOpenStatus(_value);
-  };
+
   const toPath = (path: string) => {
     router.push(path);
   };
@@ -142,6 +49,26 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
     const _item = routesMenu.find((item) => item.path === path);
     if (_item) return _item;
   }, [path]);
+  const checkTags = (tag: Tags) => {
+    const _index = tags.findIndex(item => item === tag)
+    const _tags = [...tags]
+    if (_index >= 0) {
+      _tags.splice(_index, 1)
+    } else {
+      _tags.push(tag)
+    }
+    setTags(_tags)
+  }
+
+  useEffect(() => {
+    let toolsFilter: Tool[] = []
+    if (tags.length) toolsFilter = routesMenu.filter(item => item.tags.some(tag => tags.includes(tag)))
+    else toolsFilter = routesMenu
+    setTools(toolsFilter.filter(item => {
+      return item.label.toUpperCase().includes(searchText?.toUpperCase())
+        || item.subTitle.toUpperCase().includes(searchText?.toUpperCase())
+    }))
+  }, [tags, searchText])
 
   return (
     <>
@@ -167,47 +94,61 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
               </IconButton>
               <InputBase
                 autoFocus
-                // value={query}
-                // onChange={(event) => setQuery(event.target.value)}
+                value={searchText}
+                onChange={(event) => setSearchText(event.target.value)}
                 placeholder="输入关键词搜索工具"
                 inputProps={{ 'aria-label': 'search icons' }}
                 sx={{ grow: 1, fontSize: '12px' }}
               />
             </Paper>
-            <Paper sx={{ width: '100%', borderBottom: '1px solid grey' }} elevation={0}>
+            <Paper sx={{
+              MozBorderRadiusTopright: "4px",
+              MozBorderRadiusTopLeft: "4px",
+              width: '100%', pt: 1
+            }}>
+              {AllTags.map(item => (
+                <Button onClick={() => checkTags(item.name)}
+                  sx={{ mx: 1, mb: 1, borderRadius: '4px', background: tags.includes(item.name) ? secondaryClick : 'unset' }}
+                  size="small" key={item.name} variant="outlined" startIcon={<item.icon />}>
+                  {item.label}
+                </Button>
+              ))}
             </Paper>
+            <Box sx={{ width: '210px', mx: 'auto', height: '1px', background: '0,0,0,0.12' }} />
             <List
               sx={{
                 width: "100%",
                 maxWidth: 360,
                 height: "100%",
                 bgcolor: "background.paper",
-                borderRadius: "4px",
+                MozBorderRadiusBottomright: "4px",
+                MozBorderRadiusBottomLeft: "4px",
                 overflowY: "scroll",
               }}
               component="nav"
               aria-labelledby="nested-list-subheader"
             >
-              {routesMenu.map((item, index) =>
-                <ListItemButton
-                  key={index}
-                  sx={{ pl: 4 }}
-                  onClick={() => toPath(item.path)}
-                  selected={ifChecked(currentItem?.path || "", item.path)}
-                >
-                  <ListItemText
-                    primaryTypographyProps={{
-                      fontSize: "12px",
-                      fontWeight: ifChecked(
-                        currentItem?.path || "",
-                        item.path
-                      )
-                        ? "500"
-                        : "400",
-                    }}
-                    primary={item.label}
-                  />
-                </ListItemButton>)}
+              {tools.map((item, index) =>
+                <Link key={index} className='custom-link' href={item.path}>
+                  <ListItemButton
+                    sx={{ pl: 4 }}
+                    selected={ifChecked(currentItem?.path || "", item.path)}
+                  >
+                    <ListItemText
+                      primaryTypographyProps={{
+                        fontSize: "12px",
+                        fontWeight: ifChecked(
+                          currentItem?.path || "",
+                          item.path
+                        )
+                          ? "500"
+                          : "400",
+                      }}
+                      primary={item.label}
+                    />
+                  </ListItemButton>
+                </Link>
+              )}
             </List>
           </Box>
         </SideMenu>
