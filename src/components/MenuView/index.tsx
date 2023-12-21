@@ -76,6 +76,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
         <title>
           {currentItem?.label + " - 长亭百川云工具库"}
         </title>
+        <meta name="description" content={currentItem?.label + '-' + currentItem?.subTitle} />
       </Head>
       <MenuPage>
         <SideMenu>

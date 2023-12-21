@@ -7,7 +7,6 @@ import {
   errorText,
   leastText,
 } from "./colors";
-import Mono from '@/asset/font/Mono.ttf'
 
 const Din = "https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Din.woff2";
 const Gilroy =
@@ -65,7 +64,7 @@ const theme = createTheme({
       @font-face {
           font-family: "Mono";
           font-weight: 250;
-          src: url(${Mono}) format("truetype");
+          src: url('/tools/Mono.ttf') format("truetype");
           font-display: swap;
       }
       * {
