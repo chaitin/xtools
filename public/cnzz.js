@@ -15,8 +15,5 @@ if (
   var riverTag = document.createElement('script');
   riverTag.src = 'https://rivers.chaitin.cn/main-header.js';
   document.head.append(riverTag);
-
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.style.paddingTop = '64px';
-  });
+  document.body.style.paddingTop = '64px';
 }
