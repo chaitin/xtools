@@ -65,7 +65,6 @@ export default function App() {
                 const item = routesMenu.find((item) =>
                   [v.target.textContent, v.target.value].includes(item.label)
                 );
-                console.log(v, item, [v.target.textContent, v.target.value]);
                 if (item) {
                   router.push(item.path);
                 }
@@ -101,7 +100,7 @@ export default function App() {
             {tools
               .filter((tool) => tool.tags.includes(section.name))
               .map((item) => (
-                <a className='custom-link' key={item.label} href={item.path}>
+                <Link className='custom-link' key={item.label} href={item.path}>
                   <Button
                     variant='contained'
                     size='small'
@@ -109,7 +108,7 @@ export default function App() {
                   >
                     {item.label}
                   </Button>
-                </a>
+                </Link>
               ))}
           </Stack>,
         ])}

@@ -8,7 +8,17 @@ const nextConfig = withPlugins([withTM], {
   images: {
     unoptimized: true,
   },
-  assetPrefix: './',
+  basePath: '/tools',
+  async redirects() {
+    return [
+        {
+            source: '/',
+            destination: '/tools',
+            basePath: false,
+            permanent: false
+        }
+    ]
+}
 });
 
 module.exports = nextConfig;

@@ -19,6 +19,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 import { Container, Main, MenuPage, SideMenu } from './components';
+import Link from 'next/link';
 
 export interface MenuProps {
   children: React.ReactElement;
@@ -40,7 +41,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
   const router = useRouter();
 
   const currentItem = useMemo(() => {
-    const _item = routesMenu.find((item) => item.path === '.' + path);
+    const _item = routesMenu.find((item) => item.path === path);
     if (_item) return _item;
   }, [path]);
   const checkTags = (tag: Tags) => {
@@ -157,7 +158,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
               aria-labelledby='nested-list-subheader'
             >
               {tools.map((item, index) => (
-                <a key={index} className='custom-link' href={item.path}>
+                <Link key={index} className='custom-link' href={item.path}>
                   <ListItemButton
                     sx={{ pl: 4 }}
                     selected={ifChecked(currentItem?.path || '', item.path)}
@@ -175,7 +176,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
                       primary={item.label}
                     />
                   </ListItemButton>
-                </a>
+                </Link>
               ))}
             </List>
           </Box>
