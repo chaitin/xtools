@@ -42,7 +42,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
   const router = useRouter();
 
   const currentItem = useMemo(() => {
-    const _item = routesMenu.find((item) => item.path === path);
+    const _item = routesMenu.find((item) => item.path === '.' + path);
     if (_item) return _item;
   }, [path]);
   const checkTags = (tag: Tags) => {
