@@ -2,9 +2,9 @@ name: Build XTools
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Restore cache
         uses: actions/cache@v3

@@ -5,7 +5,7 @@ export type TicketQueryInfo = {
   state?: string;
 };
 
-export type TicketType = "完成" | "等待处理" | "正在处理" | "关闭";
+export type TicketType = '完成' | '等待处理' | '正在处理' | '关闭';
 
 export type TicketInfo = {
   title: string;
@@ -22,7 +22,7 @@ export type TicketStatus = {
   actions: { action: string; created_at: string }[];
 };
 
-export type DialogType = "query" | "reply"; //query 用户，reply 客服
+export type DialogType = 'query' | 'reply'; //query 用户，reply 客服
 
 export type DialogInfo = {
   content: string;

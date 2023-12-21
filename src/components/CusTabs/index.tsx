@@ -1,42 +1,59 @@
-import { type FC, useState, useEffect } from 'react'
+import { type FC, useState, useEffect } from 'react';
 
-import { Tabs, Tab, type SxProps } from '@mui/material'
+import { Tabs, Tab, type SxProps } from '@mui/material';
 
 interface ListItem {
-  label: string | React.ReactNode
-  value: string | number
-  disabled?: boolean
+  label: string | React.ReactNode;
+  value: string | number;
+  disabled?: boolean;
 }
 
 interface RadioButtonProps {
-  list: ListItem[]
-  defatValue?: ListItem['value']
-  onChange?(value: ListItem['value']): void
-  size?: 'small' | 'medium' | 'large'
-  sx?: SxProps
+  list: ListItem[];
+  defatValue?: ListItem['value'];
+  onChange?(value: ListItem['value']): void;
+  size?: 'small' | 'medium' | 'large';
+  sx?: SxProps;
 
   // 希望父组件控制
-  change?(value: ListItem['value']): void
-  value?: ListItem['value']
+  change?(value: ListItem['value']): void;
+  value?: ListItem['value'];
 }
 
-const CusTabs: FC<RadioButtonProps> = ({ list, defatValue, onChange, change, sx, value: v }) => {
-  const [value, setValue] = useState<string | number>(v || defatValue || list[0].value)
-  const handleChange = (event: React.SyntheticEvent<Element, Event>, id: any) => {
+const CusTabs: FC<RadioButtonProps> = ({
+  list,
+  defatValue,
+  onChange,
+  change,
+  sx,
+  value: v,
+}) => {
+  const [value, setValue] = useState<string | number>(
+    v || defatValue || list[0].value
+  );
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    id: any
+  ) => {
     if (id !== null) {
-      setValue(id)
-      onChange?.(id)
+      setValue(id);
+      onChange?.(id);
     }
-  }
+  };
 
   useEffect(() => {
-    if (v) setValue(v)
-  }, [v])
+    if (v) setValue(v);
+  }, [v]);
 
   return (
     <Tabs
       value={value}
-      onChange={change ? (event: React.SyntheticEvent<Element, Event>, value: any) => change(value) : handleChange}
+      onChange={
+        change
+          ? (event: React.SyntheticEvent<Element, Event>, value: any) =>
+              change(value)
+          : handleChange
+      }
       sx={{
         p: '5px',
         border: '1px solid',
@@ -74,7 +91,7 @@ const CusTabs: FC<RadioButtonProps> = ({ list, defatValue, onChange, change, sx,
         />
       ))}
     </Tabs>
-  )
-}
+  );
+};
 
-export default CusTabs
+export default CusTabs;

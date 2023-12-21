@@ -1,7 +1,7 @@
-import { BasicPaginationParams } from "./general";
-export type NotificationLevel = "high" | "medium" | "low";
+import { BasicPaginationParams } from './general';
+export type NotificationLevel = 'high' | 'medium' | 'low';
 
-export type NotificationType = "app" | "platform";
+export type NotificationType = 'app' | 'platform';
 
 export type NotificationDetail = {
   id: number;
@@ -41,21 +41,21 @@ export type WebhookProps = {
   sign?: string;
 };
 
-export type MessageChannelTypes = "email" | "dingtalk" | "lark" | "wecom";
+export type MessageChannelTypes = 'email' | 'dingtalk' | 'lark' | 'wecom';
 
 // 1:邮箱；2:钉钉；3:企业微信；4:飞书
 export enum MessageChannelEnum {
-  email = "email",
-  dingtalk = "dingtalk",
-  wecom = "wecom",
-  lark = "lark",
+  email = 'email',
+  dingtalk = 'dingtalk',
+  wecom = 'wecom',
+  lark = 'lark',
   wechat = 5,
 }
 
 export enum MessageLevelsEnum {
-  low = "低",
-  medium = "中",
-  high = "高",
+  low = '低',
+  medium = '中',
+  high = '高',
 }
 
 export type ForwardingConfigDetails = {
@@ -68,7 +68,7 @@ export type ForwardingConfigDetails = {
   updated_at?: string;
 };
 
-export type ForwardingConfigType = "wechat" | "normal";
+export type ForwardingConfigType = 'wechat' | 'normal';
 
 export type ForwardingConfigChannelProps = {
   channel: string;
@@ -81,7 +81,7 @@ export type UnReadNotify = {
   plat_total_number: number;
 };
 
-export type SocketMesageType = "unread" | "invite" | "remove";
+export type SocketMesageType = 'unread' | 'invite' | 'remove';
 
 export type SocketMessage<T extends SocketMesageType> = {
   type: SocketMesageType;
@@ -89,7 +89,7 @@ export type SocketMessage<T extends SocketMesageType> = {
 };
 
 export type SocketMessageContent<T extends SocketMesageType> =
-  T extends "unread"
+  T extends 'unread'
     ? UnReadNotify
     : NotificationDetail & { sender_id: number };
 

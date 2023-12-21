@@ -1,5 +1,5 @@
-import React from "react";
-import { GetServerSidePropsContext } from "next";
+import React from 'react';
+import { GetServerSidePropsContext } from 'next';
 import Document, {
   Html,
   Head,
@@ -7,9 +7,10 @@ import Document, {
   NextScript,
   DocumentProps,
   DocumentContext,
-} from "next/document";
-import createEmotionServer from "@emotion/server/create-instance";
-import createEmotionCache from "@/utils/emotionCache";
+} from 'next/document';
+import createEmotionServer from '@emotion/server/create-instance';
+import createEmotionCache from '@/utils/emotionCache';
+import Script from 'next/script';
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
@@ -17,14 +18,13 @@ interface MyDocumentProps extends DocumentProps {
 
 export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
   return (
-    <Html lang="zh-cmn-Hans">
+    <Html lang='zh-cmn-Hans'>
       <Head>
-        <script type="text/javascript" src='/tools/cnzz.js'>
-        </script>
+        <script type='text/javascript' src='/tools/cnzz.js' async />
         {emotionStyleTags}
       </Head>
       <body style={{ margin: 0 }}>
-        <div id={"rivers-header"}></div>
+        <div id={'rivers-header'}></div>
         <Main />
         <NextScript />
       </body>
@@ -55,7 +55,7 @@ MyDocument.getInitialProps = async (
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style, index) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(" ")}`}
+      data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key + index}
       dangerouslySetInnerHTML={{ __html: style.css }}
     />

@@ -1,34 +1,28 @@
-import alert from "@/components/Alert";
-import MenuView from "@/components/MenuView";
-import { defaultTextClick } from "@/constant";
-import CleaningServicesRoundedIcon from "@mui/icons-material/CleaningServicesRounded";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import {
-  Box,
-  OutlinedInput,
-  Stack,
-  Tab,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import React, { useCallback, useMemo, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import alert from '@/components/Alert';
+import MenuView from '@/components/MenuView';
+import { defaultTextClick } from '@/constant';
+import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import { Box, OutlinedInput, Stack, Tab, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import React, { useCallback, useMemo, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const MyLabel = styled("label")({
-  cursor: "pointer",
+const MyLabel = styled('label')({
+  cursor: 'pointer',
 });
 
 const URLEncoder: React.FC = () => {
-  const [method, setMethod] = React.useState("encode");
-  const [input, setInput] = useState<string>("");
-  const [output, setOutput] = useState<string>("");
+  const [method, setMethod] = React.useState('encode');
+  const [input, setInput] = useState<string>('');
+  const [output, setOutput] = useState<string>('');
 
   const funcMap = useMemo(() => {
     const m = new Map<String, Function>();
-    m.set("encode", encodeURI);
-    m.set("decode", decodeURI);
+    m.set('encode', encodeURI);
+    m.set('decode', decodeURI);
     return m;
   }, []);
 
@@ -53,128 +47,128 @@ const URLEncoder: React.FC = () => {
   );
 
   const handleCopyClick = useCallback(() => {
-    alert.success("复制成功");
+    alert.success('复制成功');
   }, []);
 
   const handleCleanClick = useCallback(() => {
-    setInput("");
-    setOutput("");
+    setInput('');
+    setOutput('');
   }, []);
 
   return (
     <MenuView>
       <Stack
         sx={{
-          mt: "24px",
-          gap: "18px",
-          maxWidth: "1020px",
-          fontFamily: "Mono",
-          width: "838px",
-          mx: "auto",
+          mt: '24px',
+          gap: '18px',
+          maxWidth: '1020px',
+          fontFamily: 'Mono',
+          width: '838px',
+          mx: 'auto',
         }}
       >
         <TabContext value={method}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} >
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleChange}>
               <Tab
-                label="编码"
-                value="encode"
-                sx={{ textTransform: "none !important" }}
+                label='编码'
+                value='encode'
+                sx={{ textTransform: 'none !important' }}
               />
               <Tab
-                label="解码"
-                value="decode"
-                sx={{ textTransform: "none !important" }}
+                label='解码'
+                value='decode'
+                sx={{ textTransform: 'none !important' }}
               />
             </TabList>
           </Box>
         </TabContext>
         <Typography
-          sx={{ width: "180px" }}
-          variant="body2"
+          sx={{ width: '180px' }}
+          variant='body2'
           color={defaultTextClick}
         >
           输入
         </Typography>
-        <Box sx={{ position: "relative" }}>
+        <Box sx={{ position: 'relative' }}>
           <OutlinedInput
             sx={{
-              width: "100%",
-              fontFamily: "Mono",
-              textarea: { paddingRight: "35px" },
+              width: '100%',
+              fontFamily: 'Mono',
+              textarea: { paddingRight: '35px' },
             }}
             value={input}
             onChange={handleInputChanged}
-            margin="dense"
-            minRows="5"
-            maxRows="10"
+            margin='dense'
+            minRows='5'
+            maxRows='10'
             multiline
             autoFocus
           />
           <Box
             sx={{
-              position: "absolute",
-              right: "16px",
-              top: "16px",
-              width: "30px",
-              paddingTop: "5px",
-              height: "30px",
-              textAlign: "center",
-              bgcolor: "#eee",
-              borderRadius: "50%",
-              cursor: "pointer",
-              color: input ? "#52C41A" : "#fff",
-              "&:hover": {
-                color: "#52C41A",
+              position: 'absolute',
+              right: '16px',
+              top: '16px',
+              width: '30px',
+              paddingTop: '5px',
+              height: '30px',
+              textAlign: 'center',
+              bgcolor: '#eee',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              color: input ? '#52C41A' : '#fff',
+              '&:hover': {
+                color: '#52C41A',
               },
             }}
           >
             <MyLabel onClick={handleCleanClick}>
-              <CleaningServicesRoundedIcon fontSize="small" />
+              <CleaningServicesRoundedIcon fontSize='small' />
             </MyLabel>
           </Box>
         </Box>
         <Typography
-          sx={{ width: "180px" }}
-          variant="body2"
+          sx={{ width: '180px' }}
+          variant='body2'
           color={defaultTextClick}
         >
           输出
         </Typography>
-        <Box sx={{ position: "relative" }}>
+        <Box sx={{ position: 'relative' }}>
           <OutlinedInput
             sx={{
-              width: "100%",
-              fontFamily: "Mono",
-              textarea: { paddingRight: "35px" },
+              width: '100%',
+              fontFamily: 'Mono',
+              textarea: { paddingRight: '35px' },
             }}
             value={output}
-            margin="dense"
-            minRows="5"
-            maxRows="10"
+            margin='dense'
+            minRows='5'
+            maxRows='10'
             multiline
-            readOnly 
+            readOnly
           />
           <Box
             sx={{
-              position: "absolute",
-              right: "16px",
-              top: "16px",
-              width: "30px",
-              paddingTop: "5px",
-              height: "30px",
-              textAlign: "center",
-              bgcolor: "#eee",
-              borderRadius: "50%",
-              cursor: "pointer",
-              color: input ? "#52C41A" : "#fff",
-              "&:hover": {
-                color: "#52C41A",
+              position: 'absolute',
+              right: '16px',
+              top: '16px',
+              width: '30px',
+              paddingTop: '5px',
+              height: '30px',
+              textAlign: 'center',
+              bgcolor: '#eee',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              color: input ? '#52C41A' : '#fff',
+              '&:hover': {
+                color: '#52C41A',
               },
             }}
           >
             <CopyToClipboard text={output} onCopy={handleCopyClick}>
-              <ContentCopyIcon fontSize="small" />
+              <ContentCopyIcon fontSize='small' />
             </CopyToClipboard>
           </Box>
         </Box>

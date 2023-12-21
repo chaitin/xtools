@@ -1,4 +1,4 @@
-import { QueryInfo } from "./index";
+import { QueryInfo } from './index';
 
 export type CreateOrg = {
   name: string;
@@ -52,7 +52,7 @@ export type InviteMembers = {
   users: InvitationInfo[];
 };
 
-export type RoleType = "builtin" | "manual";
+export type RoleType = 'builtin' | 'manual';
 
 export type RoleInfo = {
   id: number;
@@ -85,7 +85,7 @@ export type DeleteRole = {
 export type UpdateUserRole = {
   id: number; // org id
   user_id: number; // user id
-  query: Pick<InvitationInfo, "role_ids">;
+  query: Pick<InvitationInfo, 'role_ids'>;
 };
 
 export type PermissionInfo = {

@@ -1,10 +1,10 @@
-import React from "react";
-import { styled, SxProps } from "@mui/material/styles";
-import Image, { StaticImageData } from "next/image";
+import React from 'react';
+import { styled, SxProps } from '@mui/material/styles';
+import Image, { StaticImageData } from 'next/image';
 
-export const IconWrapper = styled("div")(() => ({
-  display: "inline-block",
-  transition: "all 0.2s linear",
+export const IconWrapper = styled('div')(() => ({
+  display: 'inline-block',
+  transition: 'all 0.2s linear',
 }));
 
 // export const Image = styled("img")(() => ({
@@ -27,7 +27,7 @@ export const ImageIcon: React.FC<ImageIconProps> = (props) => {
   const { src, className, sx, id, onClick } = props;
   return (
     <IconWrapper className={className} sx={sx} id={id} onClick={onClick}>
-      <Image alt="icon" src={src} style={{ width: "100%", height: "100%" }} />
+      <Image alt='icon' src={src} style={{ width: '100%', height: '100%' }} />
     </IconWrapper>
   );
 };

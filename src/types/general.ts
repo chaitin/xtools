@@ -1,4 +1,4 @@
-import type { SxProps } from "@mui/material/styles";
+import type { SxProps } from '@mui/material/styles';
 
 export type ListResponse<T> = {
   total: number;
@@ -17,7 +17,7 @@ export type OrderListResponse<T> = {
   detail: Array<T>;
 };
 
-export type SortType = "asc" | "desc";
+export type SortType = 'asc' | 'desc';
 
 export type BasicPaginationParams = {
   page: number;

@@ -1,78 +1,104 @@
-import MenuView from "@/components/MenuView";
-import crypto from "crypto-js";
+import MenuView from '@/components/MenuView';
+import crypto from 'crypto-js';
 
-import {
-  Box,
-  Stack
-} from "@mui/material";
+import { Box, Stack } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import TextField from "@mui/material/TextField";
+import TextField from '@mui/material/TextField';
 
-import React, { useCallback, useState } from "react";
-
+import React, { useCallback, useState } from 'react';
 
 const Hash: React.FC = () => {
-  const [src, setSrc] = useState<string>("");
+  const [src, setSrc] = useState<string>('');
 
-  const methods = ["MD5 - 16 位", "MD5 - 32 位", "SHA1", "SHA224", "SHA256", "SHA3", "SHA384", "SHA512"];
+  const methods = [
+    'MD5 - 16 位',
+    'MD5 - 32 位',
+    'SHA1',
+    'SHA224',
+    'SHA256',
+    'SHA3',
+    'SHA384',
+    'SHA512',
+  ];
 
-  const [values, setValues] = useState(methods.map((name) => { return {name: name, value: ''} }));
+  const [values] = useState(
+    methods.map((name) => {
+      return { name: name, value: '' };
+    })
+  );
 
   let outElements = values.map((x) => {
-    return <TextField
-      key={x.name}
-      size="small"
-      value={x.value}
-      variant="outlined"
-      InputProps={{
-        startAdornment: <InputAdornment position="start" sx={{ width: "150px", fontFamily: "Mono" }}>{x.name}</InputAdornment>,
-        readOnly: true
-      }}
-      sx={{ input: { fontSize: "14px", fontFamily: "Mono" } }}
-    />
+    return (
+      <TextField
+        key={x.name}
+        size='small'
+        value={x.value}
+        variant='outlined'
+        InputProps={{
+          startAdornment: (
+            <InputAdornment
+              position='start'
+              sx={{ width: '150px', fontFamily: 'Mono' }}
+            >
+              {x.name}
+            </InputAdornment>
+          ),
+          readOnly: true,
+        }}
+        sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+      />
+    );
   });
 
-  const setValue = (name: string, value: string) => {
-    values[methods.indexOf(name)].value = value
-    return value
-  }
+  const setValue = useCallback(
+    (name: string, value: string) => {
+      values[methods.indexOf(name)].value = value;
+      return value;
+    },
+    [values]
+  );
 
   const onSrcChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSrc(event.target.value);
-      setValue("MD5 - 16 位", crypto.MD5(event.target.value).toString().substr(8, 16));
-      setValue("MD5 - 32 位", crypto.MD5(event.target.value).toString());
-      setValue("SHA1", crypto.SHA1(event.target.value).toString());
-      setValue("SHA224", crypto.SHA224(event.target.value).toString());
-      setValue("SHA256", crypto.SHA256(event.target.value).toString());
-      setValue("SHA3", crypto.SHA3(event.target.value).toString());
-      setValue("SHA384", crypto.SHA384(event.target.value).toString());
-      setValue("SHA512", crypto.SHA512(event.target.value).toString());
+      setValue(
+        'MD5 - 16 位',
+        crypto.MD5(event.target.value).toString().substr(8, 16)
+      );
+      setValue('MD5 - 32 位', crypto.MD5(event.target.value).toString());
+      setValue('SHA1', crypto.SHA1(event.target.value).toString());
+      setValue('SHA224', crypto.SHA224(event.target.value).toString());
+      setValue('SHA256', crypto.SHA256(event.target.value).toString());
+      setValue('SHA3', crypto.SHA3(event.target.value).toString());
+      setValue('SHA384', crypto.SHA384(event.target.value).toString());
+      setValue('SHA512', crypto.SHA512(event.target.value).toString());
     },
-    [src, values]
+    [setValue]
   );
 
   return (
     <MenuView>
-      <Stack sx={{
-          mt: "24px",
-          gap: "18px",
-          maxWidth: "1020px",
-          fontFamily: "Mono",
+      <Stack
+        sx={{
+          mt: '24px',
+          gap: '18px',
+          maxWidth: '1020px',
+          fontFamily: 'Mono',
           width: '838px',
           mx: 'auto',
-      }}>
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <Stack spacing={1} sx={{  }}>
+        }}
+      >
+        <Box sx={{ width: '100%', typography: 'body1' }}>
+          <Stack spacing={1} sx={{}}>
             输入
             <TextField
               value={src}
-              variant="outlined"
+              variant='outlined'
               multiline
               rows={3}
               onChange={onSrcChange}
-              sx={{ textarea: { fontSize: "14px", fontFamily: "Mono" } }}
+              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
             />
             <br></br>
             输出

@@ -1,4 +1,4 @@
-import { BasicPaginationParams } from "./index";
+import { BasicPaginationParams } from './index';
 export type OrderDetails = {
   order_code: string;
   app_name: string;
@@ -40,7 +40,7 @@ export enum PaymentStatusEnum {
 export type OrderGoodsDetail = {
   package_name: string;
   duration: number;
-  purchase_duration_unit: "D" | "M" | "Y";
+  purchase_duration_unit: 'D' | 'M' | 'Y';
   items: { name: string; value: string }[];
 };
 

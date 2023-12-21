@@ -11,7 +11,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint && prettier --write --ignore-path .gitignore .",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-push": "npm run lint"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "npm run lint --fix"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -53,6 +64,8 @@
     "yarn": "^1.22.21"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@types/big-integer": "^0.0.31",
     "@types/crypto-js": "^4.2.0",
     "@types/node": "20.1.5",
@@ -63,6 +76,8 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-next": "^0.0.0",
-    "eslint-plugin-prettier": "^5.1.0"
+    "eslint-plugin-prettier": "^5.1.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0"
   }
 }

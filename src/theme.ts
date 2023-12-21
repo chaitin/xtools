@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 import {
   primary,
   primaryHover,
@@ -6,17 +6,17 @@ import {
   grayText2,
   errorText,
   leastText,
-} from "@/constant/color";
+} from '@/constant/color';
 
 const Alibaba_PuHuiTi_35_Thin =
-  "https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Alibaba_PuHuiTi_2.0_35_Thin_35_Thin.woff2";
+  'https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Alibaba_PuHuiTi_2.0_35_Thin_35_Thin.woff2';
 const Alibaba_PuHuiTi_55_Regular =
-  "https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Alibaba_PuHuiTi_2.0_55_Regular_55_Regular.woff2";
+  'https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Alibaba_PuHuiTi_2.0_55_Regular_55_Regular.woff2';
 const Alibaba_PuHuiTi_75_SemiBold =
-  "https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Alibaba_PuHuiTi_2.0_75_SemiBold_75_SemiBold.woff2";
-const Din = "https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Din.woff2";
+  'https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Alibaba_PuHuiTi_2.0_75_SemiBold_75_SemiBold.woff2';
+const Din = 'https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Din.woff2';
 const Gilroy =
-  "https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Gilroy.woff2";
+  'https://heap-web.oss-cn-hangzhou.aliyuncs.com/fonts/Gilroy.woff2';
 
 const theme = createTheme({
   palette: {
@@ -111,7 +111,7 @@ const theme = createTheme({
     },
     MuiTextField: {
       defaultProps: {
-        variant: "standard",
+        variant: 'standard',
       },
     },
     MuiInput: {
@@ -120,11 +120,11 @@ const theme = createTheme({
           // "&::after": {
           //   borderBottomColor: primary,
           // },
-          fontSize: "0.875rem",
-          "&::before": {
+          fontSize: '0.875rem',
+          '&::before': {
             borderBottomColor: gray,
           },
-          "&:hover:not(.Mui-disabled):before": {
+          '&:hover:not(.Mui-disabled):before': {
             borderBottom: `2px solid ${gray}`,
           },
         },
@@ -149,28 +149,28 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-          backgroundColor: "#F5F6F7FF",
-          "&::before": {
-            borderBottom: "none",
+          backgroundColor: '#F5F6F7FF',
+          '&::before': {
+            borderBottom: 'none',
           },
-          "&::after": {
-            borderBottom: "none",
+          '&::after': {
+            borderBottom: 'none',
           },
-          "&:hover:not(.Mui-disabled):before": {
+          '&:hover:not(.Mui-disabled):before': {
             borderBottom: `none`,
           },
         },
         input: {
-          padding: "8px 12px",
+          padding: '8px 12px',
         },
       },
     },
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          fontFamily: "AlibabaPuHuiTiRegular",
+          fontFamily: 'AlibabaPuHuiTiRegular',
           color: grayText2,
-          "&.Mui-focused": {
+          '&.Mui-focused': {
             color: grayText2,
           },
         },
@@ -182,9 +182,9 @@ const theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          fontFamily: "AlibabaPuHuiTiRegular",
+          fontFamily: 'AlibabaPuHuiTiRegular',
           color: grayText2,
-          "&.Mui-focused": {
+          '&.Mui-focused': {
             color: grayText2,
           },
         },
@@ -196,22 +196,22 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          fontFamily: "AlibabaPuHuiTiBold",
+          fontFamily: 'AlibabaPuHuiTiBold',
           borderRadius: 0,
-          boxShadow: "none",
-          "&:hover": {
-            boxShadow: "none",
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
           },
         },
         contained: {
-          color: "#fff",
+          color: '#fff',
         },
       },
     },
     MuiLink: {
       styleOverrides: {
         root: {
-          cursor: "pointer",
+          cursor: 'pointer',
           color: primary,
         },
       },
@@ -227,41 +227,41 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: `linear-gradient(180deg, rgba(215,255,208,0.5) 0%, rgba(255,255,255,1) 10%)`,
-          boxShadow: "0px 8px 10px 0px rgba(4,27,15,0.06)",
+          boxShadow: '0px 8px 10px 0px rgba(4,27,15,0.06)',
         },
       },
     },
     MuiStepIcon: {
       styleOverrides: {
         root: {
-          color: "#DADCE0",
+          color: '#DADCE0',
         },
         text: {
-          fill: "#fff",
+          fill: '#fff',
         },
       },
     },
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: "#D9D9D9FF",
+          color: '#D9D9D9FF',
         },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          borderRadius: "3px",
-          padding: "0px 16px",
-          border: "1px solid #d1e1ff",
-          backgroundColor: "#f8faff",
+          borderRadius: '3px',
+          padding: '0px 16px',
+          border: '1px solid #d1e1ff',
+          backgroundColor: '#f8faff',
         },
       },
     },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: "rgba(0,0,0,0.75)",
+          backgroundColor: 'rgba(0,0,0,0.75)',
         },
       },
     },

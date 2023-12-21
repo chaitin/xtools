@@ -22,7 +22,7 @@ export type UpdateUserInfo = {
 };
 
 export type UserVerification = {
-  cert_type: IdentificationType | "";
+  cert_type: IdentificationType | '';
   cert_no: string;
   cert_name: string;
 };
@@ -33,9 +33,9 @@ export type UserVerificationInfo = UserVerification & {
 };
 
 export enum IdentificationType {
-  "IDENTITY_CARD" = "中华人民共和国居民身份证",
-  "HOME_VISIT_PERMIT_HK_MC" = "港澳通行证",
-  "HOME_VISIT_PERMIT_TAIWAN" = "台湾通行证",
-  "RESIDENCE_PERMIT_HK_MC" = "港澳居住证",
-  "RESIDENCE_PERMIT_TAIWAN" = "台湾居住证",
+  'IDENTITY_CARD' = '中华人民共和国居民身份证',
+  'HOME_VISIT_PERMIT_HK_MC' = '港澳通行证',
+  'HOME_VISIT_PERMIT_TAIWAN' = '台湾通行证',
+  'RESIDENCE_PERMIT_HK_MC' = '港澳居住证',
+  'RESIDENCE_PERMIT_TAIWAN' = '台湾居住证',
 }

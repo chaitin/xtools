@@ -1,3 +1,3 @@
-import Home from '@/components/Tools/home'
+import Home from '@/components/Tools/home';
 
-export default Home
+export default Home;

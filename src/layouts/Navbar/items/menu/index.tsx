@@ -1,21 +1,21 @@
-import { useMobileView } from "@/hooks";
-import { ApplicationInfo, NavMenuProps } from "@/types";
-import DehazeIcon from "@mui/icons-material/Dehaze";
-import { styled } from "@mui/material/styles";
-import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
-import MenuItem from "./item";
-import MobilPanel from "./mobileView";
-import NavPanel from "./panel";
+import { useMobileView } from '@/hooks';
+import { ApplicationInfo, NavMenuProps } from '@/types';
+import DehazeIcon from '@mui/icons-material/Dehaze';
+import { styled } from '@mui/material/styles';
+import { useRouter } from 'next/router';
+import React, { useCallback, useState } from 'react';
+import MenuItem from './item';
+import MobilPanel from './mobileView';
+import NavPanel from './panel';
 
-const NavMenuComponent = styled("div")(() => ({
-  display: "flex",
-  gap: "40px",
+const NavMenuComponent = styled('div')(() => ({
+  display: 'flex',
+  gap: '40px',
 }));
 
 const menu: NavMenuProps[] = [
-  { title: "最新活动", link: "/" },
-  { title: "产品", expand: true },
+  { title: '最新活动', link: '/' },
+  { title: '产品', expand: true },
 ];
 
 const NavMenu: React.FC<{ apps: ApplicationInfo[] }> = ({ apps }) => {
@@ -55,7 +55,7 @@ const NavMenu: React.FC<{ apps: ApplicationInfo[] }> = ({ apps }) => {
   return (
     <>
       {isMobile ? (
-        <DehazeIcon sx={{ margin: "0 16px" }} onClick={handleOpen(true)} />
+        <DehazeIcon sx={{ margin: '0 16px' }} onClick={handleOpen(true)} />
       ) : (
         <NavMenuComponent>
           {menu?.map((menuitem, index) => (
@@ -63,7 +63,7 @@ const NavMenu: React.FC<{ apps: ApplicationInfo[] }> = ({ apps }) => {
               key={`nav-menu-${index}`}
               expand={menuitem.expand}
               title={menuitem.title}
-              hoverview={"true"}
+              hoverview={'true'}
               // highlight={currentPath === menuitem.link}
               onClick={handleClickMenu(menuitem?.link)}
               onHover={handleShowPanel(menuitem)}

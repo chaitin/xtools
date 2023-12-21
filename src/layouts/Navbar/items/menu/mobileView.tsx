@@ -1,42 +1,42 @@
-import search_icon from "@/asset/img/search_icon.webp";
-import { useDebounce } from "@/hooks";
-import { Side_Margin, grayLight, primary } from "@/styles/colors";
-import { ApplicationInfo } from "@/types";
-import ClearIcon from "@mui/icons-material/Clear";
-import { Drawer, TextField } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Image, { StaticImageData } from "next/image";
-import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
-import MenuItem from "./item";
-import { NavPanelProps } from "./panel";
+import search_icon from '@/asset/img/search_icon.webp';
+import { useDebounce } from '@/hooks';
+import { Side_Margin, grayLight, primary } from '@/styles/colors';
+import { ApplicationInfo } from '@/types';
+import ClearIcon from '@mui/icons-material/Clear';
+import { Drawer, TextField } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Image, { StaticImageData } from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
+import MenuItem from './item';
+import { NavPanelProps } from './panel';
 
-const PanelContent = styled("div")(() => ({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
+const PanelContent = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
   padding: `${parseInt(Side_Margin) / 2}% ${Side_Margin}`,
-  justifyContent: "flex-start",
+  justifyContent: 'flex-start',
   gap: 20,
 }));
 
-const Content = styled("div")(() => ({
-  display: "flex",
+const Content = styled('div')(() => ({
+  display: 'flex',
   gap: 40,
 }));
 
-const Header = styled("div")(() => ({
-  display: "flex",
-  justifyContent: "flex-end",
-  alignItems: "center",
+const Header = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
 }));
 
-const ContentCol = styled("div")(() => ({
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-  justifyContent: "flex-start",
-  alignItems: "stretch",
+const ContentCol = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
   gap: 20,
 }));
 
@@ -50,29 +50,29 @@ export const Icon = ({
   return (
     <Image
       src={src}
-      alt="search"
+      alt='search'
       style={{
-        objectFit: "contain",
+        objectFit: 'contain',
         ...style,
       }}
-      loading="lazy"
+      loading='lazy'
     />
   );
 };
 
-const ContentCard = styled("div")(() => ({
-  padding: "12px 24px",
-  transition: "background-color 0.2s linear",
-  "&:hover": {
+const ContentCard = styled('div')(() => ({
+  padding: '12px 24px',
+  transition: 'background-color 0.2s linear',
+  '&:hover': {
     backgroundColor: grayLight,
-    transition: "background-color 0.2s linear",
+    transition: 'background-color 0.2s linear',
   },
 }));
 
 const NavPanel: React.FC<NavPanelProps> = (props) => {
   const { open, onClose, apps } = props;
   const [menuContent, setMenuContent] = useState<ApplicationInfo[]>([]);
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
   const debounceInput = useDebounce(input, 500);
   const router = useRouter();
 
@@ -94,7 +94,7 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
       if (app?.scope) {
         router.push(`/landing/${app?.scope}`);
       } else {
-        router.push("/workbench");
+        router.push('/workbench');
       }
       onClose?.();
     },
@@ -104,7 +104,7 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
   const handleSetInput = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const input = target?.value?.trim();
-    setInput(input ?? "");
+    setInput(input ?? '');
   }, []);
 
   useEffect(() => {
@@ -113,32 +113,32 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
 
   return (
     <Drawer
-      PaperProps={{ sx: { boxShadow: "none", width: "100%" } }}
+      PaperProps={{ sx: { boxShadow: 'none', width: '100%' } }}
       componentsProps={{
-        backdrop: { style: { backgroundColor: "rgba(0,0,0,0.2)" } },
+        backdrop: { style: { backgroundColor: 'rgba(0,0,0,0.2)' } },
       }}
-      anchor="right"
+      anchor='right'
       open={open}
       onClose={onClose}
     >
       <PanelContent>
         <Header>
           <ClearIcon
-            sx={{ cursor: "pointer", color: primary }}
+            sx={{ cursor: 'pointer', color: primary }}
             onClick={onClose}
           />
         </Header>
         <TextField
-          sx={{ fontSize: "16px" }}
-          placeholder="搜索产品名称"
+          sx={{ fontSize: '16px' }}
+          placeholder='搜索产品名称'
           fullWidth={true}
           onChange={handleSetInput}
           InputProps={{
-            style: { fontSize: "16px" },
+            style: { fontSize: '16px' },
             startAdornment: (
               <Icon
                 src={search_icon}
-                style={{ width: "16px", margin: "0 12px" }}
+                style={{ width: '16px', margin: '0 12px' }}
               />
             ),
           }}
