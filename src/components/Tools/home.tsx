@@ -60,9 +60,9 @@ export default function App() {
             </Stack>,
             <Stack key={section.name + 'body'} direction='row' spacing={2}>
               {tools.filter(tool => tool.tags.includes(section.name)).map(item => (
-                <Link className='custom-link' key={item.label} href={item.path}>
+                <a className='custom-link' key={item.label} href={item.path}>
                   <Button variant='contained' size="small" sx={{ borderRadius: '4px', background: primary }}>{item.label}</Button>
-                </Link>
+                </a>
               ))}
             </Stack>
           ]
