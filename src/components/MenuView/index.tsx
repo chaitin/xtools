@@ -19,7 +19,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo } from "react";
 import { Container, Main, MenuPage, SideMenu } from "./components";
-import Link from "next/link";
 
 
 export interface MenuProps {
@@ -42,9 +41,6 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
   );
   const router = useRouter();
 
-  const toPath = (path: string) => {
-    router.push(path);
-  };
   const currentItem = useMemo(() => {
     const _item = routesMenu.find((item) => item.path === path);
     if (_item) return _item;
@@ -130,7 +126,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
               aria-labelledby="nested-list-subheader"
             >
               {tools.map((item, index) =>
-                <Link key={index} className='custom-link' href={item.path}>
+                <a key={index} className='custom-link' href={item.path}>
                   <ListItemButton
                     sx={{ pl: 4 }}
                     selected={ifChecked(currentItem?.path || "", item.path)}
@@ -148,7 +144,7 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
                       primary={item.label}
                     />
                   </ListItemButton>
-                </Link>
+                </a>
               )}
             </List>
           </Box>
