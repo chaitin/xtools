@@ -7,14 +7,14 @@ export const usePath = (): {
 } => {
   const router = useRouter();
   const currentPath = router.pathname;
-  const paths = currentPath.split("/")?.filter((path) => path !== "");
-  const currentPathRoot = paths?.[0] ?? "/";
+  const paths = currentPath.split('/')?.filter((path) => path !== '');
+  const currentPathRoot = paths?.[0] ?? '/';
   const getResolvedPath = (path: string): string => {
     let resolvedPath = location.pathname;
     if (path) {
       paths.push(path);
-      paths.unshift("");
-      resolvedPath = paths.join("/");
+      paths.unshift('');
+      resolvedPath = paths.join('/');
     }
     return resolvedPath;
   };

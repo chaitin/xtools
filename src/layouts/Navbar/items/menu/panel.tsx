@@ -1,13 +1,13 @@
-import search_icon from "@/asset/img/search_icon.webp";
-import { useDebounce } from "@/hooks";
-import { Side_Margin, grayLight } from "@/styles/colors";
-import { ApplicationInfo } from "@/types";
-import { Drawer, TextField } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Image, { StaticImageData } from "next/image";
-import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
-import MenuItem from "./item";
+import search_icon from '@/asset/img/search_icon.webp';
+import { useDebounce } from '@/hooks';
+import { Side_Margin, grayLight } from '@/styles/colors';
+import { ApplicationInfo } from '@/types';
+import { Drawer, TextField } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Image, { StaticImageData } from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
+import MenuItem from './item';
 
 export interface NavPanelProps {
   open: boolean;
@@ -15,21 +15,21 @@ export interface NavPanelProps {
   apps: ApplicationInfo[];
 }
 
-const PanelContent = styled("div")(() => ({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
+const PanelContent = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
   padding: `${parseInt(Side_Margin) / 1.5}% ${Side_Margin}`,
   paddingTop: `calc(${parseInt(Side_Margin) / 4}%  + 64px)`,
-  justifyContent: "flex-start",
+  justifyContent: 'flex-start',
   gap: 20,
 }));
 
-const Content = styled("div")(() => ({
-  display: "flex",
+const Content = styled('div')(() => ({
+  display: 'flex',
   gap: 40,
-  flexWrap: "wrap",
-  alignItems: "stretch",
+  flexWrap: 'wrap',
+  alignItems: 'stretch',
 }));
 
 export const Icon = ({
@@ -41,31 +41,31 @@ export const Icon = ({
 }) => {
   return (
     <Image
-      alt="search"
+      alt='search'
       src={src}
       style={{
-        objectFit: "contain",
+        objectFit: 'contain',
         ...style,
       }}
-      loading="lazy"
+      loading='lazy'
     />
   );
 };
 
-const ContentCard = styled("div")(() => ({
-  flex: "0 0 220px",
-  padding: "12px 24px",
-  transition: "background-color 0.2s linear",
-  "&:hover": {
+const ContentCard = styled('div')(() => ({
+  flex: '0 0 220px',
+  padding: '12px 24px',
+  transition: 'background-color 0.2s linear',
+  '&:hover': {
     backgroundColor: grayLight,
-    transition: "background-color 0.2s linear",
+    transition: 'background-color 0.2s linear',
   },
 }));
 
 const NavPanel: React.FC<NavPanelProps> = (props) => {
   const { open, onClose, apps } = props;
   const [menuContent, setMenuContent] = useState<ApplicationInfo[]>(apps ?? []);
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
   const router = useRouter();
   const debounceInput = useDebounce(input, 500);
 
@@ -85,7 +85,7 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
   const handleSetInput = useCallback((event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
     const input = target?.value?.trim();
-    setInput(input ?? "");
+    setInput(input ?? '');
   }, []);
 
   const toWorkbench = useCallback(
@@ -93,7 +93,7 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
       if (app?.scope) {
         router.push(`/landing/${app?.scope}`);
       } else {
-        router.push("/workbench");
+        router.push('/workbench');
       }
       onClose?.();
     },
@@ -107,11 +107,11 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
   return (
     <Drawer
       keepMounted
-      PaperProps={{ sx: { boxShadow: "none" } }}
+      PaperProps={{ sx: { boxShadow: 'none' } }}
       componentsProps={{
-        backdrop: { style: { backgroundColor: "rgba(0,0,0,0.2)" } },
+        backdrop: { style: { backgroundColor: 'rgba(0,0,0,0.2)' } },
       }}
-      anchor="top"
+      anchor='top'
       open={open}
       onMouseLeave={onClose}
       onClose={onClose}
@@ -119,14 +119,14 @@ const NavPanel: React.FC<NavPanelProps> = (props) => {
     >
       <PanelContent onMouseLeave={onClose}>
         <TextField
-          placeholder="搜索产品名称"
+          placeholder='搜索产品名称'
           fullWidth={true}
           onChange={handleSetInput}
           InputProps={{
             startAdornment: (
               <Icon
                 src={search_icon}
-                style={{ width: "14px", margin: "0 12px" }}
+                style={{ width: '14px', margin: '0 12px' }}
               />
             ),
           }}

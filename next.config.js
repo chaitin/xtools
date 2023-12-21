@@ -4,11 +4,21 @@ const withTM = require('next-transpile-modules')(['react-syntax-highlighter']);
 
 const nextConfig = withPlugins([withTM], {
   reactStrictMode: false,
-  output: "export",
+  output: 'export',
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
-  assetPrefix: "./",
+  basePath: '/tools',
+  async redirects() {
+    return [
+        {
+            source: '/',
+            destination: '/tools',
+            basePath: false,
+            permanent: false
+        }
+    ]
+}
 });
 
 module.exports = nextConfig;

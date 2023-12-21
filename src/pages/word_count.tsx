@@ -1,14 +1,8 @@
-import MenuView from "@/components/MenuView";
-import { count } from "@homegrown/word-counter";
-import {
-  Box,
-  Divider,
-  Stack,
-  Typography,
-  styled
-} from "@mui/material";
-import TextField from "@mui/material/TextField";
-import React, { useState } from "react";
+import MenuView from '@/components/MenuView';
+import { count } from '@homegrown/word-counter';
+import { Box, Divider, Stack, Typography, styled } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import React, { useState } from 'react';
 
 interface IWordStatisticiansResult {
   lines: number;
@@ -32,7 +26,7 @@ const MyStack = styled(Stack)(({ theme }) => ({
 
 const MyTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
-  fontSize: "20px",
+  fontSize: '20px',
 }));
 
 function countWords(text: string): IWordStatisticiansResult {
@@ -51,10 +45,10 @@ function countWords(text: string): IWordStatisticiansResult {
       if (c.match(/[a-zA-Z]/)) {
         alphabetTotal++;
       }
-  
+
       if (c.match(/[^\w\s]/)) {
         englishPunctuate++;
-      }  
+      }
     } else {
       otherTotal++;
     }
@@ -93,118 +87,148 @@ const WordCount: React.FC = () => {
   return (
     <MenuView>
       <Stack
-        direction="column"
-        divider={<Divider orientation="vertical" flexItem />}
+        direction='column'
+        divider={<Divider orientation='vertical' flexItem />}
         sx={{
-          mt: "24px",
-          gap: "18px",
-          maxWidth: "1020px",
-          fontFamily: "Mono",
+          mt: '24px',
+          gap: '18px',
+          maxWidth: '1020px',
+          fontFamily: 'Mono',
           width: '838px',
           mx: 'auto',
         }}
       >
-        <Box sx={{ width: "100%", typography: "body1" }}>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
           <Box
             sx={{
-              borderRadius: "10px",
-              border: "1px solid #e0e0e0",
-              backgroundImage: "none",
+              borderRadius: '10px',
+              border: '1px solid #e0e0e0',
+              backgroundImage: 'none',
             }}
           >
-              <Stack
-                direction="row"
-                spacing={{ xs: 1, sm: 2 }}
-                useFlexGap
-                flexWrap="wrap"
-                sx={{
-                  padding: "10px",
-                  gap: "18px",
-                  maxWidth: "1020px",
-                  fontFamily: "Mono",
-                  mx: 'auto',
-                }}
-              >
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    字符数
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.charactersWithSpaces}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    行数
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.lines}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    数字
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.digit}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    汉字
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.chinese}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    中文标点
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.chinesePunctuate}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    字母
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.alphabet}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    英文标点
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.englishPunctuate}
-                  </MyTypography>
-                </MyStack>
-                <MyStack direction="column">
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    空格
-                  </Typography>
-                  <MyTypography variant="h5">
-                    {statisticians?.charactersWithSpaces - statisticians?.characters}
-                  </MyTypography>
-                </MyStack>
-              </Stack>
+            <Stack
+              direction='row'
+              spacing={{ xs: 1, sm: 2 }}
+              useFlexGap
+              flexWrap='wrap'
+              sx={{
+                padding: '10px',
+                gap: '18px',
+                maxWidth: '1020px',
+                fontFamily: 'Mono',
+                mx: 'auto',
+              }}
+            >
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  字符数
+                </Typography>
+                <MyTypography variant='h5'>
+                  {statisticians?.charactersWithSpaces}
+                </MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  行数
+                </Typography>
+                <MyTypography variant='h5'>{statisticians?.lines}</MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  数字
+                </Typography>
+                <MyTypography variant='h5'>{statisticians?.digit}</MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  汉字
+                </Typography>
+                <MyTypography variant='h5'>
+                  {statisticians?.chinese}
+                </MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  中文标点
+                </Typography>
+                <MyTypography variant='h5'>
+                  {statisticians?.chinesePunctuate}
+                </MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  字母
+                </Typography>
+                <MyTypography variant='h5'>
+                  {statisticians?.alphabet}
+                </MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  英文标点
+                </Typography>
+                <MyTypography variant='h5'>
+                  {statisticians?.englishPunctuate}
+                </MyTypography>
+              </MyStack>
+              <MyStack direction='column'>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color='text.secondary'
+                  gutterBottom
+                >
+                  空格
+                </Typography>
+                <MyTypography variant='h5'>
+                  {statisticians?.charactersWithSpaces -
+                    statisticians?.characters}
+                </MyTypography>
+              </MyStack>
+            </Stack>
           </Box>
         </Box>
-        <Box sx={{ width: "100%", typography: "body1" }}>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
           输入
           <Stack spacing={1} sx={{}}>
             <TextField
               value={value}
-              variant="outlined"
+              variant='outlined'
               multiline
               rows={10}
-              onChange={event => {
+              onChange={(event) => {
                 setValue(event.target.value);
                 setStatisticians(countWords(event.target.value));
               }}
-              sx={{ input: { fontSize: "14px", fontFamily: "Mono" } }} />
+              sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+            />
           </Stack>
         </Box>
       </Stack>

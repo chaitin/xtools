@@ -1,11 +1,11 @@
 export function parseUrlSearch(search: string) {
   const res: { [key: string]: string } = {};
   search
-    .replace("?", "")
-    .split("&")
-    .filter((s) => s !== "")
+    .replace('?', '')
+    .split('&')
+    .filter((s) => s !== '')
     .reduce((pre, cur) => {
-      const [key, value] = cur.split("=");
+      const [key, value] = cur.split('=');
       pre[key] = decodeURIComponent(decodeURI(value));
       return pre;
     }, res);
@@ -19,7 +19,7 @@ export function parseUrlSearch(search: string) {
  */
 export const getChildPath = (app_key: string) => {
   const match = location.href.match(/\/app(.+)$/);
-  return match ? match[1].replace(`/${app_key}`, "") : "";
+  return match ? match[1].replace(`/${app_key}`, '') : '';
 };
 export const decodeUrl = (app_key: string, data: string) => {
   return `${location.protocol}//${app_key}.${location.hostname}${data}`;
@@ -35,7 +35,7 @@ export const isValidUrl = (url: string) => {
   return regex.test(url);
 };
 
-export const isPublicPage = (path: string)=>{
-  const rootPath = path.split("/")[0]
-  return ["landing", "tools"].includes(rootPath)
-}
+export const isPublicPage = (path: string) => {
+  const rootPath = path.split('/')[0];
+  return ['landing', 'tools'].includes(rootPath);
+};

@@ -6,7 +6,7 @@ export interface NavMenuProps {
   items?: NavMenuProps[];
 }
 
-export type ButtonActions = "hover" | "click";
+export type ButtonActions = 'hover' | 'click';
 
 export interface ButtonProps {
   text: string;
@@ -14,7 +14,7 @@ export interface ButtonProps {
   action?: ButtonActions;
   color?: string;
   hoverColor?: string;
-  clickColor?: string
+  clickColor?: string;
 }
 
 export interface BannerDataProps {

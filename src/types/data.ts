@@ -6,7 +6,7 @@ export interface NavMenuProps {
   items?: NavMenuProps[];
 }
 
-export type ButtonActions = "hover" | "click";
+export type ButtonActions = 'hover' | 'click';
 
 export interface ButtonProps {
   text: string;

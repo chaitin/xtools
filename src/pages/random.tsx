@@ -1,8 +1,8 @@
-import alert from "@/components/Alert";
-import MenuView from "@/components/MenuView";
-import { ToolsForm } from "@/components/Tools";
-import { grayBg2 } from "@/constant";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import alert from '@/components/Alert';
+import MenuView from '@/components/MenuView';
+import { ToolsForm } from '@/components/Tools';
+import { grayBg2 } from '@/constant';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {
   Box,
   Button,
@@ -12,29 +12,29 @@ import {
   FormGroup,
   InputLabel,
   OutlinedInput,
-  Stack
-} from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { anOldHope } from "react-syntax-highlighter/dist/esm/styles/hljs";
+  Stack,
+} from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { anOldHope } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const character = [
-  { value: "0123456789", name: "number", label: "数字(0-9)" },
+  { value: '0123456789', name: 'number', label: '数字(0-9)' },
   {
-    value: "abcdefghijklmnopqrstuvwxyz",
-    name: "lowcase_letters",
-    label: "小写字母(a-z)",
+    value: 'abcdefghijklmnopqrstuvwxyz',
+    name: 'lowcase_letters',
+    label: '小写字母(a-z)',
   },
   {
-    value: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    name: "upcase_letters",
-    label: "大写字母(A-Z)",
+    value: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    name: 'upcase_letters',
+    label: '大写字母(A-Z)',
   },
-  { value: "~!@#$%^&*()_+", name: "symbols", label: "常用符号(~!@#$%^&*()_+)" },
+  { value: '~!@#$%^&*()_+', name: 'symbols', label: '常用符号(~!@#$%^&*()_+)' },
 ];
 const generateOne = (charset: string, lenfrom: number, lento: number) => {
-  var result = "";
+  var result = '';
   if (lenfrom <= lento && charset.length > 0 && lenfrom >= 0) {
     var len = Math.round(Math.random() * (lento - lenfrom) + lenfrom);
     while (result.length < len) {
@@ -45,7 +45,7 @@ const generateOne = (charset: string, lenfrom: number, lento: number) => {
 };
 
 const Random: React.FC = () => {
-  const [password, setPassword] = useState<string>("");
+  const [password, setPassword] = useState<string>('');
   const [pwdLength, setPwdLength] = useState<number>(12);
   const [charset, setCharset] = useState<{ [key: string]: boolean }>({
     number: true,
@@ -70,7 +70,7 @@ const Random: React.FC = () => {
       character
         .filter((item) => charset[item.name])
         .map((item) => item.value)
-        .join("")
+        .join('')
     );
   }, [charset]);
 
@@ -96,32 +96,32 @@ const Random: React.FC = () => {
       for (let i = 0; i < count; i++) {
         pwd.push(generateOne(charsetStr, pwdLength, pwdLength));
       }
-      setPassword(pwd.join("\n"));
+      setPassword(pwd.join('\n'));
     },
     [charsetStr, count, pwdLength]
   );
 
   const handleClick = useCallback(() => {
-    alert.success("复制密码成功");
+    alert.success('复制密码成功');
   }, []);
 
   return (
     <MenuView>
-      <Stack sx={{ width: "838px", mx: "auto" }}>
+      <Stack sx={{ width: '838px', mx: 'auto' }}>
         <ToolsForm>
           <form onSubmit={generatePwd}>
-            <Stack sx={{ mt: "30px", gap: "18px" }}>
-              <FormControl variant="outlined">
-                <Stack direction="row">
+            <Stack sx={{ mt: '30px', gap: '18px' }}>
+              <FormControl variant='outlined'>
+                <Stack direction='row'>
                   <InputLabel>随机数/密码长度</InputLabel>
                   <Stack>
                     <OutlinedInput
                       required
-                      type="number"
+                      type='number'
                       value={pwdLength}
                       onChange={changePwdLength}
-                      margin="dense"
-                      sx={{ maxWidth: "215px" }}
+                      margin='dense'
+                      sx={{ maxWidth: '215px' }}
                       inputProps={{
                         max: 999,
                         min: 1,
@@ -130,8 +130,8 @@ const Random: React.FC = () => {
                   </Stack>
                 </Stack>
               </FormControl>
-              <FormControl variant="outlined">
-                <Stack direction="row">
+              <FormControl variant='outlined'>
+                <Stack direction='row'>
                   <InputLabel>使用字符集</InputLabel>
                   <OutlinedInput
                     required
@@ -141,19 +141,19 @@ const Random: React.FC = () => {
                     }}
                   />
                 </Stack>
-                <Box sx={{ pl: "155px", mt: 1 }}>
+                <Box sx={{ pl: '155px', mt: 1 }}>
                   <FormGroup
                     sx={{ background: grayBg2, pl: 2, pt: 1, pb: 1 }}
                     onChange={charsetCheckChange}
                   >
                     {character.map((item) => (
                       <FormControlLabel
-                        sx={{ "& span": { fontSize: "14px" } }}
+                        sx={{ '& span': { fontSize: '14px' } }}
                         key={item.name}
                         name={item.name}
                         control={
                           <Checkbox
-                            size="small"
+                            size='small'
                             checked={Boolean(charset[item.name])}
                           />
                         }
@@ -163,37 +163,37 @@ const Random: React.FC = () => {
                   </FormGroup>
                 </Box>
               </FormControl>
-              <FormControl variant="outlined">
-                <Stack direction="row">
+              <FormControl variant='outlined'>
+                <Stack direction='row'>
                   <InputLabel>生成数量</InputLabel>
                   <OutlinedInput
                     required
-                    type="number"
+                    type='number'
                     inputProps={{
                       max: 999,
                       min: 1,
                     }}
                     value={count}
                     onChange={changeCount}
-                    sx={{ maxWidth: "215px" }}
+                    sx={{ maxWidth: '215px' }}
                   />
                 </Stack>
               </FormControl>
-              <Box sx={{ pl: "157px" }}>
+              <Box sx={{ pl: '157px' }}>
                 <Button
-                  size="small"
+                  size='small'
                   sx={{
-                    fontSize: "14px",
-                    maxWidth: "100px",
+                    fontSize: '14px',
+                    maxWidth: '100px',
                     pl: 2,
                     pr: 2,
                     pt: 1,
                     pb: 1,
-                    borderRadius: "4px",
+                    borderRadius: '4px',
                   }}
-                  color="primary"
-                  variant="contained"
-                  type="submit"
+                  color='primary'
+                  variant='contained'
+                  type='submit'
                 >
                   立即生成
                 </Button>
@@ -201,29 +201,29 @@ const Random: React.FC = () => {
             </Stack>
           </form>
           {!!password ? (
-            <Box sx={{ pl: "157px", position: "relative" }}>
+            <Box sx={{ pl: '157px', position: 'relative' }}>
               <SyntaxHighlighter
-                language={"text"}
+                language={'text'}
                 style={anOldHope}
-                customStyle={{ paddingRight: "24px" }}
+                customStyle={{ paddingRight: '24px' }}
                 showLineNumbers
               >
-                {password || ""}
+                {password || ''}
               </SyntaxHighlighter>
               <CopyToClipboard text={password} onCopy={handleClick}>
                 <ContentCopyIcon
-                  color="primary"
+                  color='primary'
                   sx={{
-                    position: "absolute",
-                    right: "6px",
-                    top: "6px",
-                    cursor: "pointer",
-                    "& svg": {
-                      width: "20px",
-                      height: "20px",
+                    position: 'absolute',
+                    right: '6px',
+                    top: '6px',
+                    cursor: 'pointer',
+                    '& svg': {
+                      width: '20px',
+                      height: '20px',
                     },
                   }}
-                  fontSize="small"
+                  fontSize='small'
                 />
               </CopyToClipboard>
             </Box>

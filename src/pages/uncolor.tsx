@@ -1,40 +1,40 @@
-import MenuView from "@/components/MenuView";
-import { Box, Button, Stack } from "@mui/material";
+import MenuView from '@/components/MenuView';
+import { Box, Button, Stack } from '@mui/material';
 
-import { styled } from "@mui/material/styles";
-import React, { useCallback, useState } from "react";
+import { styled } from '@mui/material/styles';
+import React, { useCallback, useState } from 'react';
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
   height: 1,
-  overflow: "hidden",
-  position: "absolute",
+  overflow: 'hidden',
+  position: 'absolute',
   bottom: 0,
   left: 0,
-  whiteSpace: "nowrap",
+  whiteSpace: 'nowrap',
   width: 1,
 });
 
-const UploadImg = styled("img")({
-  maxHeight: "100%",
-  maxWidth: "100%",
+const UploadImg = styled('img')({
+  maxHeight: '100%',
+  maxWidth: '100%',
 });
 
-const OutImg = styled("img")({
-  Width: "100%",
-  border: "black solid 1px",
-  borderColor: "rgba(0, 0, 0, 0.1)",
-  margin: "20px",
-  padding: "20px",
-  borderRadius: "3px",
+const OutImg = styled('img')({
+  Width: '100%',
+  border: 'black solid 1px',
+  borderColor: 'rgba(0, 0, 0, 0.1)',
+  margin: '20px',
+  padding: '20px',
+  borderRadius: '3px',
 });
 
-const MySpan = styled("span")({});
+const MySpan = styled('span')({});
 
 const ImgBase64: React.FC = () => {
-  const [imageIn, setimageIn] = useState<string>("");
-  const [uncolorOut, setuncolorOut] = useState<string>("");
+  const [imageIn, setimageIn] = useState<string>('');
+  const [uncolorOut, setuncolorOut] = useState<string>('');
 
   const handleSelectFile = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,13 +50,13 @@ const ImgBase64: React.FC = () => {
         setimageIn(e.target.result as string);
         // 获取加载的图像数据
         const imgData = e.target.result;
-        if (typeof imgData !== "string") {
+        if (typeof imgData !== 'string') {
           return;
         }
         const img = new Image();
         img.onload = function () {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
           if (ctx == null) {
             return;
           }
@@ -78,7 +78,7 @@ const ImgBase64: React.FC = () => {
           console.log(imgArrData);
           ctx.putImageData(imgArrData, 0, 0);
           const blackAndWhiteDataURL = canvas.toDataURL();
-          console.log("Black and white image:", blackAndWhiteDataURL);
+          console.log('Black and white image:', blackAndWhiteDataURL);
           setuncolorOut(blackAndWhiteDataURL);
         };
         img.src = imgData;
@@ -92,28 +92,26 @@ const ImgBase64: React.FC = () => {
     <MenuView>
       <Stack
         sx={{
-          mt: "24px",
-          gap: "18px",
-          maxWidth: "1020px",
-          fontFamily: "Mono",
-          width: "838px",
-          mx: "auto",
+          mt: '24px',
+          gap: '18px',
+          maxWidth: '1020px',
+          fontFamily: 'Mono',
+          width: '838px',
+          mx: 'auto',
         }}
       >
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <Stack spacing={1} sx={{ color: "#FF1844" }}>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
+          <Stack spacing={1} sx={{ color: '#FF1844' }}>
             <Button
-              component="label"
-              variant="outlined"
-              sx={{ borderRadius: "3px", height: "179px" }}
+              component='label'
+              variant='outlined'
+              sx={{ borderRadius: '3px', height: '179px' }}
             >
               {imageIn ? <MySpan></MySpan> : <MySpan>选择图片</MySpan>}
               <UploadImg src={imageIn} />
-              <VisuallyHiddenInput type="file" onChange={handleSelectFile} />
+              <VisuallyHiddenInput type='file' onChange={handleSelectFile} />
             </Button>
-            <OutImg
-              src={uncolorOut}
-            />
+            <OutImg src={uncolorOut} />
           </Stack>
         </Box>
       </Stack>

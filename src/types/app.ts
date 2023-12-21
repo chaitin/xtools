@@ -1,4 +1,4 @@
-import { SortType } from "./general";
+import { SortType } from './general';
 
 export type QueryInfo = {
   page?: number;

@@ -18,7 +18,7 @@
 .impowerBox .title {
   display: none !important;
 }
-#__next{
+#__next {
   height: 100%;
 }
 
@@ -32,6 +32,8 @@
   color: unset;
 }
 
-#root,body,html{
-  overflow: auto!important;
+#root,
+body,
+html {
+  overflow: auto !important;
 }
