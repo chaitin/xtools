@@ -15,7 +15,7 @@ const nextConfig = withPlugins([withTM], {
             source: '/',
             destination: '/tools',
             basePath: false,
-            permanent: false
+            permanent: true
         }
     ]
 }

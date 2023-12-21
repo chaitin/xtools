@@ -12,11 +12,11 @@ if (
   cnzzTag.src = 'https://s4.cnzz.com/z.js?id=1281132544&async=1';
   document.head.append(cnzzTag);
 
+  const DOMAIN = location?.hostname?.includes("dev")
+  ? "https://dev.rivers.ctopt.cn"
+  : "https://rivers.chaitin.cn";
   var riverTag = document.createElement('script');
-  riverTag.src = 'https://rivers.chaitin.cn/main-header.js';
+  riverTag.src = DOMAIN + '/main-header.js';
   document.head.append(riverTag);
-
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.style.paddingTop = '64px';
-  });
+  document.body.style.paddingTop = '64px';
 }
