@@ -105,7 +105,7 @@ const ButtonStyle: { [key in ButtonType]: object } = {
     },
   },
   highlight: {
-    background: 'linear-gradient(270deg, #11AF60 0%, #52C41A 100%)',
+    background: 'linear-gradient(270deg, #11AF60 0%, rgba(52, 90, 255, 1) 100%)',
     boxShadow: '0px 10px 30px 0px rgba(82,196,26,0.2)',
     color: '#fff',
   },
