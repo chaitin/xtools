@@ -1,4 +1,4 @@
-export const primary = '#52C41A';
+export const primary = 'rgba(52, 90, 255, 1)';
 export const primaryHover = '#73D13C';
 export const primaryClick = '#389E0E';
 
@@ -10,7 +10,7 @@ export const secondary = '#ECF9E6';
 export const secondaryHover = '#F3FDEE';
 export const secondaryClick = '#DAE8D4';
 
-export const special = 'linear-gradient(270deg, #11AF60 0%, #52C41A 100%)';
+export const special = 'linear-gradient(270deg, #11AF60 0%, rgba(52, 90, 255, 1) 100%)';
 export const dangerHover = 'linear-gradient(225deg, #FF1F1F 0%, #F78900 100%)';
 
 export const disabled = '#F7F7F7';
@@ -31,12 +31,12 @@ export const leastTextClick = '#737373';
 export const disabledText = '#BFBFBF';
 export const specialText = '#737971';
 
-export const success = '#52C41A';
+export const success = 'rgba(52, 90, 255, 1)';
 export const warning = '#FFBF00';
 export const error = '#FF1F1F';
 
-export const grayText = '#0B310440';
-export const grayText2 = '#97A4B0';
+export const grayText = '#0B2562';
+export const grayText2 = 'rgba(11,37,98,0.5)';
 export const errorText = '#FF1F1F';
 export const infoText = '#2F7CE9';
 

@@ -10,7 +10,7 @@ export const Copy = (props: SvgIconProps) => {
             <rect
               id='矩形'
               fillOpacity='0.4'
-              fill='#52C41A'
+              fill='rgba(52, 90, 255, 1)'
               x='3'
               y='5'
               width='6'

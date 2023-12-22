@@ -237,7 +237,7 @@ const Unix: React.FC = () => {
         >
           <Stack
             sx={{
-              width: '838px',
+              
               margin: 'auto',
               mt: '24px',
               gap: '18px',
@@ -390,7 +390,7 @@ const Unix: React.FC = () => {
         <Divider sx={{ my: 4 }}></Divider>
         <Stack
           sx={{
-            width: '838px',
+            
             mx: 'auto',
           }}
         >

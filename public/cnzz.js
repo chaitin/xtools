@@ -2,8 +2,8 @@ if (
   [
     'rivers.chaitin.cn',
     'dev.rivers.ctopt.cn',
-    '127.0.0.1',
-    'localhost',
+    // '127.0.0.1',
+    // 'localhost',
   ].includes(document.domain)
 ) {
   window.is_river = true;

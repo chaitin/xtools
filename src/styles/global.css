@@ -4,7 +4,7 @@
 
 #SM_BTN_1 {
   width: auto !important;
-  background-color: #52c41a !important;
+  background-color: rgba(52, 90, 255, 1) !important;
 }
 
 .sm-txt {
@@ -36,4 +36,12 @@
 body,
 html {
   overflow: auto !important;
+  background: rgba(247, 249, 252, 1);
+}
+
+@font-face {
+  font-family: "Mono";
+  font-weight: 250;
+  src: url('/Mono.ttf') format("truetype");
+  font-display: swap;
 }

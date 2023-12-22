@@ -18,7 +18,7 @@ export const ToolsForm = styled(Box)(() => ({
   pt: '10px',
   display: 'flex',
   flexDirection: 'column',
-  width: '838px',
+  
   margin: 'auto',
   gap: 16,
   '& .MuiOutlinedInput-root': {
@@ -35,7 +35,6 @@ export const ToolsForm = styled(Box)(() => ({
     width: '155px',
     color: defaultTextClick,
     fontSize: '14px',
-    maxWidth: '838px',
   },
   '& .MuiOutlinedInput-notchedOutline': {
     borderColor: '#E3E8EF',
