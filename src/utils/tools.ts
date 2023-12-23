@@ -118,4 +118,11 @@ export const allTools: Tool[] = [
     key: ['HTML 实体编码', 'HTML Entity 编码'],
     subTitle: 'HTML Entity 实体编解码工具',
   },
+  {
+    label: 'Hex 编辑器',
+    tags: [Tags.DEV, Tags.BINARY],
+    path: '/hexeditor',
+    key: ['16进制查看', '16进制编辑', 'hex 编辑', 'hex 查看'],
+    subTitle: 'Hex 16 进制在线查看, 在线编辑工具',
+  },
 ];
