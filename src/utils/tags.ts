@@ -25,6 +25,7 @@ export enum Tags {
   OTHER = 'other',
   HOT = 'hot',
   LIKE = 'like',
+  IMAGE = 'image',
 }
 const tagColor = [
   ['rgba(245, 117, 130, 1)', 'rgba(245, 117, 130, 0.2)',],
