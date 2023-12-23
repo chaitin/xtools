@@ -111,4 +111,11 @@ export const allTools: Tool[] = [
     key: ['hex编码'],
     subTitle: '字符串和 HEX 编码互相转换工具',
   },
+  {
+    label: 'HTML 实体编解码',
+    tags: [Tags.CODE],
+    path: '/htmlentity',
+    key: ['HTML 实体编码', 'HTML Entity 编码'],
+    subTitle: 'HTML Entity 实体编解码工具',
+  },
 ];
