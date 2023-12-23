@@ -104,4 +104,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '将彩色图片转换为黑白图片',
   },
+  {
+    label: 'Hex 编解码',
+    tags: [Tags.CODE],
+    path: '/hex',
+    key: ['hex编码'],
+    subTitle: '字符串和 HEX 编码互相转换工具',
+  },
 ];
