@@ -17,10 +17,10 @@ import json from '@/asset/tag/json.svg';
 import json_check from '@/asset/tag/json_check.svg';
 
 export enum Tags {
-  CODE = 'code',
+  ENCODE = 'encode',
   TEXT = 'text',
   DEV = 'dev',
-  PASSWORD = 'password',
+  ENCRYPT = 'encrypt',
   JSON = 'json',
   OTHER = 'other',
   HOT = 'hot',
@@ -59,12 +59,13 @@ export type Tag = {
 export const allTags: Tag[] = [
   { name: Tags.HOT, icon: icon_hot, icon_check: icon_hot_check, label: '热门工具', bg_color: '', avatar_color: '' },
   { name: Tags.LIKE, icon: icon_like, icon_check: icon_like_check, label: '我的收藏', bg_color: '', avatar_color: '' },
-  { name: Tags.CODE, icon: icon_encode, icon_check: icon_encode_check, label: '编码转码', bg_color: '', avatar_color: '' },
+  { name: Tags.ENCODE, icon: icon_encode, icon_check: icon_encode_check, label: '编码解码', bg_color: '', avatar_color: '' },
+  { name: Tags.ENCRYPT, icon: icon_encryption, icon_check: icon_encryption_check, label: '加密解密', bg_color: '', avatar_color: '' },
   { name: Tags.DEV, icon: dev, icon_check: dev_check, label: '开发', bg_color: '', avatar_color: '' },
+  { name: Tags.JSON, icon: json, icon_check: json_check, label: 'JSON 加工', bg_color: '', avatar_color: '' },
   { name: Tags.TEXT, icon: icon_text, icon_check: icon_text_check, label: '文字处理', bg_color: '', avatar_color: '' },
-  { name: Tags.PASSWORD, icon: icon_encryption, icon_check: icon_encryption_check, label: '密码学', bg_color: '', avatar_color: '' },
-  { name: Tags.JSON, icon: json, icon_check: json_check, label: 'JSON', bg_color: '', avatar_color: '' },
-  { name: Tags.OTHER, icon: other, icon_check: other_check, label: '杂项', bg_color: '', avatar_color: '' },
+  { name: Tags.IMAGE, icon: json, icon_check: json_check, label: '图片加工', bg_color: '', avatar_color: '' },
+  { name: Tags.OTHER, icon: other, icon_check: other_check, label: '其他', bg_color: '', avatar_color: '' },
 ].map((item, index) => {
   const [avatarColor, bgColor] = tagColor[index]
   item.bg_color = bgColor
