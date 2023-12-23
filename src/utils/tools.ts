@@ -11,21 +11,21 @@ export type Tool = {
 export const allTools: Tool[] = [
   {
     label: 'URL 编解码',
-    tags: [Tags.CODE],
+    tags: [Tags.ENCODE],
     path: '/urlencoder',
     key: [],
     subTitle: 'URL 编码解码小工具。',
   },
   {
     label: 'Base64 编解码',
-    tags: [Tags.CODE, Tags.HOT],
+    tags: [Tags.ENCODE, Tags.HOT],
     path: '/base64',
     key: [],
     subTitle: 'Base64 编码解码小工具。',
   },
   {
     label: '图片转 Base64',
-    tags: [Tags.CODE],
+    tags: [Tags.ENCODE, Tags.IMAGE],
     path: '/img2base64',
     key: [],
     subTitle:
@@ -33,7 +33,7 @@ export const allTools: Tool[] = [
   },
   {
     label: '进制转换',
-    tags: [Tags.CODE],
+    tags: [Tags.OTHER],
     path: '/radix_convert',
     key: [],
     subTitle:
@@ -70,14 +70,14 @@ export const allTools: Tool[] = [
   },
   {
     label: '密码哈希',
-    tags: [Tags.PASSWORD],
+    tags: [Tags.ENCRYPT],
     path: '/hash',
     key: [],
     subTitle: '在线 MD5，SHA256 哈希算法计算小工具。',
   },
   {
     label: 'AES 加解密',
-    tags: [Tags.PASSWORD],
+    tags: [Tags.ENCRYPT],
     path: '/aes',
     key: [],
     subTitle: '在线 AES 算法加解密工具。',
@@ -99,16 +99,23 @@ export const allTools: Tool[] = [
   },
   {
     label: '图片去色',
-    tags: [Tags.OTHER],
+    tags: [Tags.IMAGE],
     path: '/uncolor',
     key: [],
     subTitle: '将彩色图片转换为黑白图片',
   },
   {
     label: 'Hex 编解码',
-    tags: [Tags.CODE],
+    tags: [Tags.ENCODE],
     path: '/hex',
     key: ['hex编码'],
     subTitle: '字符串和 HEX 编码互相转换工具',
+  },
+  {
+    label: 'HTML 实体编解码',
+    tags: [Tags.ENCODE],
+    path: '/htmlentity',
+    key: ['HTML 实体编码', 'HTML Entity 编码'],
+    subTitle: 'HTML Entity 实体编解码工具',
   },
 ];
