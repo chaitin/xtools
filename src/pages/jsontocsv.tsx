@@ -1,6 +1,6 @@
 import alert from '@/components/Alert';
 import CusTabs from '@/components/CusTabs';
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { useCSV } from '@/hooks';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Box, Button, Divider, Stack, Switch, TextField } from '@mui/material';
@@ -92,7 +92,7 @@ const JSONToCSV = () => {
     try {
       const v = JSON.parse(json || '');
       getCSV(v);
-    } catch (error) {}
+    } catch (error) { }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expandNestedObjects, delimiter, excludeKeys]);
 
@@ -132,11 +132,6 @@ const JSONToCSV = () => {
     <MenuView>
       <Stack
         sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          mx: 'auto',
-          fontFamily: 'Mono',
           '.rc-table': {
             border: '1px solid #eee',
             borderRadius: '4px',
@@ -345,13 +340,13 @@ const JSONToCSV = () => {
             columns={
               pres.length > 0
                 ? Object.keys(pres[0]).map((it, idx) => {
-                    return {
-                      title: it,
-                      dataIndex: it,
-                      key: it,
-                      width: widths[idx],
-                    };
-                  })
+                  return {
+                    title: it,
+                    dataIndex: it,
+                    key: it,
+                    width: widths[idx],
+                  };
+                })
                 : []
             }
             data={pres}
@@ -360,9 +355,9 @@ const JSONToCSV = () => {
               pres.length === 0
                 ? {}
                 : {
-                    y: 224,
-                    x: widths.reduce((a, b) => a + b, 0),
-                  }
+                  y: 224,
+                  x: widths.reduce((a, b) => a + b, 0),
+                }
             }
             emptyText={
               <div

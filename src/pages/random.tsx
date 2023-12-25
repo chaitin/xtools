@@ -1,5 +1,5 @@
 import alert from '@/components/Alert';
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { ToolsForm } from '@/components/Tools';
 import { grayBg2 } from '@/constant';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -107,7 +107,7 @@ const Random: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack sx={{ mx: '0' }}>
+      <>
         <ToolsForm sx={{ mx: '0' }}>
           <form onSubmit={generatePwd}>
             <Stack sx={{ mt: '30px', gap: '18px' }}>
@@ -229,7 +229,7 @@ const Random: React.FC = () => {
             </Box>
           ) : null}
         </ToolsForm>
-      </Stack>
+      </>
     </MenuView>
   );
 };

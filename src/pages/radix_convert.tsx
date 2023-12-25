@@ -1,4 +1,4 @@
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { Box, Stack, Typography } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -140,15 +140,7 @@ const RadixConvert: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          mx: 'auto',
-          fontFamily: 'Mono',
-        }}
-      >
+      <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Typography variant='subtitle2'>常用进制</Typography>
           <Stack spacing={1} sx={{ mt: 2 }}>
@@ -161,7 +153,7 @@ const RadixConvert: React.FC = () => {
             {inactiveElements}
           </Stack>
         </Box>
-      </Stack>
+      </>
     </MenuView>
   );
 };

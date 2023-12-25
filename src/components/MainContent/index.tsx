@@ -5,15 +5,8 @@ import { Tool, allTools } from '@/utils/tools';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-export interface MenuProps {
-  children: React.ReactElement;
-}
 
-const ifChecked = (currentPath: string, itemPath: string) => {
-  return currentPath === itemPath;
-};
-
-const MenuView: React.FC<MenuProps> = ({ children }) => {
+const MainContent: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const { path } = usePath();
 
   const [tool] = React.useState<Tool | undefined>(
@@ -84,9 +77,20 @@ const MenuView: React.FC<MenuProps> = ({ children }) => {
       >
         {tool?.subTitle}
       </Typography>
-      {children}
+      <Stack
+        sx={{
+          mt: '24px',
+          gap: '18px',
+          maxWidth: '1020px',
+          fontFamily: 'Mono',
+
+          mx: 'auto',
+        }}
+      >
+        {children}
+      </Stack>
     </Paper>
   );
 };
 
-export default MenuView;
+export default MainContent;

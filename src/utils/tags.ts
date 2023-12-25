@@ -73,7 +73,7 @@ export const allTags: Tag[] = [
   { name: Tags.OTHER, icon: other, icon_check: other_check, label: '其他', bg_color: '', avatar_color: '' },
 ].map((item, index) => {
   const [avatarColor, bgColor] = tagColor[index];
-  item.bg_color = bgColor;
-  item.avatar_color = avatarColor;
+  if(!item.bg_color) item.bg_color = bgColor;
+  if(!item.avatar_color) item.avatar_color = avatarColor;
   return item;
 });

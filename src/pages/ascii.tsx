@@ -1,7 +1,6 @@
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import {
   Grid,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -106,19 +105,11 @@ const Hash: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          mx: 'auto',
-          fontFamily: 'Mono',
-        }}
-      >
+      <>
         <Grid container spacing={1}>
           {tables}
         </Grid>
-      </Stack>
+      </>
     </MenuView>
   );
 };

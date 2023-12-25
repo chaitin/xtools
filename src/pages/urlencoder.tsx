@@ -1,11 +1,11 @@
 import alert from '@/components/Alert';
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { defaultTextClick } from '@/constant';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import { Box, OutlinedInput, Stack, Tab, Typography } from '@mui/material';
+import { Box, OutlinedInput, Tab, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React, { useCallback, useMemo, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -57,15 +57,7 @@ const URLEncoder: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        sx={{
-          mt: '24px',
-          mx: 'auto',
-          gap: '18px',
-          maxWidth: '1020px',
-          fontFamily: 'Mono',
-        }}
-      >
+      <>
         <TabContext value={method}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange}>
@@ -171,7 +163,7 @@ const URLEncoder: React.FC = () => {
             </CopyToClipboard>
           </Box>
         </Box>
-      </Stack>
+      </>
     </MenuView>
   );
 };

@@ -1,4 +1,4 @@
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import {
@@ -95,16 +95,7 @@ const AES: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          fontFamily: 'Mono',
-
-          mx: 'auto',
-        }}
-      >
+      <>
         <TabContext value={method}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleMethodChange}>
@@ -199,7 +190,7 @@ const AES: React.FC = () => {
           InputProps={{ readOnly: true }}
           sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
         />
-      </Stack>
+      </>
     </MenuView>
   );
 };

@@ -1,6 +1,6 @@
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { count } from '@homegrown/word-counter';
-import { Box, Divider, Stack, Typography, styled } from '@mui/material';
+import { Box, Stack, Typography, styled } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 
@@ -86,17 +86,7 @@ const WordCount: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        direction='column'
-        divider={<Divider orientation='vertical' flexItem />}
-        sx={{
-          mt: '24px',
-          mx: 'auto',
-          gap: '18px',
-          maxWidth: '1020px',
-          fontFamily: 'Mono',
-        }}
-      >
+      <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Box
             sx={{
@@ -230,7 +220,7 @@ const WordCount: React.FC = () => {
             />
           </Stack>
         </Box>
-      </Stack>
+      </>
     </MenuView>
   );
 };
