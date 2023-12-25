@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules')(['react-syntax-highlighter']);
-const withFonts = require('next-fonts');
 
-const nextConfig = withPlugins([withFonts, withTM], {
+const nextConfig = withPlugins([withTM], {
   reactStrictMode: false,
   output: 'export',
   images: {
@@ -16,10 +15,10 @@ const nextConfig = withPlugins([withFonts, withTM], {
         source: '/',
         destination: '/tools',
         basePath: false,
-        permanent: true
-      }
-    ]
-  }
+        permanent: true,
+      },
+    ];
+  },
 });
 
 module.exports = nextConfig;

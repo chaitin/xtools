@@ -7,7 +7,7 @@ import '@/styles/static/swiper.css';
 import theme from '@/styles/theme';
 import createEmotionCache from '@/utils/emotionCache';
 import { CacheProvider } from '@emotion/react';
-import { Box, Stack, ThemeProvider } from '@mui/material';
+import { Stack, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -27,16 +27,15 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
 });
 
-
 export default function App({
   Component,
   emotionCache = clientSideEmotionCache,
 }: any) {
-  const { path } = usePath()
+  const { path } = usePath();
 
   const currentItem = useMemo(() => {
-    return allTools.find(item => item.path === path)
-  }, [path])
+    return allTools.find((item) => item.path === path);
+  }, [path]);
   return (
     <>
       <Head>
@@ -44,8 +43,12 @@ export default function App({
           name='viewport'
           content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
         />
-        <meta name="description" property="og:description" content={currentItem?.subTitle || '百川云常用工具'} />
-        <meta name="keywords" content="常用的工具"></meta>
+        <meta
+          name='description'
+          property='og:description'
+          content={currentItem?.subTitle || '百川云常用工具'}
+        />
+        <meta name='keywords' content='常用的工具'></meta>
       </Head>
 
       <ThemeProvider theme={theme}>
@@ -56,7 +59,11 @@ export default function App({
               <QueryClientProvider client={queryClient}>
                 <Stack sx={{ width: '1180px', mx: 'auto', height: '100%' }}>
                   <Header />
-                  <Stack direction='row' spacing={2} sx={{ pb: 1, flex: 1, overflow: 'auto' }}>
+                  <Stack
+                    direction='row'
+                    spacing={2}
+                    sx={{ pb: 1, flex: 1, overflow: 'auto' }}
+                  >
                     <SideBar />
                     <Component />
                   </Stack>

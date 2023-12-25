@@ -10,7 +10,8 @@ export const secondary = '#ECF9E6';
 export const secondaryHover = '#F3FDEE';
 export const secondaryClick = '#DAE8D4';
 
-export const special = 'linear-gradient(270deg, #11AF60 0%, rgba(52, 90, 255, 1) 100%)';
+export const special =
+  'linear-gradient(270deg, #11AF60 0%, rgba(52, 90, 255, 1) 100%)';
 export const dangerHover = 'linear-gradient(225deg, #FF1F1F 0%, #F78900 100%)';
 
 export const disabled = '#F7F7F7';

@@ -1,11 +1,11 @@
-import { Tags } from "./tags";
+import { Tags } from './tags';
 
 export type Tool = {
   label: string;
   tags: Tags[];
   path: string;
   subTitle: string;
-  key: string[]
+  key: string[];
 };
 
 export const allTools: Tool[] = [

@@ -91,11 +91,10 @@ const WordCount: React.FC = () => {
         divider={<Divider orientation='vertical' flexItem />}
         sx={{
           mt: '24px',
+          mx: 'auto',
           gap: '18px',
           maxWidth: '1020px',
           fontFamily: 'Mono',
-          
-          mx: 'auto',
         }}
       >
         <Box sx={{ width: '100%', typography: 'body1' }}>

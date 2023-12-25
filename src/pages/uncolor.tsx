@@ -95,9 +95,8 @@ const ImgBase64: React.FC = () => {
           mt: '24px',
           gap: '18px',
           maxWidth: '1020px',
-          fontFamily: 'Mono',
-          
           mx: 'auto',
+          fontFamily: 'Mono',
         }}
       >
         <Box sx={{ width: '100%', typography: 'body1' }}>
