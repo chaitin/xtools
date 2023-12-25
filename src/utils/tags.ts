@@ -54,7 +54,7 @@ const tagColor = [
   ['rgba(200, 167, 134, 1)', 'rgba(200, 167, 134, 0.2)',],
 ]
 
-export type Tag = {
+export interface Tag {
   name: Tags, icon: string, icon_check: string, label: string, bg_color: string, avatar_color: string
 }
 export const allTags: Tag[] = [

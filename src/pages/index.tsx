@@ -7,19 +7,23 @@ import {
 } from '@mui/material';
 
 import { LikeContext } from '@/hooks/useLikeList';
-import { Tags, allTags } from '@/utils/tags';
+import { Tag, Tags, allTags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext, useEffect, useMemo, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import NoLike from '@/asset/tag/no_like.png';
 import { ToolCard } from '@/components/ToolCard';
 import { AnchorContext } from '@/hooks/useAnchor';
 
+interface TagWithTool extends Tag {
+  tools: Tool[]
+}
 export default function App() {
   const { updateAnchor } = useContext(AnchorContext)
   const { likeList } = useContext(LikeContext)
+  const [tagAndTools, setTagAndTools] = useState<TagWithTool[] | null>(null)
   const mainPageRef = useRef<any>(null)
 
   useEffect(() => {
@@ -43,15 +47,14 @@ export default function App() {
       updateAnchor('')
     };
   }, []);
-
-  const tagAndTools = useMemo(() => {
+  useEffect(() => {
     const addLikeTagForTools = allTools.map(item => {
       if (likeList?.includes(item.path)) return ({ ...item, tags: [...item.tags, Tags.LIKE] })
       return item
     })
-    return allTags.map(tag => {
-      return {...tag, tools: addLikeTagForTools.filter(tool => tool.tags.includes(tag.name))}
-    })
+    setTagAndTools(allTags.map((tag: Tag) => {
+      return { ...tag, tools: addLikeTagForTools.filter(tool => tool.tags.includes(tag.name)) }
+    }))
   }, [likeList])
 
   return (
@@ -62,7 +65,7 @@ export default function App() {
       scrollBehavior: 'smooth',
     }} elevation={0}>
       {
-        tagAndTools.map(tag => (
+        tagAndTools?.map(tag => (
           <Box id={tag.name} key={tag.name}>
             <Typography variant='subtitle2' sx={{ mb: 2 }}>{tag.label}</Typography>
             <Stack direction='row' flexWrap='wrap' sx={{ mx: -1 }} >
