@@ -28,7 +28,7 @@ export default function App() {
         const liTop = liElement.offsetTop;
         const liBottom = liTop + liElement.offsetHeight;
 
-        if (scrollPosition >= liTop - 100 && scrollPosition < liBottom - 100) {
+        if (scrollPosition >= liTop - 150 && scrollPosition < liBottom - 100) {
           const liId = liElement.getAttribute('id');
           updateAnchor(liId);
           break;
@@ -70,7 +70,6 @@ export default function App() {
         overflow: 'auto',
         boxShadow:
           '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
-        scrollBehavior: 'smooth',
       }}
       elevation={0}
     >

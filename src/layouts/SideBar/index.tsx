@@ -8,9 +8,11 @@ import Link from 'next/link';
 
 const SideBar: React.FC<{}> = () => {
   const { anchor } = useContext(AnchorContext);
+  const [linkAnchor, setLinkAnchor] = useState(false);
   const [checkAnchor, setChectAnchor] = useState('');
   useEffect(() => {
-    setChectAnchor(anchor);
+    if (linkAnchor) setLinkAnchor(false)
+    else setChectAnchor(anchor);
   }, [anchor]);
   return (
     <Paper
@@ -29,10 +31,14 @@ const SideBar: React.FC<{}> = () => {
           <Link
             key={item.name}
             shallow
-            onClick={() => setChectAnchor(item.name)}
+            onClick={() => {
+              setChectAnchor(item.name)
+              setLinkAnchor(true)
+            }}
             href={'/#' + item.name}
             style={{ alignSelf: 'stretch' }}
             className='custom-link'
+            prefetch
           >
             <Button
               sx={{
