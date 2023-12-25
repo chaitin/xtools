@@ -60,11 +60,10 @@ const URLEncoder: React.FC = () => {
       <Stack
         sx={{
           mt: '24px',
+          mx: 'auto',
           gap: '18px',
           maxWidth: '1020px',
           fontFamily: 'Mono',
-          
-          mx: 'auto',
         }}
       >
         <TabContext value={method}>

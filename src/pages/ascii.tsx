@@ -111,9 +111,8 @@ const Hash: React.FC = () => {
           mt: '24px',
           gap: '18px',
           maxWidth: '1020px',
-          fontFamily: 'Mono',
-          
           mx: 'auto',
+          fontFamily: 'Mono',
         }}
       >
         <Grid container spacing={1}>

@@ -1,7 +1,7 @@
 import MenuView from '@/components/MenuView';
 import crypto from 'crypto-js';
 
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import TextField from '@mui/material/TextField';
@@ -90,8 +90,8 @@ const Hash: React.FC = () => {
         }}
       >
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          <Stack spacing={1} sx={{}}>
-            输入
+          <Stack spacing={1}>
+            <Typography variant='subtitle2'>输入</Typography>
             <TextField
               value={src}
               variant='outlined'
@@ -102,7 +102,7 @@ const Hash: React.FC = () => {
             />
             <br></br>
             输出
-            {outElements}
+            <Stack spacing={1}>{outElements}</Stack>
           </Stack>
         </Box>
       </Stack>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MenuView from '@/components/MenuView';
-import { Box, Divider, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
 const CaseConvert: React.FC = () => {
@@ -10,19 +10,17 @@ const CaseConvert: React.FC = () => {
     <MenuView>
       <Stack
         direction='column'
-        divider={<Divider orientation='vertical' flexItem />}
         sx={{
           mt: '24px',
           gap: '18px',
           maxWidth: '1020px',
-          fontFamily: 'Mono',
-          
           mx: 'auto',
+          fontFamily: 'Mono',
         }}
       >
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          输入
-          <Stack spacing={1} sx={{}}>
+          <Typography variant='subtitle2'>输入</Typography>
+          <Stack sx={{ mt: 2 }}>
             <TextField
               value={value}
               variant='outlined'
@@ -36,8 +34,8 @@ const CaseConvert: React.FC = () => {
           </Stack>
         </Box>
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          大写
-          <Stack spacing={1} sx={{}}>
+          <Typography variant='subtitle2'>大写</Typography>
+          <Stack sx={{ mt: 2 }}>
             <TextField
               value={value?.toUpperCase()}
               variant='outlined'
@@ -51,8 +49,8 @@ const CaseConvert: React.FC = () => {
           </Stack>
         </Box>
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          小写
-          <Stack spacing={1} sx={{}}>
+          <Typography variant='subtitle2'>小写</Typography>
+          <Stack sx={{ mt: 2 }}>
             <TextField
               value={value?.toLowerCase()}
               variant='outlined'

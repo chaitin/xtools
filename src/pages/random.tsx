@@ -107,8 +107,8 @@ const Random: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack sx={{mx: '0'}}>
-        <ToolsForm sx={{mx: '0'}}>
+      <Stack sx={{ mx: '0' }}>
+        <ToolsForm sx={{ mx: '0' }}>
           <form onSubmit={generatePwd}>
             <Stack sx={{ mt: '30px', gap: '18px' }}>
               <FormControl variant='outlined'>
