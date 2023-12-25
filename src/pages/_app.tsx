@@ -7,11 +7,19 @@ import '@/styles/static/swiper.css';
 import theme from '@/styles/theme';
 import createEmotionCache from '@/utils/emotionCache';
 import { CacheProvider } from '@emotion/react';
-import { ThemeProvider } from '@mui/material';
+import { Box, Stack, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import PropTypes from 'prop-types';
+import Header from '@/layouts/Header';
+import SideBar from '@/layouts/SideBar';
+import { LikeContextProvider } from '@/hooks/useLikeList';
+import { AnchorContextProvider } from '@/hooks/useAnchor';
+import { usePath } from '@/hooks';
+import { useMemo } from 'react';
+import { allTools } from '@/utils/tools';
+import Head from 'next/head';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -19,24 +27,45 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
 });
 
+
 export default function App({
   Component,
   emotionCache = clientSideEmotionCache,
 }: any) {
+  const { path } = usePath()
+
+  const currentItem = useMemo(() => {
+    return allTools.find(item => item.path === path)
+  }, [path])
   return (
     <>
-      <meta
-        name='viewport'
-        content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
-      />
-      <CacheProvider value={emotionCache}>
-        <ThemeProvider theme={theme}>
+      <Head>
+        <meta
+          name='viewport'
+          content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
+        />
+        <meta name="description" property="og:description" content={currentItem?.subTitle || '百川云常用工具'} />
+        <meta name="keywords" content="常用的工具"></meta>
+      </Head>
+
+      <ThemeProvider theme={theme}>
+        <CacheProvider value={emotionCache}>
           <CssBaseline />
-          <QueryClientProvider client={queryClient}>
-            <Component />
-          </QueryClientProvider>
-        </ThemeProvider>
-      </CacheProvider>
+          <AnchorContextProvider>
+            <LikeContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <Stack sx={{ width: '1180px', mx: 'auto', height: '100%' }}>
+                  <Header />
+                  <Stack direction='row' spacing={2} sx={{ pb: 1, flex: 1, overflow: 'auto' }}>
+                    <SideBar />
+                    <Component />
+                  </Stack>
+                </Stack>
+              </QueryClientProvider>
+            </LikeContextProvider>
+          </AnchorContextProvider>
+        </CacheProvider>
+      </ThemeProvider>
     </>
   );
 }

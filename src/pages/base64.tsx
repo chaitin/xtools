@@ -66,9 +66,9 @@ const Base64: React.FC = () => {
         sx={{
           mt: '24px',
           gap: '18px',
-          maxWidth: '1020px',
+          // maxWidth: '1020px',
           fontFamily: 'Mono',
-          width: '838px',
+          
           mx: 'auto',
         }}
       >

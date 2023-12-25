@@ -35,11 +35,13 @@
     "@mui/material": "^5.13.0",
     "@tanstack/react-query": "^4.29.7",
     "ace-builds": "^1.32.2",
+    "ahooks": "^3.7.8",
     "axios": "^1.4.0",
     "big-integer": "^1.6.52",
     "crypto-js": "^4.2.0",
     "eslint": "8.40.0",
     "eslint-config-next": "^14.0.4",
+    "html-entities": "^2.4.0",
     "json-2-csv": "^5.0.1",
     "next": "^14.0.4",
     "next-compose-plugins": "^2.2.1",
@@ -78,6 +80,7 @@
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^5.1.0",
     "husky": "^8.0.0",
-    "lint-staged": "^15.2.0"
+    "lint-staged": "^15.2.0",
+    "next-fonts": "^1.5.1"
   }
 }

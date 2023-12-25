@@ -112,7 +112,7 @@ const Hash: React.FC = () => {
           gap: '18px',
           maxWidth: '1020px',
           fontFamily: 'Mono',
-          width: '838px',
+          
           mx: 'auto',
         }}
       >
