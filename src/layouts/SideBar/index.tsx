@@ -2,15 +2,14 @@ import { grayText } from '@/constant/color';
 import { AnchorContext } from '@/hooks/useAnchor';
 import { allTags } from '@/utils/tags';
 import {
-  Box,
   Button,
-  Link,
   Paper,
   Stack,
   Typography
 } from '@mui/material';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
+import Link from 'next/link'
 
 const SideBar: React.FC<{}> = () => {
   const { anchor } = useContext(AnchorContext)
@@ -29,7 +28,7 @@ const SideBar: React.FC<{}> = () => {
     }}>
       <Stack alignItems='center' sx={{ py: 1 }}>
         {allTags.map(item =>
-          <Link key={item.name} onClick={() => setChectAnchor(item.name)} href={'/tools#' + item.name} sx={{ alignSelf: 'stretch' }} className='custom-link'>
+          <Link key={item.name} shallow onClick={() => setChectAnchor(item.name)} href={'/#' + item.name} style={{ alignSelf: 'stretch' }} className='custom-link'>
             <Button
               sx={{ pl: 3, height: '46px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }} >
               <Image alt={item.label} src={checkAnchor === item.name ? item.icon_check : item.icon} />

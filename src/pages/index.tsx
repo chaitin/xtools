@@ -1,25 +1,21 @@
 import {
-  Avatar,
   Box,
   Card,
-  CardHeader,
   Paper,
   Stack,
   Typography
 } from '@mui/material';
 
-import LikeIcon from '@/components/LikeIcon';
-import { grayText2 } from '@/constant';
 import { LikeContext } from '@/hooks/useLikeList';
-import { Tag, Tags, allTags } from '@/utils/tags';
+import { Tags, allTags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useMemo, useRef } from 'react';
 
 import NoLike from '@/asset/tag/no_like.png';
-import { AnchorContext } from '@/hooks/useAnchor';
 import { ToolCard } from '@/components/ToolCard';
+import { AnchorContext } from '@/hooks/useAnchor';
 
 export default function App() {
   const { updateAnchor } = useContext(AnchorContext)
@@ -54,8 +50,7 @@ export default function App() {
       return item
     })
     return allTags.map(tag => {
-      (tag as any).tools = addLikeTagForTools.filter(tool => tool.tags.includes(tag.name))
-      return tag
+      return {...tag, tools: addLikeTagForTools.filter(tool => tool.tags.includes(tag.name))}
     })
   }, [likeList])
 
@@ -72,8 +67,8 @@ export default function App() {
             <Typography variant='subtitle2' sx={{ mb: 2 }}>{tag.label}</Typography>
             <Stack direction='row' flexWrap='wrap' sx={{ mx: -1 }} >
               {
-                ((tag as any).tools.length ?
-                  (tag as any).tools.map((tool: any) => (
+                (tag.tools.length ?
+                  tag.tools.map((tool: Tool) => (
                     <Card key={tool.path} sx={{
                       background: tag.bg_color, width: '296px',
                       mx: 1, mb: 2, pb: 1, borderRadius: '8px',

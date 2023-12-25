@@ -237,7 +237,7 @@ const Unix: React.FC = () => {
         >
           <Stack
             sx={{
-              
+
               margin: 'auto',
               mt: '24px',
               gap: '18px',
@@ -390,7 +390,7 @@ const Unix: React.FC = () => {
         <Divider sx={{ my: 4 }}></Divider>
         <Stack
           sx={{
-            
+
             mx: 'auto',
           }}
         >
@@ -446,7 +446,7 @@ const Unix: React.FC = () => {
               ))}
             </form>
           </Stack>
-          <Box sx={{ position: 'relative', '& pre': { minHeight: '120px' } }}>
+          <Box sx={{ position: 'relative', '& pre': { minHeight: '120px' }, '& *': { fontFamily: 'Mono', } }}>
             <SyntaxHighlighter
               language={currentCode?.lang}
               style={anOldHope}

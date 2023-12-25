@@ -1,3 +1,4 @@
+import { ToolCard } from '@/components/ToolCard';
 import { usePath } from '@/hooks';
 import { Tags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
@@ -14,8 +15,6 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
-import { IssueIcon, IssueIconWrap } from './components';
-import { ToolCard } from '@/components/ToolCard';
 
 const ifChecked = (currentPath: string, itemPath: string) => {
   return currentPath === itemPath;
@@ -112,11 +111,6 @@ const Header: React.FC<{}> = () => {
               );
             })
           }
-          onInputChange={(v: any) => {
-            const item = allTools.find((item) =>
-              [v.target.textContent, v.target.value].includes(item.label)
-            );
-          }}
           options={allTools}
           renderOption={(props: object, option: Tool, state: object, ownerState: object) => (
             <Box sx={{
@@ -125,7 +119,7 @@ const Header: React.FC<{}> = () => {
                 background: 'rgba(17, 35, 90, 0.05)',
               }
             }}>
-              <Link href={option.path} className='custom-link' onClick={()=>setOpenSearch(false)}>
+              <Link href={option.path} className='custom-link' onClick={() => setOpenSearch(false)}>
                 <ToolCard tool={option} showStar={false} />
               </Link>
             </Box>

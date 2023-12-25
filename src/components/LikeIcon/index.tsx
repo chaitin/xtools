@@ -1,4 +1,4 @@
-import RedTag from '@/asset/tag/red_like.png';
+import RedTag from '@/asset/tag/red_like.svg';
 import RedTagCheck from '@/asset/tag/red_like_check.png';
 import HoverRedTagCheck from '@/asset/tag/hover_red_like.svg';
 import { LikeContext } from '@/hooks/useLikeList';
@@ -40,8 +40,6 @@ const LikeIcon: React.FC<{ path: string, style: React.CSSProperties }> = (props)
       '&:hover': {
         backgroundImage: `url(${isCheck ? RedTagCheck.src : HoverRedTagCheck.src})`,
         opacity: isCheck ? '0.5' : '1',
-        width: '16px',
-        height: '15px',
       }
      }} onClick={(event) => hanldeLike(event, path)}/>
   );
