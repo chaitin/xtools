@@ -231,13 +231,12 @@ const Unix: React.FC = () => {
         <ToolsForm
           sx={{
             '& .MuiButton-contained:hover': {
-              backgroundColor: 'rgb(57, 137, 18, 0.2)',
+              backgroundColor: 'rgba(52, 90, 255, 0.2)',
             },
           }}
         >
           <Stack
             sx={{
-              
               margin: 'auto',
               mt: '24px',
               gap: '18px',
@@ -306,7 +305,7 @@ const Unix: React.FC = () => {
                   sx={{
                     borderRadius: '4px',
                     color: primary,
-                    background: 'rgba(82, 196, 26, 0.05)',
+                    background: 'rgba(52, 90, 255, 0.05)',
                   }}
                   component='label'
                   variant='contained'
@@ -343,7 +342,7 @@ const Unix: React.FC = () => {
                   sx={{
                     borderRadius: '4px',
                     color: primary,
-                    background: 'rgba(82, 196, 26, 0.05)',
+                    background: 'rgba(52, 90, 255, 0.05)',
                   }}
                   component='label'
                   variant='contained'
@@ -390,7 +389,6 @@ const Unix: React.FC = () => {
         <Divider sx={{ my: 4 }}></Divider>
         <Stack
           sx={{
-            
             mx: 'auto',
           }}
         >
@@ -446,7 +444,13 @@ const Unix: React.FC = () => {
               ))}
             </form>
           </Stack>
-          <Box sx={{ position: 'relative', '& pre': { minHeight: '120px' } }}>
+          <Box
+            sx={{
+              position: 'relative',
+              '& pre': { minHeight: '120px' },
+              '& *': { fontFamily: 'Mono' },
+            }}
+          >
             <SyntaxHighlighter
               language={currentCode?.lang}
               style={anOldHope}

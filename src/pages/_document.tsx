@@ -10,7 +10,6 @@ import Document, {
 } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import createEmotionCache from '@/utils/emotionCache';
-import Script from 'next/script';
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
@@ -20,7 +19,7 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
   return (
     <Html lang='zh-cmn-Hans'>
       <Head>
-        <script type='text/javascript' src='/tools/cnzz.js' defer/>
+        <script type='text/javascript' src='/tools/cnzz.js' defer />
         {emotionStyleTags}
       </Head>
       <body style={{ margin: 0 }}>

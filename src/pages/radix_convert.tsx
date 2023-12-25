@@ -145,24 +145,19 @@ const RadixConvert: React.FC = () => {
           mt: '24px',
           gap: '18px',
           maxWidth: '1020px',
-          fontFamily: 'Mono',
-          
           mx: 'auto',
+          fontFamily: 'Mono',
         }}
       >
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          <Typography variant='h6' component='h2'>
-            常用进制
-          </Typography>
-          <Stack spacing={1} sx={{}}>
+          <Typography variant='subtitle2'>常用进制</Typography>
+          <Stack spacing={1} sx={{ mt: 2 }}>
             {activeElements}
           </Stack>
         </Box>
         <Box sx={{ width: '100%', typography: 'body1' }}>
-          <Typography variant='h6' component='h2'>
-            非常用进制
-          </Typography>
-          <Stack spacing={1} sx={{}}>
+          <Typography variant='subtitle2'>非常用进制</Typography>
+          <Stack spacing={1} sx={{ mt: 2 }}>
             {inactiveElements}
           </Stack>
         </Box>

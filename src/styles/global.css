@@ -40,8 +40,8 @@ html {
 }
 
 @font-face {
-  font-family: "Mono";
+  font-family: 'Mono';
   font-weight: 250;
-  src: url('/tools/Mono.ttf') format("truetype");
+  src: url('/tools/Mono.ttf') format('truetype');
   font-display: swap;
 }

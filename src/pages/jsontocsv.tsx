@@ -135,9 +135,8 @@ const JSONToCSV = () => {
           mt: '24px',
           gap: '18px',
           maxWidth: '1020px',
-          fontFamily: 'Mono',
-          
           mx: 'auto',
+          fontFamily: 'Mono',
           '.rc-table': {
             border: '1px solid #eee',
             borderRadius: '4px',

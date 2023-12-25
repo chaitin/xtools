@@ -39,7 +39,6 @@
     "axios": "^1.4.0",
     "big-integer": "^1.6.52",
     "crypto-js": "^4.2.0",
-    "eslint": "8.40.0",
     "eslint-config-next": "^14.0.4",
     "html-entities": "^2.4.0",
     "json-2-csv": "^5.0.1",
@@ -76,11 +75,12 @@
     "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "18.2.4",
     "@types/react-syntax-highlighter": "^15.5.11",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^5.1.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "husky": "^8.0.0",
-    "lint-staged": "^15.2.0",
-    "next-fonts": "^1.5.1"
+    "lint-staged": "^15.2.0"
   }
 }

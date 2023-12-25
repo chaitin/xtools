@@ -1,3 +1,4 @@
+import { ToolCard } from '@/components/ToolCard';
 import { usePath } from '@/hooks';
 import { Tags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
@@ -9,13 +10,11 @@ import {
   Paper,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
-import { IssueIcon, IssueIconWrap } from './components';
-import { ToolCard } from '@/components/ToolCard';
 
 const ifChecked = (currentPath: string, itemPath: string) => {
   return currentPath === itemPath;
@@ -66,31 +65,62 @@ const Header: React.FC<{}> = () => {
   }, [tags, searchText]);
 
   return (
-    <Stack direction='row' alignItems='center' sx={{ width: '100%', height: '84px', flexShrink: 0 }}>
-      <Typography variant='subtitle1' fontWeight={600} sx={{ mr: 2, color: 'rgba(11, 37, 98, 1)' }}>
-        <Link className='custom-link' href='/'>百川在线工具箱</Link>
+    <Stack
+      direction='row'
+      alignItems='center'
+      sx={{ width: '100%', height: '84px', flexShrink: 0 }}
+    >
+      <Typography
+        variant='subtitle1'
+        fontWeight={600}
+        sx={{ mr: 2, color: 'rgba(11, 37, 98, 1)' }}
+      >
+        <Link className='custom-link' href='/'>
+          百川在线工具箱
+        </Link>
       </Typography>
       <Link className='custom-link' href='https://github.com/chaitin/xtools'>
-        <GitHubIcon fontSize='small' sx={{
-          mt: '4px', color: 'rgba(0, 0, 0, 0.57)', '&:hover': {
-            color: 'rgba(0, 0, 0, 0.87)'
-          }
-        }} />
+        <GitHubIcon
+          fontSize='small'
+          sx={{
+            mt: '4px',
+            color: 'rgba(0, 0, 0, 0.57)',
+            '&:hover': {
+              color: 'rgba(0, 0, 0, 0.87)',
+            },
+          }}
+        />
       </Link>
-      <Typography variant='body2' sx={{
-        ml: 'auto', color: 'rgba(255,110,103, 0.5)!important', '&:hover': {
-          color: '#FF6E67!important'
-        }
-      }} >
-        <Link href="https://github.com/chaitin/xtools/issues" className='custom-link' target='_blank'>工具不够？提个需求</Link>
+      <Typography
+        variant='body2'
+        sx={{
+          ml: 'auto',
+          color: 'rgba(255,110,103, 0.5)!important',
+          '&:hover': {
+            color: '#FF6E67!important',
+          },
+        }}
+      >
+        <Link
+          href='https://github.com/chaitin/xtools/issues'
+          className='custom-link'
+          target='_blank'
+        >
+          工具不够？提个需求
+        </Link>
       </Typography>
       <Paper
         sx={{
-          width: '381px', borderRadius: '4px', height: '36px',
+          width: '381px',
+          borderRadius: '4px',
+          height: '36px',
           ml: 4,
           '& .MuiInput-underline': { height: '36px', borderBottom: 'none' },
-          '& .MuiAutocomplete-inputRoot:before': { borderBottom: 'none!important' },
-          boxShadow: '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
+          '& .MuiAutocomplete-inputRoot:before': {
+            borderBottom: 'none!important',
+          },
+          boxShadow:
+            '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
         }}
       >
         <Autocomplete
@@ -112,20 +142,26 @@ const Header: React.FC<{}> = () => {
               );
             })
           }
-          onInputChange={(v: any) => {
-            const item = allTools.find((item) =>
-              [v.target.textContent, v.target.value].includes(item.label)
-            );
-          }}
           options={allTools}
-          renderOption={(props: object, option: Tool, state: object, ownerState: object) => (
-            <Box sx={{
-              borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-              '&:hover': {
-                background: 'rgba(17, 35, 90, 0.05)',
-              }
-            }}>
-              <Link href={option.path} className='custom-link' onClick={()=>setOpenSearch(false)}>
+          renderOption={(
+            props: object,
+            option: Tool,
+            state: object,
+            ownerState: object
+          ) => (
+            <Box
+              sx={{
+                borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+                '&:hover': {
+                  background: 'rgba(17, 35, 90, 0.05)',
+                },
+              }}
+            >
+              <Link
+                href={option.path}
+                className='custom-link'
+                onClick={() => setOpenSearch(false)}
+              >
                 <ToolCard tool={option} showStar={false} />
               </Link>
             </Box>
@@ -144,7 +180,7 @@ const Header: React.FC<{}> = () => {
           )}
         />
       </Paper>
-    </Stack >
+    </Stack>
   );
 };
 

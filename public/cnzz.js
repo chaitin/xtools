@@ -12,9 +12,9 @@ if (
   cnzzTag.src = 'https://s4.cnzz.com/z.js?id=1281132544&async=1';
   document.head.append(cnzzTag);
 
-  const DOMAIN = location?.hostname?.includes("dev")
-  ? "https://dev.rivers.ctopt.cn"
-  : "https://rivers.chaitin.cn";
+  const DOMAIN = location?.hostname?.includes('dev')
+    ? 'https://dev.rivers.ctopt.cn'
+    : 'https://rivers.chaitin.cn';
   var riverTag = document.createElement('script');
   riverTag.src = DOMAIN + '/main-header.js';
   document.head.append(riverTag);

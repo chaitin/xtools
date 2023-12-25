@@ -71,7 +71,6 @@ const theme = createTheme({
           box-sizing: border-box;
           margin: 0px;
           padding: 0px;
-          font-family: "PingFang SC";
       }
       ::-webkit-scrollbar {
         width: 4px;
