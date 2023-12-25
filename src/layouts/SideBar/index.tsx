@@ -38,7 +38,6 @@ const SideBar: React.FC<{}> = () => {
             href={'/#' + item.name}
             style={{ alignSelf: 'stretch' }}
             className='custom-link'
-            prefetch
           >
             <Button
               sx={{
