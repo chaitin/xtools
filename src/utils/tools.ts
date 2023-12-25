@@ -125,4 +125,11 @@ export const allTools: Tool[] = [
     key: ['16进制查看', '16进制编辑', 'hex 编辑', 'hex 查看'],
     subTitle: 'Hex 16 进制在线查看, 在线编辑工具',
   },
+  {
+    label: '文件格式识别',
+    tags: [Tags.OTHER, Tags.BINARY],
+    path: '/file',
+    key: ['未知文件格式识别', '文件头识别'],
+    subTitle: '根据文件头识别文件格式的小工具',
+  },
 ];
