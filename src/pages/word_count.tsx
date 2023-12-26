@@ -216,7 +216,7 @@ const WordCount: React.FC = () => {
                 setValue(event.target.value);
                 setStatisticians(countWords(event.target.value));
               }}
-              sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+              sx={{ textarea: { fontSize: '14px' } }}
             />
           </Stack>
         </Box>

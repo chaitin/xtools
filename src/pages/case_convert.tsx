@@ -20,7 +20,7 @@ const CaseConvert: React.FC = () => {
               onChange={(event) => {
                 setValue(event.target.value);
               }}
-              sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
             />
           </Stack>
         </Box>
@@ -35,7 +35,7 @@ const CaseConvert: React.FC = () => {
               InputProps={{
                 readOnly: true,
               }}
-              sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
             />
           </Stack>
         </Box>
@@ -50,7 +50,7 @@ const CaseConvert: React.FC = () => {
               InputProps={{
                 readOnly: true,
               }}
-              sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
             />
           </Stack>
         </Box>
