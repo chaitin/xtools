@@ -90,6 +90,13 @@ export const allTools: Tool[] = [
     subTitle: '在线 DES 算法加解密工具。',
   },
   {
+    label: '3DES 加解密',
+    tags: [Tags.ENCRYPT],
+    path: '/3des',
+    key: [],
+    subTitle: '在线 三重DES 算法加解密工具。',
+  },
+  {
     label: 'JSON 转 CSV',
     tags: [Tags.JSON],
     path: '/jsontocsv',
