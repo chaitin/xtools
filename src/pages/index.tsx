@@ -97,7 +97,12 @@ export default function App() {
                     },
                   }}
                 >
-                  <Link href={tool.path} className='custom-link'>
+                  <Link
+                    prefetch={false}
+                    scroll={false}
+                    href={tool.path}
+                    className='custom-link'
+                  >
                     <ToolCard tag={tag} tool={tool} />
                   </Link>
                 </Card>
