@@ -35,21 +35,21 @@ const OutImg = styled('img')({
 const MySpan = styled('span')({});
 
 const wasmImports = {
-  emscripten_memcpy_js() {},
-  abort() {},
-  fd_close() {},
-  __syscall_fstat64() {},
-  __syscall_stat64() {},
-  __syscall_newfstatat() {},
-  environ_sizes_get() {},
-  environ_get() {},
-  fd_read() {},
-  fd_write() {},
-  _tzset_js() {},
-  emscripten_resize_heap() {},
-  fd_seek() {},
-  _mktime_js() {},
-  _localtime_js() {},
+  emscripten_memcpy_js() { },
+  abort() { },
+  fd_close() { },
+  __syscall_fstat64() { },
+  __syscall_stat64() { },
+  __syscall_newfstatat() { },
+  environ_sizes_get() { },
+  environ_get() { },
+  fd_read() { },
+  fd_write() { },
+  _tzset_js() { },
+  emscripten_resize_heap() { },
+  fd_seek() { },
+  _mktime_js() { },
+  _localtime_js() { },
 };
 
 const ImgBase64: React.FC = () => {
@@ -62,7 +62,7 @@ const ImgBase64: React.FC = () => {
   const [data, setData] = useState<ArrayBuffer>(new ArrayBuffer(0));
   const buffer = new Uint8Array(data);
 
-  const matchContent = (arr:ArrayBuffer) => {
+  const matchContent = (arr: ArrayBuffer) => {
     const len = Math.min(arr.byteLength, 10 * 1024);
     return wasm.ccall("detect", "string", ["array", "number"], [new Uint8Array(arr, 0, len), len])
   };
@@ -341,14 +341,14 @@ const ImgBase64: React.FC = () => {
       reader.onload = function (e) {
         if (e.target !== null) {
           setData(e.target.result as ArrayBuffer);
-          setResult(matchContent(e.target.result as ArrayBuffer ));
-          
+          setResult(matchContent(e.target.result as ArrayBuffer));
+
         }
       };
       setFileName(files[0].name)
       setFileSize(files[0].size)
       reader.readAsArrayBuffer(files[0]);
-      
+
 
     },
     []
@@ -389,89 +389,79 @@ const ImgBase64: React.FC = () => {
   }
   return (
     <MainContent>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          fontFamily: 'Mono',
-          mx: 'auto',
-        }}
-      >
-        <Box sx={{ width: '100%' }}>
-          <Button
-            component='label'
-            variant='outlined'
-            sx={{ borderRadius: '3px', height: '40px', width: '100%' }}
-          >
-            {fileName ? "已加载文件 " + fileName : "加载文件"}
-            <VisuallyHiddenInput
-              type='file'
-              onChange={handleSelectFile}
-            />
-          </Button>
-          {fileName ? <Stack spacing={3} sx={{ borderRadius: "3px", marginTop: "30px", fontSize: "14px" }}>
-            <Grid container>
-              <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>文件名</Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{fileName}</Grid>
+      <Box sx={{ width: '100%' }}>
+        <Button
+          component='label'
+          variant='outlined'
+          sx={{ borderRadius: '3px', height: '40px', width: '100%' }}
+        >
+          {fileName ? "已加载文件 " + fileName : "加载文件"}
+          <VisuallyHiddenInput
+            type='file'
+            onChange={handleSelectFile}
+          />
+        </Button>
+        {fileName ? <Stack spacing={3} sx={{ borderRadius: "3px", marginTop: "30px", fontSize: "14px" }}>
+          <Grid container>
+            <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>文件名</Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{fileName}</Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>扩展名</Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{fileName.split('.').pop()?.toUpperCase()} - {matchExtName(fileName.split('.').pop()?.toUpperCase() || '')}</Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>文件大小</Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{fileSize.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Bytes</Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>文件头</Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={10}>
+              <Hex>{toHex(buffer[0])}</Hex>
+              <Hex>{toHex(buffer[1])}</Hex>
+              <Hex>{toHex(buffer[2])}</Hex>
+              <Hex sx={{ marginRight: '10px' }}>{toHex(buffer[3])}</Hex>
+              <Hex>{toHex(buffer[4])}</Hex>
+              <Hex>{toHex(buffer[5])}</Hex>
+              <Hex>{toHex(buffer[6])}</Hex>
+              <Hex sx={{ marginRight: '10px' }}>{toHex(buffer[7])}</Hex>
+              <Hex>{toHex(buffer[8])}</Hex>
+              <Hex>{toHex(buffer[9])}</Hex>
+              <Hex>{toHex(buffer[10])}</Hex>
+              <Hex sx={{ marginRight: '10px' }}>{toHex(buffer[11])}</Hex>
+              <Hex>{toHex(buffer[12])}</Hex>
+              <Hex>{toHex(buffer[13])}</Hex>
+              <Hex>{toHex(buffer[14])}</Hex>
+              <Hex sx={{ marginRight: '30px' }}>{toHex(buffer[15])}</Hex>
+              <Text>{toText(buffer[0])}</Text>
+              <Text>{toText(buffer[1])}</Text>
+              <Text>{toText(buffer[2])}</Text>
+              <Text>{toText(buffer[3])}</Text>
+              <Text>{toText(buffer[4])}</Text>
+              <Text>{toText(buffer[5])}</Text>
+              <Text>{toText(buffer[6])}</Text>
+              <Text>{toText(buffer[7])}</Text>
+              <Text>{toText(buffer[8])}</Text>
+              <Text>{toText(buffer[9])}</Text>
+              <Text>{toText(buffer[10])}</Text>
+              <Text>{toText(buffer[11])}</Text>
+              <Text>{toText(buffer[12])}</Text>
+              <Text>{toText(buffer[13])}</Text>
+              <Text>{toText(buffer[14])}</Text>
+              <Text>{toText(buffer[15])}</Text>
             </Grid>
-            <Grid container>
-              <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>扩展名</Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{fileName.split('.').pop()?.toUpperCase()} - {matchExtName(fileName.split('.').pop()?.toUpperCase() || '')}</Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>文件大小</Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{fileSize.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Bytes</Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>文件头</Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={10}>
-                <Hex>{toHex(buffer[0])}</Hex>
-                <Hex>{toHex(buffer[1])}</Hex>
-                <Hex>{toHex(buffer[2])}</Hex>
-                <Hex sx={{ marginRight: '10px' }}>{toHex(buffer[3])}</Hex>
-                <Hex>{toHex(buffer[4])}</Hex>
-                <Hex>{toHex(buffer[5])}</Hex>
-                <Hex>{toHex(buffer[6])}</Hex>
-                <Hex sx={{ marginRight: '10px' }}>{toHex(buffer[7])}</Hex>
-                <Hex>{toHex(buffer[8])}</Hex>
-                <Hex>{toHex(buffer[9])}</Hex>
-                <Hex>{toHex(buffer[10])}</Hex>
-                <Hex sx={{ marginRight: '10px' }}>{toHex(buffer[11])}</Hex>
-                <Hex>{toHex(buffer[12])}</Hex>
-                <Hex>{toHex(buffer[13])}</Hex>
-                <Hex>{toHex(buffer[14])}</Hex>
-                <Hex sx={{ marginRight: '30px' }}>{toHex(buffer[15])}</Hex>
-                <Text>{toText(buffer[0])}</Text>
-                <Text>{toText(buffer[1])}</Text>
-                <Text>{toText(buffer[2])}</Text>
-                <Text>{toText(buffer[3])}</Text>
-                <Text>{toText(buffer[4])}</Text>
-                <Text>{toText(buffer[5])}</Text>
-                <Text>{toText(buffer[6])}</Text>
-                <Text>{toText(buffer[7])}</Text>
-                <Text>{toText(buffer[8])}</Text>
-                <Text>{toText(buffer[9])}</Text>
-                <Text>{toText(buffer[10])}</Text>
-                <Text>{toText(buffer[11])}</Text>
-                <Text>{toText(buffer[12])}</Text>
-                <Text>{toText(buffer[13])}</Text>
-                <Text>{toText(buffer[14])}</Text>
-                <Text>{toText(buffer[15])}</Text>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>内容格式</Grid>
-              <Grid item xs={1}></Grid>
-              <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{result}</Grid>
-            </Grid>
-          </Stack> : <></>}
-        </Box>
-      </Stack>
+          </Grid>
+          <Grid container>
+            <Grid item xs={1} sx={{ color: "rgba(0,0,0,0.5)", textAlign: "right" }}>内容格式</Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={10} sx={{ color: "rgb(0,0,0)", fontFamily: "Mono" }}>{result}</Grid>
+          </Grid>
+        </Stack> : <></>}
+      </Box>
     </MainContent>
   );
 };

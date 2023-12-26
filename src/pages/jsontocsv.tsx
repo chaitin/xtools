@@ -184,9 +184,7 @@ const JSONToCSV = () => {
       <Stack sx={{
         mt: "24px",
         gap: "18px",
-        maxWidth: "1020px",
         fontFamily: "Mono",
-        mx: 'auto',
         ".rc-table": {
           border: '1px solid #eee',
           borderRadius: '4px',
@@ -224,7 +222,7 @@ const JSONToCSV = () => {
           style={{
             width: '100%',
             borderRadius: '4px',
-            height: 'calc(100vh - 559px)',
+            height: 'calc(100vh - 560px)',
           }}
           value={json}
           mode="json"
