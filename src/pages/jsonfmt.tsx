@@ -1,5 +1,5 @@
 import alert from '@/components/Alert';
-import MenuView from "@/components/MenuView";
+import MenuView from "@/components/MainContent";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,

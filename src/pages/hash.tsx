@@ -6,21 +6,23 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import TextField from '@mui/material/TextField';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 const Hash: React.FC = () => {
   const [src, setSrc] = useState<string>('');
 
-  const methods = [
-    'MD5 - 16 位',
-    'MD5 - 32 位',
-    'SHA1',
-    'SHA224',
-    'SHA256',
-    'SHA3',
-    'SHA384',
-    'SHA512',
-  ];
+  const methods = useMemo(() => {
+    return [
+      'MD5 - 16 位',
+      'MD5 - 32 位',
+      'SHA1',
+      'SHA224',
+      'SHA256',
+      'SHA3',
+      'SHA384',
+      'SHA512',
+    ]
+  }, []);
 
   const [values] = useState(
     methods.map((name) => {
@@ -56,7 +58,7 @@ const Hash: React.FC = () => {
       values[methods.indexOf(name)].value = value;
       return value;
     },
-    [values]
+    [values, methods]
   );
 
   const onSrcChange = useCallback(

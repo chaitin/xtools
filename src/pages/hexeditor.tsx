@@ -1,8 +1,8 @@
-import MenuView from '@/components/MenuView';
-import { Box, Button, Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Stack, Tab, TextField, Snackbar } from '@mui/material';
+import MainContent from '@/components/MainContent';
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, Stack } from '@mui/material';
 
-import React, { useCallback, useState } from 'react';
 import { styled } from '@mui/material/styles';
+import React, { useCallback, useMemo, useState } from 'react';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -23,10 +23,10 @@ const Span = styled('span')({
 const LineNo = styled('span')({
   fontFamily: 'Mono',
   fontSize: '14px',
-  color: 'rgba(0,0,0,0.9)', 
+  color: 'rgba(0,0,0,0.9)',
   height: '32px',
   lineHeight: '32px',
-  backgroundColor: 'rgb(222, 222, 222)', 
+  backgroundColor: 'rgb(222, 222, 222)',
   paddingTop: '8px',
   paddingBottom: '8px',
   paddingLeft: '10px',
@@ -83,16 +83,16 @@ const HexEditor: React.FC = () => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [editID, setEditID] = useState<number>(-1);
   const [editByte, setEditByte] = useState<string>('00');
-  const buffer = new Uint8Array(data);
+  const buffer = useMemo(() => new Uint8Array(data), [data]);
   const [fileName, setFileName] = useState<string>();
 
   const handleMouseEnter = (x: number) => {
-    return (event:React.MouseEvent<HTMLElement>) => {
+    return (event: React.MouseEvent<HTMLElement>) => {
       setHoverID(x);
     };
   }
 
-  const handleMouseOut = (event:React.MouseEvent<HTMLElement>) => {
+  const handleMouseOut = (event: React.MouseEvent<HTMLElement>) => {
     setHoverID(-1);
   }
 
@@ -100,15 +100,15 @@ const HexEditor: React.FC = () => {
     if (x < 0 || x >= buffer.length) {
       return <Hex sx={{ color: 'rgba(0,0,0,0.1)' }}>--</Hex>
     }
-    return <Hex 
-      onClick={handleHexClick(x)} 
-      onMouseEnter={handleMouseEnter(x)} 
-      onMouseOut={handleMouseOut} 
+    return <Hex
+      onClick={handleHexClick(x)}
+      onMouseEnter={handleMouseEnter(x)}
+      onMouseOut={handleMouseOut}
       sx={x === hoverID ? { color: 'rgb(0,0,0)', backgroundColor: 'rgba(52, 90, 255, 0.2)' } : {}}>
-        {('00' + buffer[x].toString(16)).slice(-2)}
+      {('00' + buffer[x].toString(16)).slice(-2)}
     </Hex>
-  } 
-  
+  }
+
   const getText = (x: number) => {
     if (x < 0 || x >= buffer.length) {
       return <Text sx={{ color: 'rgba(0,0,0,0.1)' }}>-</Text>
@@ -143,12 +143,12 @@ const HexEditor: React.FC = () => {
   );
 
   const handleHexClick = useCallback((x: number) => {
-      return (event:React.MouseEvent<HTMLElement>) => {
-        setEditID(x);
-        setEdit(true);
-        setEditByte(('00' + buffer[x].toString(16)).slice(-2));
-      };
-    },
+    return (event: React.MouseEvent<HTMLElement>) => {
+      setEditID(x);
+      setEdit(true);
+      setEditByte(('00' + buffer[x].toString(16)).slice(-2));
+    };
+  },
     [buffer]
   );
 
@@ -160,52 +160,52 @@ const HexEditor: React.FC = () => {
     [buffer, editID, editByte]
   );
 
-  const handleEditClose = (event:React.MouseEvent<HTMLElement>) => {
+  const handleEditClose = (event: React.MouseEvent<HTMLElement>) => {
     setEdit(false);
   }
 
   const editor = Array(Math.ceil((buffer.length) / 16)).fill(0).map((_, x) => {
     return <Box key={x} sx={{ height: '32px' }}>
-        <LineNo>
-          {('00000000' + (x * 0x10).toString(16)).slice(-8)}
-        </LineNo>
-        {getHex(x * 0x10 + 0x00)}
-        {getHex(x * 0x10 + 0x01)}
-        {getHex(x * 0x10 + 0x02)}
-        {getHex(x * 0x10 + 0x03)}
-        {getHex(x * 0x10 + 0x04)}
-        {getHex(x * 0x10 + 0x05)}
-        {getHex(x * 0x10 + 0x06)}
-        {getHex(x * 0x10 + 0x07)}
-        <Span sx={{ marginRight: '20px' }}></Span>
-        {getHex(x * 0x10 + 0x08)}
-        {getHex(x * 0x10 + 0x09)}
-        {getHex(x * 0x10 + 0x0a)}
-        {getHex(x * 0x10 + 0x0b)}
-        {getHex(x * 0x10 + 0x0c)}
-        {getHex(x * 0x10 + 0x0d)}
-        {getHex(x * 0x10 + 0x0e)}
-        {getHex(x * 0x10 + 0x0f)}
-        
-        <Span sx={{ marginRight: '50px' }}></Span>
-        {getText(x * 0x10 + 0x00)}
-        {getText(x * 0x10 + 0x01)}
-        {getText(x * 0x10 + 0x02)}
-        {getText(x * 0x10 + 0x03)}
-        {getText(x * 0x10 + 0x04)}
-        {getText(x * 0x10 + 0x05)}
-        {getText(x * 0x10 + 0x06)}
-        {getText(x * 0x10 + 0x07)}
-        {getText(x * 0x10 + 0x08)}
-        {getText(x * 0x10 + 0x09)}
-        {getText(x * 0x10 + 0x0a)}
-        {getText(x * 0x10 + 0x0b)}
-        {getText(x * 0x10 + 0x0c)}
-        {getText(x * 0x10 + 0x0d)}
-        {getText(x * 0x10 + 0x0e)}
-        {getText(x * 0x10 + 0x0f)}
+      <LineNo>
+        {('00000000' + (x * 0x10).toString(16)).slice(-8)}
+      </LineNo>
+      {getHex(x * 0x10 + 0x00)}
+      {getHex(x * 0x10 + 0x01)}
+      {getHex(x * 0x10 + 0x02)}
+      {getHex(x * 0x10 + 0x03)}
+      {getHex(x * 0x10 + 0x04)}
+      {getHex(x * 0x10 + 0x05)}
+      {getHex(x * 0x10 + 0x06)}
+      {getHex(x * 0x10 + 0x07)}
+      <Span sx={{ marginRight: '20px' }}></Span>
+      {getHex(x * 0x10 + 0x08)}
+      {getHex(x * 0x10 + 0x09)}
+      {getHex(x * 0x10 + 0x0a)}
+      {getHex(x * 0x10 + 0x0b)}
+      {getHex(x * 0x10 + 0x0c)}
+      {getHex(x * 0x10 + 0x0d)}
+      {getHex(x * 0x10 + 0x0e)}
+      {getHex(x * 0x10 + 0x0f)}
+
+      <Span sx={{ marginRight: '50px' }}></Span>
+      {getText(x * 0x10 + 0x00)}
+      {getText(x * 0x10 + 0x01)}
+      {getText(x * 0x10 + 0x02)}
+      {getText(x * 0x10 + 0x03)}
+      {getText(x * 0x10 + 0x04)}
+      {getText(x * 0x10 + 0x05)}
+      {getText(x * 0x10 + 0x06)}
+      {getText(x * 0x10 + 0x07)}
+      {getText(x * 0x10 + 0x08)}
+      {getText(x * 0x10 + 0x09)}
+      {getText(x * 0x10 + 0x0a)}
+      {getText(x * 0x10 + 0x0b)}
+      {getText(x * 0x10 + 0x0c)}
+      {getText(x * 0x10 + 0x0d)}
+      {getText(x * 0x10 + 0x0e)}
+      {getText(x * 0x10 + 0x0f)}
     </Box>
-  }) 
+  })
 
   const onEditByteChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,7 +219,7 @@ const HexEditor: React.FC = () => {
   };
 
   return (
-    <MenuView>
+    <MainContent>
       <Stack
         sx={{
           mt: '24px',
@@ -249,7 +249,7 @@ const HexEditor: React.FC = () => {
         </Box>
         <Snackbar open={showMessage} autoHideDuration={6000} onClose={handleMessageClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
           <Alert variant="outlined" severity="error" sx={{ width: '100%' }}>
-          暂不支持处理超过 1MB 的文件
+            暂不支持处理超过 1MB 的文件
           </Alert>
         </Snackbar>
         <Dialog open={edit} onClose={handleEditClose}>
@@ -262,8 +262,8 @@ const HexEditor: React.FC = () => {
             <Button onClick={handleEditCommit}>确认</Button>
           </DialogActions>
         </Dialog>
-      </Stack>      
-    </MenuView>
+      </Stack>
+    </MainContent>
   );
 };
 
