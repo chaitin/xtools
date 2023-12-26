@@ -27,6 +27,7 @@
 - [JSON 转 CSV](https://rivers.chaitin.cn/tools/jsontocsv)
 - [随机数/密码生成](https://rivers.chaitin.cn/tools/random)
 - [图片去色](https://rivers.chaitin.cn/tools/uncolor)
+- [Leet转换器](https://rivers.chaitin.cn/tools/leet_convert)
 
 ## 快速使用
 

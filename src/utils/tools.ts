@@ -174,4 +174,11 @@ export const allTools: Tool[] = [
     key: ['xss payload', 'XSS', 'XSS 攻击', 'XSS 代码'],
     subTitle: '自动生成 XSS Payload',
   },
+  {
+    label: 'Leet 转换器',
+    tags: [Tags.OTHER, Tags.TEXT],
+    path: '/leet_convert',
+    key: [],
+    subTitle: '输入普通文本，转换为 Leet 文本',
+  },
 ];
