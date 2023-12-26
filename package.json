@@ -11,18 +11,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && prettier --write --ignore-path .gitignore .",
+    "lint": "tsc --project ./ && next lint && prettier --write",
     "prepare": "husky install"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "pre-push": "npm run lint"
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
     }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": "npm run lint --fix"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
