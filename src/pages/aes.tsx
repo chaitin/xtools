@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import {
@@ -188,7 +188,7 @@ const AES: React.FC = () => {
   );
 
   return (
-    <MenuView>
+    <MainContent>
       <>
         <TabContext value={method}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -348,7 +348,7 @@ const AES: React.FC = () => {
           sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
         />
       </>
-    </MenuView>
+    </MainContent>
   );
 };
 

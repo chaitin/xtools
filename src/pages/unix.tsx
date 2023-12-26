@@ -1,6 +1,6 @@
 import sunglasses from '@/asset/tools/sunglasses.png';
 import alert from '@/components/Alert';
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import {
   SecondUnitBtn,
   ToolsForm,
@@ -207,6 +207,7 @@ const Unix: React.FC = () => {
       if (outUnit === Unit.second) setOutUnix(parseInt('' + outUnix / 1000));
       else setOutUnix(outUnix * 1000);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [outUnit]);
 
   const checkCode = useCallback(
@@ -226,7 +227,7 @@ const Unix: React.FC = () => {
   );
 
   return (
-    <MenuView>
+    <MainContent>
       <>
         <ToolsForm
           sx={{
@@ -481,7 +482,7 @@ const Unix: React.FC = () => {
           </Box>
         </Stack>
       </>
-    </MenuView>
+    </MainContent>
   );
 };
 

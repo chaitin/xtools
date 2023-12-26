@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import {
   Grid,
   Table,
@@ -104,11 +104,11 @@ const Hash: React.FC = () => {
     });
 
   return (
-    <MenuView>
+    <MainContent>
       <Grid container spacing={1}>
         {tables}
       </Grid>
-    </MenuView>
+    </MainContent>
   );
 };
 

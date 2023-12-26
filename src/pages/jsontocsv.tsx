@@ -1,6 +1,6 @@
 import alert from '@/components/Alert';
 import CusTabs from '@/components/CusTabs';
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { useCSV } from '@/hooks';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Box, Button, Divider, Stack, Switch, TextField } from '@mui/material';
@@ -129,7 +129,7 @@ const JSONToCSV = () => {
   }, [json]);
 
   return (
-    <MenuView>
+    <MainContent>
       <Stack
         sx={{
           '.rc-table': {
@@ -380,7 +380,7 @@ const JSONToCSV = () => {
           onChange={handleFileChange}
         />
       </Stack>
-    </MenuView>
+    </MainContent>
   );
 };
 

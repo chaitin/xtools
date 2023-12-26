@@ -13,6 +13,7 @@ const SideBar: React.FC<{}> = () => {
   useEffect(() => {
     if (linkAnchor) setLinkAnchor(false)
     else setChectAnchor(anchor);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor]);
   return (
     <Paper

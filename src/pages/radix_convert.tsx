@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { Box, Stack, Typography } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -139,7 +139,7 @@ const RadixConvert: React.FC = () => {
   });
 
   return (
-    <MenuView>
+    <MainContent>
       <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Typography variant='subtitle2'>常用进制</Typography>
@@ -154,7 +154,7 @@ const RadixConvert: React.FC = () => {
           </Stack>
         </Box>
       </>
-    </MenuView>
+    </MainContent>
   );
 };
 

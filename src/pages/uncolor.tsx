@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { Box, Button, Stack } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
@@ -89,7 +89,7 @@ const ImgBase64: React.FC = () => {
   );
 
   return (
-    <MenuView>
+    <MainContent>
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <Stack spacing={1} sx={{ color: '#FF1844' }}>
           <Button
@@ -104,7 +104,7 @@ const ImgBase64: React.FC = () => {
           <OutImg src={uncolorOut} />
         </Stack>
       </Box>
-    </MenuView>
+    </MainContent>
   );
 };
 

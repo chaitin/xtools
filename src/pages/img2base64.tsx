@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { Box, Button, Stack, Tab } from '@mui/material';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
@@ -83,7 +83,7 @@ const ImgBase64: React.FC = () => {
   };
 
   return (
-    <MenuView>
+    <MainContent>
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={tabValue}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -163,7 +163,7 @@ const ImgBase64: React.FC = () => {
           </TabPanel>
         </TabContext>
       </Box>
-    </MenuView>
+    </MainContent>
   );
 };
 

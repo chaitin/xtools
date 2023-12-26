@@ -1,5 +1,5 @@
-import MenuView from '@/components/MenuView';
-import { Box, Button, Grid, Stack, Tab } from '@mui/material';
+import MainContent from '@/components/MainContent';
+import { Box, Button, Grid, Stack } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 
@@ -351,7 +351,7 @@ const ImgBase64: React.FC = () => {
       
 
     },
-    [data]
+    []
   );
 
   const Hex = styled('span')({
@@ -388,7 +388,7 @@ const ImgBase64: React.FC = () => {
     }
   }
   return (
-    <MenuView>
+    <MainContent>
       <Stack
         sx={{
           mt: '24px',
@@ -472,7 +472,7 @@ const ImgBase64: React.FC = () => {
           </Stack> : <></>}
         </Box>
       </Stack>
-    </MenuView>
+    </MainContent>
   );
 };
 
