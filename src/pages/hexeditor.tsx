@@ -220,15 +220,7 @@ const HexEditor: React.FC = () => {
 
   return (
     <MainContent>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          fontFamily: 'Mono',
-          mx: 'auto',
-        }}
-      >
+      <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Stack spacing={1} sx={{ color: '#FF1844' }}>
             <Button
@@ -262,7 +254,7 @@ const HexEditor: React.FC = () => {
             <Button onClick={handleEditCommit}>确认</Button>
           </DialogActions>
         </Dialog>
-      </Stack>
+      </>
     </MainContent>
   );
 };
