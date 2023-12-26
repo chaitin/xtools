@@ -1,5 +1,5 @@
 import { Box, Card, Paper, Stack, Typography } from '@mui/material';
-
+import { useLocalStorageState } from 'ahooks';
 import { LikeContext } from '@/hooks/useLikeList';
 import { Tag, Tags, allTags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
@@ -15,6 +15,10 @@ interface TagWithTool extends Tag {
   tools: Tool[];
 }
 export default function App() {
+  const [scrollTop, setScrollTop] = useLocalStorageState<number>(
+    'home_scrollTop',
+    { defaultValue: 0 }
+  );
   const { updateAnchor } = useContext(AnchorContext);
   const { likeList } = useContext(LikeContext);
   const [tagAndTools, setTagAndTools] = useState<TagWithTool[] | null>(null);
@@ -27,7 +31,7 @@ export default function App() {
       for (let liElement of mainPageRef?.current.children) {
         const liTop = liElement.offsetTop;
         const liBottom = liTop + liElement.offsetHeight;
-
+        setScrollTop(scrollPosition);
         if (scrollPosition >= liTop - 150 && scrollPosition < liBottom - 100) {
           const liId = liElement.getAttribute('id');
           updateAnchor(liId);
@@ -60,6 +64,12 @@ export default function App() {
       })
     );
   }, [likeList]);
+
+  useEffect(() => {
+    if (mainPageRef.current) {
+      mainPageRef.current?.scrollTo({ top: scrollTop });
+    }
+  }, [mainPageRef.current]);
 
   return (
     <Paper

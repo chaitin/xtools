@@ -30,6 +30,7 @@ const SideBar: React.FC<{}> = () => {
       <Stack alignItems='center' sx={{ py: 1 }}>
         {allTags.map((item) => (
           <Link
+            scroll={false}
             key={item.name}
             shallow
             onClick={() => {
