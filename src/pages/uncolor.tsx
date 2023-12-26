@@ -73,7 +73,7 @@ const ImgBase64: React.FC = () => {
             imgArrData.data[i] =
               imgArrData.data[i + 1] =
               imgArrData.data[i + 2] =
-              avg;
+                avg;
           }
           console.log(imgArrData);
           ctx.putImageData(imgArrData, 0, 0);

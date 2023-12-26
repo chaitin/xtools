@@ -54,6 +54,13 @@ export const allTools: Tool[] = [
     subTitle: '大小写转换小工具，支持大写、小写、首字母大写、大小写互转等。',
   },
   {
+    label: '中英文加空格',
+    tags: [Tags.TEXT],
+    path: '/cn_space_en',
+    key: [],
+    subTitle: '中英文之间加空格小工具。',
+  },
+  {
     label: 'Unix 时间戳转换',
     tags: [Tags.DEV, Tags.HOT],
     path: '/unix',
@@ -83,6 +90,20 @@ export const allTools: Tool[] = [
     subTitle: '在线 AES 算法加解密工具。',
   },
   {
+    label: 'DES 加解密',
+    tags: [Tags.ENCRYPT],
+    path: '/des',
+    key: [],
+    subTitle: '在线 DES 算法加解密工具。',
+  },
+  {
+    label: '3DES 加解密',
+    tags: [Tags.ENCRYPT],
+    path: '/3des',
+    key: [],
+    subTitle: '在线 三重DES 算法加解密工具。',
+  },
+  {
     label: 'JSON 转 CSV',
     tags: [Tags.JSON],
     path: '/jsontocsv',
@@ -108,7 +129,8 @@ export const allTools: Tool[] = [
     tags: [Tags.OTHER],
     path: '/color_convert',
     key: [],
-    subTitle: '无论你是开发者、设计师还是普通用户，当你需要在不同的颜色表示格式之间进行转换时，这个小工具将会非常有用。',
+    subTitle:
+      '无论你是开发者、设计师还是普通用户，当你需要在不同的颜色表示格式之间进行转换时，这个小工具将会非常有用。',
   },
   {
     label: '图片去色',

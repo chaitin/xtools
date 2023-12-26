@@ -2,14 +2,26 @@ import alert from '@/components/Alert';
 import FormItem from '@/components/FormItem';
 import MainContent from '@/components/MainContent';
 import { ToolsForm } from '@/components/Tools';
-import { Box, Button, OutlinedInput, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  OutlinedInput,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-
 interface ColorConversionResult {
-  rgb: string
+  rgb: string;
   rgba: string;
   hsl: string;
   hex: string;
@@ -19,8 +31,10 @@ function rgbaToHsl(rgbaValues: number[]): string {
   const g = rgbaValues[1] / 255;
   const b = rgbaValues[2] / 255;
 
-  let max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h = 0, s = 0
+  let max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  let h = 0,
+    s = 0;
   let l = (max + min) / 2;
   if (max !== min) {
     let d = max - min;
@@ -38,14 +52,23 @@ function rgbaToHsl(rgbaValues: number[]): string {
     }
     h /= 6;
   }
-  return 'hsl(' + Math.round(h * 360) + ',' + Math.round(s * 100) + "%" + ',' + Math.round(l * 100) + "%" + ')';
-
+  return (
+    'hsl(' +
+    Math.round(h * 360) +
+    ',' +
+    Math.round(s * 100) +
+    '%' +
+    ',' +
+    Math.round(l * 100) +
+    '%' +
+    ')'
+  );
 }
 
 function rgbaToHex(rgbaValues: number[]): string {
-  const r = Math.round(rgbaValues[0]).toString(16).padStart(2, "0");
-  const g = Math.round(rgbaValues[1]).toString(16).padStart(2, "0");
-  const b = Math.round(rgbaValues[2]).toString(16).padStart(2, "0");
+  const r = Math.round(rgbaValues[0]).toString(16).padStart(2, '0');
+  const g = Math.round(rgbaValues[1]).toString(16).padStart(2, '0');
+  const b = Math.round(rgbaValues[2]).toString(16).padStart(2, '0');
 
   return `#${r}${g}${b}`;
 }
@@ -86,15 +109,17 @@ function hslToHex(hslValues: number[]) {
 
 // HEX转换为RGBA
 function hexToRgba(hex: string) {
-  const hexValues = hex.replace("#", "").match(/.{1,2}/g);
+  const hexValues = hex.replace('#', '').match(/.{1,2}/g);
   try {
-    const rgbaValues = hexValues?.map(value => parseInt(value, 16));
-    if (!rgbaValues) throw Error('')
-    return `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, ${(rgbaValues[3] || 255) / 255})`;
+    const rgbaValues = hexValues?.map((value) => parseInt(value, 16));
+    if (!rgbaValues) throw Error('');
+    return `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, ${
+      (rgbaValues[3] || 255) / 255
+    })`;
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-  return 'no valid string'
+  return 'no valid string';
 }
 
 // HEX转换为HSL
@@ -105,7 +130,10 @@ function hexToHsl(hex: string) {
 
 // 解析RGBA值
 function parseRgbaValues(rgba: string) {
-  const rgbaValues = rgba.substring(5, rgba.length - 1).split(",").map(value => parseInt(value));
+  const rgbaValues = rgba
+    .substring(5, rgba.length - 1)
+    .split(',')
+    .map((value) => parseInt(value));
   return rgbaValues;
 }
 
@@ -144,9 +172,12 @@ function rgbaTrans(color: string): string {
 function convertColor(colorString: string): ColorConversionResult | string {
   colorString = colorString.toLowerCase().trim();
 
-  if (colorString.startsWith("rgba")) {
-    const rgbaValues = colorString.substring(5, colorString.length - 1).split(",").map(value => parseFloat(value));
-    const rgba = `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, ${rgbaValues[3]})`
+  if (colorString.startsWith('rgba')) {
+    const rgbaValues = colorString
+      .substring(5, colorString.length - 1)
+      .split(',')
+      .map((value) => parseFloat(value));
+    const rgba = `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, ${rgbaValues[3]})`;
     return {
       rgb: rgbaTrans(rgba),
       rgba,
@@ -155,9 +186,12 @@ function convertColor(colorString: string): ColorConversionResult | string {
     };
   }
 
-  if (colorString.startsWith("hsl")) {
-    const hslValues = colorString.substring(4, colorString.length - 1).split(",").map(value => parseFloat(value));
-    const rgba = hslToRgba(hslValues)
+  if (colorString.startsWith('hsl')) {
+    const hslValues = colorString
+      .substring(4, colorString.length - 1)
+      .split(',')
+      .map((value) => parseFloat(value));
+    const rgba = hslToRgba(hslValues);
     return {
       rgb: rgbaTrans(rgba),
       rgba,
@@ -166,8 +200,8 @@ function convertColor(colorString: string): ColorConversionResult | string {
     };
   }
 
-  if (colorString.startsWith("#")) {
-    const rgba = hexToRgba(colorString)
+  if (colorString.startsWith('#')) {
+    const rgba = hexToRgba(colorString);
     return {
       rgb: rgbaTrans(rgba),
       rgba,
@@ -176,7 +210,7 @@ function convertColor(colorString: string): ColorConversionResult | string {
     };
   }
 
-  return "请输入正确的色值";
+  return '请输入正确的色值';
 }
 
 const ColorConvert: React.FC = () => {
@@ -186,13 +220,13 @@ const ColorConvert: React.FC = () => {
     rgba: 'rgba(51, 51, 51, 1)',
     hsl: 'hsl(0, 0%, 20%)',
     hex: '#333333',
-  })
+  });
 
   const generateColor = () => {
-    const res = convertColor(colorStr)
+    const res = convertColor(colorStr);
     if (typeof res === 'string') alert.warning(res);
-    else setResult(res)
-  }
+    else setResult(res);
+  };
   return (
     <MainContent>
       <ToolsForm sx={{ width: '100%' }}>
@@ -215,7 +249,7 @@ const ColorConvert: React.FC = () => {
                 maxWidth: '100px',
                 borderRadius: '4px',
                 ml: 'auto',
-                height: '28px'
+                height: '28px',
               }}
               color='primary'
               variant='contained'
@@ -226,12 +260,12 @@ const ColorConvert: React.FC = () => {
           </Stack>
         </FormItem>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
             <TableHead>
               <TableRow>
                 <TableCell>预览颜色</TableCell>
-                <TableCell align="right">格式</TableCell>
-                <TableCell align="right">转换结果</TableCell>
+                <TableCell align='right'>格式</TableCell>
+                <TableCell align='right'>转换结果</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -240,12 +274,21 @@ const ColorConvert: React.FC = () => {
                   key={key}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    <Box sx={{ width: '100%', height: '22px', bgcolor: (result as any)[key] }}></Box>
+                  <TableCell component='th' scope='row'>
+                    <Box
+                      sx={{
+                        width: '100%',
+                        height: '22px',
+                        bgcolor: (result as any)[key],
+                      }}
+                    ></Box>
                   </TableCell>
-                  <TableCell align="right">{key}</TableCell>
-                  <TableCell align="right" sx={{ cursor: 'pointer' }}>
-                    <CopyToClipboard text={(result as any)[key]} onCopy={() => alert.success('复制成功')}>
+                  <TableCell align='right'>{key}</TableCell>
+                  <TableCell align='right' sx={{ cursor: 'pointer' }}>
+                    <CopyToClipboard
+                      text={(result as any)[key]}
+                      onCopy={() => alert.success('复制成功')}
+                    >
                       <span>{(result as any)[key]}</span>
                     </CopyToClipboard>
                   </TableCell>
@@ -254,7 +297,10 @@ const ColorConvert: React.FC = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Link href='https://mui.com/material-ui/customization/color/' target='_blank'>
+        <Link
+          href='https://mui.com/material-ui/customization/color/'
+          target='_blank'
+        >
           <Typography sx={{ mb: 1 }} variant='subtitle2'>
             MUI 官方配色表
           </Typography>
@@ -264,4 +310,4 @@ const ColorConvert: React.FC = () => {
   );
 };
 
-export default ColorConvert
+export default ColorConvert;
