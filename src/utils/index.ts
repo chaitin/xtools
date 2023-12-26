@@ -6,8 +6,7 @@ export function getExcelCellWidth(value: string = '') {
     const otherLen = value.length - cLen;
     const length = cLen * 2.5 + otherLen * 1.1;
     return length < 15 ? 15 : length;
-  }
-  ``;
+  };
   const length = value.toString().length * 1.1;
   return length < 15 ? 15 : length;
 }
@@ -17,11 +16,11 @@ export function getRCTableCellWidth(value: string = '') {
     // @ts-ignore
     const cLen = value!.match(/[\u4e00-\u9fa5]/g).length;
     const otherLen = value.length - cLen;
-    const length = cLen * 14.5 + otherLen * 9;
+    const length = cLen * 27 + otherLen * 9 + 10;
     return length < 40 ? 40 : length;
   }
   ``;
-  const length = value.toString().length * 9;
+  const length = value.toString().length * 9 + 10;
   return length < 40 ? 40 : length;
 }
 export function setCellWidthInExcel(data: any[]) {

@@ -222,7 +222,7 @@ const JSONToCSV = () => {
           style={{
             width: '100%',
             borderRadius: '4px',
-            height: 'calc(100vh - 560px)',
+            height: '470px',
           }}
           value={json}
           mode="json"
@@ -291,13 +291,11 @@ const JSONToCSV = () => {
               textarea: { paddingRight: "35px" },
               borderRadius: '4px',
               border: '1px solid #eee',
-              height: '200px',
-              overflow: 'hidden',
               p: 2,
             }}
           >
             {error && json !== '' ? <Box sx={{ color: "error.main", fontSize: "12px" }}>{error}</Box>
-              : <Box sx={{ fontFamily: "Mono", width: 'calc(100% - 32px)', height: 'calc(200px - 32px)', overflow: 'scroll', whiteSpace: 'pre' }}>{csv}</Box>}
+              : <Box sx={{ fontFamily: "Mono", width: 'calc(100% - 32px)', overflow: 'scroll', whiteSpace: 'pre' }}>{csv}</Box>}
           </Box>
           <CopyToClipboard
             text={csv}
@@ -328,7 +326,6 @@ const JSONToCSV = () => {
           data={pres}
           rowKey="key"
           scroll={pres.length === 0 ? {} : {
-            y: 170,
             x: widths.reduce((a, b) => a + b, 0)
           }}
           emptyText={<Box sx={{ textAlign: 'center', color: error ? 'red' : '#999', fontSize: '12px' }}>{error || '暂无数据'}</Box>}
