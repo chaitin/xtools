@@ -50,14 +50,6 @@ function rgbaToHex(rgbaValues: number[]): string {
   return `#${r}${g}${b}`;
 }
 
-function rgbaToArgb(rgbaValues: number[]): string {
-  const a = Math.round(rgbaValues[3] * 255).toString(16).padStart(2, "0");
-  const r = Math.round(rgbaValues[0]).toString(16).padStart(2, "0");
-  const g = Math.round(rgbaValues[1]).toString(16).padStart(2, "0");
-  const b = Math.round(rgbaValues[2]).toString(16).padStart(2, "0");
-
-  return `#${a}${r}${g}${b}`;
-}
 function hslToRgba(hslValues: number[]): string {
   const h = hslValues[0] / 360;
   const s = hslValues[1] / 100;
@@ -98,7 +90,7 @@ function hexToRgba(hex: string) {
   try {
     const rgbaValues = hexValues?.map(value => parseInt(value, 16));
     if (!rgbaValues) throw Error('')
-    return `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, 1)`;
+    return `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, ${(rgbaValues[3] || 255) / 255})`;
   } catch (e) {
     console.log(e)
   }
@@ -203,72 +195,71 @@ const ColorConvert: React.FC = () => {
   }
   return (
     <MenuView>
-      <>
-        <ToolsForm sx={{ width: '100%' }}>
-          <FormItem label='颜色值'>
-            <Stack direction='row' spacing={2} alignItems='baseline'>
-              <OutlinedInput
-                required
-                type='string'
-                size='small'
-                value={colorStr}
-                placeholder='#707B7C #AAF7DC6F rgb(72,201,176) rgba(241,148,138,0.5) hsl(204,70%,63%)'
-                onChange={(event) => setColorStr(event.target.value)}
-                margin='dense'
-                sx={{ width: '615px' }}
-              />
-              <Button
-                size='small'
-                sx={{
-                  fontSize: '14px',
-                  maxWidth: '100px',
-                  borderRadius: '4px',
-                  ml: 'auto',
-                }}
-                color='primary'
-                variant='contained'
-                onClick={generateColor}
-              >
-                立即生成
-              </Button>
-            </Stack>
-          </FormItem>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>预览颜色</TableCell>
-                  <TableCell align="right">格式</TableCell>
-                  <TableCell align="right">转换结果</TableCell>
+      <ToolsForm sx={{ width: '100%' }}>
+        <FormItem label='颜色值' singleLine>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <OutlinedInput
+              required
+              type='string'
+              size='small'
+              value={colorStr}
+              placeholder='请输入颜色值，例如：#333333、rgba(0,0,0,1)等'
+              onChange={(event) => setColorStr(event.target.value)}
+              margin='dense'
+              sx={{ width: '615px' }}
+            />
+            <Button
+              size='small'
+              sx={{
+                fontSize: '14px',
+                maxWidth: '100px',
+                borderRadius: '4px',
+                ml: 'auto',
+                height: '28px'
+              }}
+              color='primary'
+              variant='contained'
+              onClick={generateColor}
+            >
+              立即生成
+            </Button>
+          </Stack>
+        </FormItem>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>预览颜色</TableCell>
+                <TableCell align="right">格式</TableCell>
+                <TableCell align="right">转换结果</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(result).map((key) => (
+                <TableRow
+                  key={key}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    <Box sx={{ width: '100%', height: '22px', bgcolor: (result as any)[key] }}></Box>
+                  </TableCell>
+                  <TableCell align="right">{key}</TableCell>
+                  <TableCell align="right" sx={{ cursor: 'pointer' }}>
+                    <CopyToClipboard text={(result as any)[key]} onCopy={() => alert.success('复制成功')}>
+                      <span>{(result as any)[key]}</span>
+                    </CopyToClipboard>
+                  </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {Object.keys(result).map((key) => (
-                  <TableRow
-                    key={key}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      <Box sx={{ width: '100%', height: '22px', bgcolor: (result as any)[key] }}></Box>
-                    </TableCell>
-                    <TableCell align="right">{key}</TableCell>
-                    <TableCell align="right" sx={{ cursor: 'pointer' }}>
-                      <CopyToClipboard text={(result as any)[key]} onCopy={() => alert.success('复制成功')}>
-                        <span>{(result as any)[key]}</span>
-                      </CopyToClipboard>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Link href='https://mui.com/material-ui/customization/color/' target='_blank'>
-            <Typography sx={{ mb: 1 }} variant='subtitle2'>
-              MUI 官方配色表
-            </Typography>
-          </Link>
-        </ToolsForm>
-      </>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Link href='https://mui.com/material-ui/customization/color/' target='_blank'>
+          <Typography sx={{ mb: 1 }} variant='subtitle2'>
+            MUI 官方配色表
+          </Typography>
+        </Link>
+      </ToolsForm>
     </MenuView>
   );
 };

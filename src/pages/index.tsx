@@ -22,6 +22,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
+      console.log('--------')
       if (!mainPageRef.current?.children) return;
       const scrollPosition = mainPageRef?.current.scrollTop;
       for (let liElement of mainPageRef?.current.children) {

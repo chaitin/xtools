@@ -79,24 +79,22 @@ const Hash: React.FC = () => {
 
   return (
     <MenuView>
-      <>
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <Stack spacing={1}>
-            <Typography variant='subtitle2'>输入</Typography>
-            <TextField
-              value={src}
-              variant='outlined'
-              multiline
-              rows={3}
-              onChange={onSrcChange}
-              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
-            />
-            <br></br>
-            输出
-            <Stack spacing={1}>{outElements}</Stack>
-          </Stack>
-        </Box>
-      </>
+      <Box sx={{ width: '100%', typography: 'body1' }}>
+        <Stack spacing={1}>
+          <Typography variant='subtitle2'>输入</Typography>
+          <TextField
+            value={src}
+            variant='outlined'
+            multiline
+            rows={3}
+            onChange={onSrcChange}
+            sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
+          />
+          <br></br>
+          输出
+          <Stack spacing={1}>{outElements}</Stack>
+        </Stack>
+      </Box>
     </MenuView>
   );
 };

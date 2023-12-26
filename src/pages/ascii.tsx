@@ -105,11 +105,9 @@ const Hash: React.FC = () => {
 
   return (
     <MenuView>
-      <>
-        <Grid container spacing={1}>
-          {tables}
-        </Grid>
-      </>
+      <Grid container spacing={1}>
+        {tables}
+      </Grid>
     </MenuView>
   );
 };
