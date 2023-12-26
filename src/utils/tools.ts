@@ -145,4 +145,11 @@ export const allTools: Tool[] = [
     key: ['未知文件格式识别', '文件头识别'],
     subTitle: '根据文件头识别文件格式的小工具',
   },
+  {
+    label: 'XSS 向量生成器',
+    tags: [Tags.SECURITY],
+    path: '/xssvector',
+    key: ['xss payload', 'XSS', 'XSS 攻击', 'XSS 代码'],
+    subTitle: '自动生成 XSS Payload',
+  },
 ];
