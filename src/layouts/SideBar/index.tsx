@@ -11,9 +11,9 @@ const SideBar: React.FC<{}> = () => {
   const [linkAnchor, setLinkAnchor] = useState(false);
   const [checkAnchor, setChectAnchor] = useState('');
   useEffect(() => {
-    if (linkAnchor) setLinkAnchor(false)
+    if (linkAnchor) setLinkAnchor(false);
     else setChectAnchor(anchor);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor]);
   return (
     <Paper
@@ -33,8 +33,8 @@ const SideBar: React.FC<{}> = () => {
             key={item.name}
             shallow
             onClick={() => {
-              setChectAnchor(item.name)
-              setLinkAnchor(true)
+              setChectAnchor(item.name);
+              setLinkAnchor(true);
             }}
             href={'/#' + item.name}
             style={{ alignSelf: 'stretch' }}

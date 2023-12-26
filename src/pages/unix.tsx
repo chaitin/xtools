@@ -207,7 +207,7 @@ const Unix: React.FC = () => {
       if (outUnit === Unit.second) setOutUnix(parseInt('' + outUnix / 1000));
       else setOutUnix(outUnix * 1000);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [outUnit]);
 
   const checkCode = useCallback(

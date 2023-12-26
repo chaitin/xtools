@@ -41,7 +41,7 @@ export default function App() {
       mainPageRef.current?.removeEventListener('scroll', handleScroll);
       updateAnchor('');
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     const addLikeTagForTools = allTools.map((item) => {

@@ -6,7 +6,7 @@ export function getExcelCellWidth(value: string = '') {
     const otherLen = value.length - cLen;
     const length = cLen * 2.5 + otherLen * 1.1;
     return length < 15 ? 15 : length;
-  };
+  }
   const length = value.toString().length * 1.1;
   return length < 15 ? 15 : length;
 }
