@@ -94,6 +94,7 @@ export const allTools: Tool[] = [
     tags: [Tags.JSON],
     path: '/jsonfmt',
     subTitle: 'JSON 格式化小工具。',
+    key: [],
   },
   {
     label: '随机数/密码生成',
