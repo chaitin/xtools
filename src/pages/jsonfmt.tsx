@@ -1,5 +1,5 @@
 import alert from '@/components/Alert';
-import MenuView from "@/components/MainContent";
+import MainContent from "@/components/MainContent";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
@@ -83,7 +83,7 @@ const JsonFmt: React.FC = () => {
   }, [])
 
   return (
-    <MenuView>
+    <MainContent>
       <Grid 
         sx={{
           mt: "24px",
@@ -199,7 +199,7 @@ const JsonFmt: React.FC = () => {
             />
         </Grid>
       </Grid>
-    </MenuView>
+    </MainContent>
   )
 };
 

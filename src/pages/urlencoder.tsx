@@ -1,5 +1,5 @@
 import alert from '@/components/Alert';
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { defaultTextClick } from '@/constant';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -56,7 +56,7 @@ const URLEncoder: React.FC = () => {
   }, []);
 
   return (
-    <MenuView>
+    <MainContent>
       <>
         <TabContext value={method}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -164,7 +164,7 @@ const URLEncoder: React.FC = () => {
           </Box>
         </Box>
       </>
-    </MenuView>
+    </MainContent>
   );
 };
 

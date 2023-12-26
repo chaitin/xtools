@@ -1,6 +1,6 @@
 import alert from '@/components/Alert';
 import FormItem from '@/components/FormItem';
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { ToolsForm } from '@/components/Tools';
 import { Box, Button, OutlinedInput, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import Link from 'next/link';
@@ -194,7 +194,7 @@ const ColorConvert: React.FC = () => {
     else setResult(res)
   }
   return (
-    <MenuView>
+    <MainContent>
       <ToolsForm sx={{ width: '100%' }}>
         <FormItem label='颜色值' singleLine>
           <Stack direction='row' spacing={2} alignItems='center'>
@@ -260,7 +260,7 @@ const ColorConvert: React.FC = () => {
           </Typography>
         </Link>
       </ToolsForm>
-    </MenuView>
+    </MainContent>
   );
 };
 

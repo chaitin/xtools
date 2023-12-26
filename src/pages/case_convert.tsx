@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { Box, Stack, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
@@ -7,7 +7,7 @@ const CaseConvert: React.FC = () => {
   let [value, setValue] = useState<string>();
 
   return (
-    <MenuView>
+    <MainContent>
       <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Typography variant='subtitle2'>输入</Typography>
@@ -55,7 +55,7 @@ const CaseConvert: React.FC = () => {
           </Stack>
         </Box>
       </>
-    </MenuView>
+    </MainContent>
   );
 };
 

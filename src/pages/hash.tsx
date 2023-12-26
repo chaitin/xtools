@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import crypto from 'crypto-js';
 
 import { Box, Stack, Typography } from '@mui/material';
@@ -80,7 +80,7 @@ const Hash: React.FC = () => {
   );
 
   return (
-    <MenuView>
+    <MainContent>
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <Stack spacing={1}>
           <Typography variant='subtitle2'>输入</Typography>
@@ -97,7 +97,7 @@ const Hash: React.FC = () => {
           <Stack spacing={1}>{outElements}</Stack>
         </Stack>
       </Box>
-    </MenuView>
+    </MainContent>
   );
 };
 

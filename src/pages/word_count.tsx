@@ -1,4 +1,4 @@
-import MenuView from '@/components/MainContent';
+import MainContent from '@/components/MainContent';
 import { count } from '@homegrown/word-counter';
 import { Box, Stack, Typography, styled } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -85,7 +85,7 @@ const WordCount: React.FC = () => {
   });
 
   return (
-    <MenuView>
+    <MainContent>
       <>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <Box
@@ -221,7 +221,7 @@ const WordCount: React.FC = () => {
           </Stack>
         </Box>
       </>
-    </MenuView>
+    </MainContent>
   );
 };
 
