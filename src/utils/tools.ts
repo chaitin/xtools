@@ -89,7 +89,12 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'JSON 转 CSV 和 EXCEL 小工具。',
   },
-
+  {
+    label: 'JSON 格式化',
+    tags: [Tags.JSON],
+    path: '/jsonfmt',
+    subTitle: 'JSON 格式化小工具。',
+  },
   {
     label: '随机数/密码生成',
     tags: [Tags.OTHER, Tags.HOT],
