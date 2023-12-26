@@ -103,6 +103,13 @@ export const allTools: Tool[] = [
     subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
   },
   {
+    label: '颜色格式转换',
+    tags: [Tags.OTHER],
+    path: '/color_convert',
+    key: [],
+    subTitle: '无论你是开发者、设计师还是普通用户，当你需要在不同的颜色表示格式之间进行转换时，这个小工具将会非常有用。',
+  },
+  {
     label: '图片去色',
     tags: [Tags.IMAGE],
     path: '/uncolor',

@@ -1,6 +1,6 @@
 import sunglasses from '@/asset/tools/sunglasses.png';
 import alert from '@/components/Alert';
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import {
   SecondUnitBtn,
   ToolsForm,
@@ -433,7 +433,7 @@ const Unix: React.FC = () => {
               {lang.map((item) => (
                 <Button
                   key={item.name}
-                  sx={{ fontFamily: 'PingFangSC', textTransform: 'none' }}
+                  sx={{ fontFamily: 'Mono', textTransform: 'none' }}
                   color={item.name === code ? 'primary' : 'inherit'}
                   name={item.name}
                   type='submit'

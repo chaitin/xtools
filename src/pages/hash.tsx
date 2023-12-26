@@ -1,4 +1,4 @@
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import crypto from 'crypto-js';
 
 import { Box, Stack, Typography } from '@mui/material';
@@ -79,33 +79,22 @@ const Hash: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          fontFamily: 'Mono',
-
-          mx: 'auto',
-        }}
-      >
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <Stack spacing={1}>
-            <Typography variant='subtitle2'>输入</Typography>
-            <TextField
-              value={src}
-              variant='outlined'
-              multiline
-              rows={3}
-              onChange={onSrcChange}
-              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
-            />
-            <br></br>
-            输出
-            <Stack spacing={1}>{outElements}</Stack>
-          </Stack>
-        </Box>
-      </Stack>
+      <Box sx={{ width: '100%', typography: 'body1' }}>
+        <Stack spacing={1}>
+          <Typography variant='subtitle2'>输入</Typography>
+          <TextField
+            value={src}
+            variant='outlined'
+            multiline
+            rows={3}
+            onChange={onSrcChange}
+            sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
+          />
+          <br></br>
+          输出
+          <Stack spacing={1}>{outElements}</Stack>
+        </Stack>
+      </Box>
     </MenuView>
   );
 };

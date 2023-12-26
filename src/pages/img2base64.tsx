@@ -1,4 +1,4 @@
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { Box, Button, Stack, Tab } from '@mui/material';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
@@ -84,95 +84,85 @@ const ImgBase64: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack
-        sx={{
-          mt: '24px',
-          gap: '18px',
-          maxWidth: '1020px',
-          mx: 'auto',
-          fontFamily: 'Mono',
-        }}
-      >
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <TabContext value={tabValue}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleTabChange}>
-                <Tab
-                  label='图片转 Base64'
-                  value='1'
-                  sx={{ textTransform: 'none !important' }}
+      <Box sx={{ width: '100%', typography: 'body1' }}>
+        <TabContext value={tabValue}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleTabChange}>
+              <Tab
+                label='图片转 Base64'
+                value='1'
+                sx={{ textTransform: 'none !important' }}
+              />
+              <Tab
+                label='Base64 转图片'
+                value='2'
+                sx={{ textTransform: 'none !important' }}
+              />
+            </TabList>
+          </Box>
+          <TabPanel value='1' sx={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Stack spacing={1} sx={{ color: '#FF1844' }}>
+              <Button
+                component='label'
+                variant='outlined'
+                sx={{ borderRadius: '3px', height: '179px' }}
+              >
+                {encodeIn ? <MySpan></MySpan> : <MySpan>选择图片</MySpan>}
+                <UploadImg src={encodeIn} />
+                <VisuallyHiddenInput
+                  type='file'
+                  onChange={handleSelectFile}
                 />
-                <Tab
-                  label='Base64 转图片'
-                  value='2'
-                  sx={{ textTransform: 'none !important' }}
-                />
-              </TabList>
-            </Box>
-            <TabPanel value='1' sx={{ paddingLeft: 0, paddingRight: 0 }}>
-              <Stack spacing={1} sx={{ color: '#FF1844' }}>
-                <Button
-                  component='label'
-                  variant='outlined'
-                  sx={{ borderRadius: '3px', height: '179px' }}
-                >
-                  {encodeIn ? <MySpan></MySpan> : <MySpan>选择图片</MySpan>}
-                  <UploadImg src={encodeIn} />
-                  <VisuallyHiddenInput
-                    type='file'
-                    onChange={handleSelectFile}
-                  />
-                </Button>
-                <Button
-                  size='small'
-                  sx={{
-                    borderRadius: '4px',
-                  }}
-                  component='label'
-                  variant='contained'
-                  color='primary'
-                  onClick={encode}
-                >
-                  转换
-                </Button>
-                <TextField
-                  value={encodeOut}
-                  variant='outlined'
-                  multiline
-                  rows={6}
-                  InputProps={{ readOnly: true }}
-                  sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
-                />
-              </Stack>
-            </TabPanel>
-            <TabPanel value='2' sx={{ paddingLeft: 0, paddingRight: 0 }}>
-              <Stack spacing={1} sx={{ color: '#FF1844' }}>
-                <TextField
-                  value={decodeIn}
-                  variant='outlined'
-                  multiline
-                  rows={6}
-                  onChange={onDecodeInChange}
-                  sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
-                />
-                <Button
-                  size='small'
-                  sx={{
-                    borderRadius: '4px',
-                  }}
-                  component='label'
-                  variant='contained'
-                  color='primary'
-                  onClick={decode}
-                >
-                  转换
-                </Button>
-                <OutImg src={decodeOut} />
-              </Stack>
-            </TabPanel>
-          </TabContext>
-        </Box>
-      </Stack>
+              </Button>
+              <Button
+                size='small'
+                sx={{
+                  borderRadius: '4px',
+                }}
+                component='label'
+                variant='contained'
+                color='primary'
+                onClick={encode}
+              >
+                转换
+              </Button>
+              <TextField
+                value={encodeOut}
+                variant='outlined'
+                multiline
+                rows={6}
+                InputProps={{ readOnly: true }}
+                sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
+              />
+            </Stack>
+          </TabPanel>
+          <TabPanel value='2' sx={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Stack spacing={1} sx={{ color: '#FF1844' }}>
+              <TextField
+                value={decodeIn}
+                variant='outlined'
+                multiline
+                rows={6}
+                onChange={onDecodeInChange}
+                sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
+              />
+              <Button
+                size='small'
+                sx={{
+                  borderRadius: '4px',
+                }}
+                component='label'
+                variant='contained'
+                color='primary'
+                onClick={decode}
+              >
+                转换
+              </Button>
+              <OutImg src={decodeOut} />
+            </Stack>
+          </TabPanel>
+        </TabContext>
+      </Box>
     </MenuView>
   );
 };

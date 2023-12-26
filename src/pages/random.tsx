@@ -1,5 +1,5 @@
 import alert from '@/components/Alert';
-import MenuView from '@/components/MenuView';
+import MenuView from '@/components/MainContent';
 import { ToolsForm } from '@/components/Tools';
 import { grayBg2 } from '@/constant';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -107,129 +107,127 @@ const Random: React.FC = () => {
 
   return (
     <MenuView>
-      <Stack sx={{ mx: '0' }}>
-        <ToolsForm sx={{ mx: '0' }}>
-          <form onSubmit={generatePwd}>
-            <Stack sx={{ mt: '30px', gap: '18px' }}>
-              <FormControl variant='outlined'>
-                <Stack direction='row'>
-                  <InputLabel>随机数/密码长度</InputLabel>
-                  <Stack>
-                    <OutlinedInput
-                      required
-                      type='number'
-                      value={pwdLength}
-                      onChange={changePwdLength}
-                      margin='dense'
-                      sx={{ maxWidth: '215px' }}
-                      inputProps={{
-                        max: 999,
-                        min: 1,
-                      }}
-                    />
-                  </Stack>
-                </Stack>
-              </FormControl>
-              <FormControl variant='outlined'>
-                <Stack direction='row'>
-                  <InputLabel>使用字符集</InputLabel>
-                  <OutlinedInput
-                    required
-                    value={charsetStr}
-                    onChange={(e) => {
-                      setCharsetStr(e.target.value);
-                    }}
-                  />
-                </Stack>
-                <Box sx={{ pl: '155px', mt: 1 }}>
-                  <FormGroup
-                    sx={{ background: grayBg2, pl: 2, pt: 1, pb: 1 }}
-                    onChange={charsetCheckChange}
-                  >
-                    {character.map((item) => (
-                      <FormControlLabel
-                        sx={{ '& span': { fontSize: '14px' } }}
-                        key={item.name}
-                        name={item.name}
-                        control={
-                          <Checkbox
-                            size='small'
-                            checked={Boolean(charset[item.name])}
-                          />
-                        }
-                        label={item.label}
-                      />
-                    ))}
-                  </FormGroup>
-                </Box>
-              </FormControl>
-              <FormControl variant='outlined'>
-                <Stack direction='row'>
-                  <InputLabel>生成数量</InputLabel>
+      <ToolsForm sx={{ mx: '0' }}>
+        <form onSubmit={generatePwd}>
+          <Stack sx={{ mt: '30px', gap: '18px' }}>
+            <FormControl variant='outlined'>
+              <Stack direction='row'>
+                <InputLabel>随机数/密码长度</InputLabel>
+                <Stack>
                   <OutlinedInput
                     required
                     type='number'
+                    value={pwdLength}
+                    onChange={changePwdLength}
+                    margin='dense'
+                    sx={{ maxWidth: '215px' }}
                     inputProps={{
                       max: 999,
                       min: 1,
                     }}
-                    value={count}
-                    onChange={changeCount}
-                    sx={{ maxWidth: '215px' }}
                   />
                 </Stack>
-              </FormControl>
-              <Box sx={{ pl: '157px' }}>
-                <Button
-                  size='small'
-                  sx={{
-                    fontSize: '14px',
-                    maxWidth: '100px',
-                    pl: 2,
-                    pr: 2,
-                    pt: 1,
-                    pb: 1,
-                    borderRadius: '4px',
+              </Stack>
+            </FormControl>
+            <FormControl variant='outlined'>
+              <Stack direction='row'>
+                <InputLabel>使用字符集</InputLabel>
+                <OutlinedInput
+                  required
+                  value={charsetStr}
+                  onChange={(e) => {
+                    setCharsetStr(e.target.value);
                   }}
-                  color='primary'
-                  variant='contained'
-                  type='submit'
-                >
-                  立即生成
-                </Button>
-              </Box>
-            </Stack>
-          </form>
-          {!!password ? (
-            <Box sx={{ pl: '157px', position: 'relative' }}>
-              <SyntaxHighlighter
-                language={'text'}
-                style={anOldHope}
-                customStyle={{ paddingRight: '24px' }}
-                showLineNumbers
-              >
-                {password || ''}
-              </SyntaxHighlighter>
-              <CopyToClipboard text={password} onCopy={handleClick}>
-                <ContentCopyIcon
-                  color='primary'
-                  sx={{
-                    position: 'absolute',
-                    right: '6px',
-                    top: '6px',
-                    cursor: 'pointer',
-                    '& svg': {
-                      width: '20px',
-                      height: '20px',
-                    },
-                  }}
-                  fontSize='small'
                 />
-              </CopyToClipboard>
+              </Stack>
+              <Box sx={{ pl: '155px', mt: 1 }}>
+                <FormGroup
+                  sx={{ background: grayBg2, pl: 2, pt: 1, pb: 1 }}
+                  onChange={charsetCheckChange}
+                >
+                  {character.map((item) => (
+                    <FormControlLabel
+                      sx={{ '& span': { fontSize: '14px' } }}
+                      key={item.name}
+                      name={item.name}
+                      control={
+                        <Checkbox
+                          size='small'
+                          checked={Boolean(charset[item.name])}
+                        />
+                      }
+                      label={item.label}
+                    />
+                  ))}
+                </FormGroup>
+              </Box>
+            </FormControl>
+            <FormControl variant='outlined'>
+              <Stack direction='row'>
+                <InputLabel>生成数量</InputLabel>
+                <OutlinedInput
+                  required
+                  type='number'
+                  inputProps={{
+                    max: 999,
+                    min: 1,
+                  }}
+                  value={count}
+                  onChange={changeCount}
+                  sx={{ maxWidth: '215px' }}
+                />
+              </Stack>
+            </FormControl>
+            <Box sx={{ pl: '157px' }}>
+              <Button
+                size='small'
+                sx={{
+                  fontSize: '14px',
+                  maxWidth: '100px',
+                  pl: 2,
+                  pr: 2,
+                  pt: 1,
+                  pb: 1,
+                  borderRadius: '4px',
+                }}
+                color='primary'
+                variant='contained'
+                type='submit'
+              >
+                立即生成
+              </Button>
             </Box>
-          ) : null}
-        </ToolsForm>
-      </Stack>
+          </Stack>
+        </form>
+        {!!password ? (
+          <Box sx={{ pl: '157px', position: 'relative' }}>
+            <SyntaxHighlighter
+              language={'text'}
+              style={anOldHope}
+              customStyle={{ paddingRight: '24px' }}
+              showLineNumbers
+            >
+              {password || ''}
+            </SyntaxHighlighter>
+            <CopyToClipboard text={password} onCopy={handleClick}>
+              <ContentCopyIcon
+                color='primary'
+                sx={{
+                  position: 'absolute',
+                  right: '6px',
+                  top: '6px',
+                  cursor: 'pointer',
+                  '& svg': {
+                    width: '20px',
+                    height: '20px',
+                  },
+                }}
+                fontSize='small'
+              />
+            </CopyToClipboard>
+          </Box>
+        ) : null}
+      </ToolsForm>
     </MenuView>
   );
 };
