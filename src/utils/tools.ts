@@ -54,6 +54,13 @@ export const allTools: Tool[] = [
     subTitle: '大小写转换小工具，支持大写、小写、首字母大写、大小写互转等。',
   },
   {
+    label: '中英文加空格',
+    tags: [Tags.TEXT],
+    path: '/cn_space_en',
+    key: [],
+    subTitle: '中英文之间加空格小工具。',
+  },
+  {
     label: 'Unix 时间戳转换',
     tags: [Tags.DEV, Tags.HOT],
     path: '/unix',
