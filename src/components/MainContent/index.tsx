@@ -5,8 +5,9 @@ import { Tool, allTools } from '@/utils/tools';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-
-const MainContent: React.FC<{ children: React.ReactElement }> = ({ children }) => {
+const MainContent: React.FC<{ children: React.ReactElement }> = ({
+  children,
+}) => {
   const { path } = usePath();
 
   const [tool] = React.useState<Tool | undefined>(

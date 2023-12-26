@@ -21,7 +21,7 @@ const Hash: React.FC = () => {
       'SHA3',
       'SHA384',
       'SHA512',
-    ]
+    ];
   }, []);
 
   const [values] = useState(

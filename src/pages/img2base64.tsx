@@ -109,10 +109,7 @@ const ImgBase64: React.FC = () => {
               >
                 {encodeIn ? <MySpan></MySpan> : <MySpan>选择图片</MySpan>}
                 <UploadImg src={encodeIn} />
-                <VisuallyHiddenInput
-                  type='file'
-                  onChange={handleSelectFile}
-                />
+                <VisuallyHiddenInput type='file' onChange={handleSelectFile} />
               </Button>
               <Button
                 size='small'

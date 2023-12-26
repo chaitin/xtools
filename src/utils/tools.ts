@@ -129,7 +129,8 @@ export const allTools: Tool[] = [
     tags: [Tags.OTHER],
     path: '/color_convert',
     key: [],
-    subTitle: '无论你是开发者、设计师还是普通用户，当你需要在不同的颜色表示格式之间进行转换时，这个小工具将会非常有用。',
+    subTitle:
+      '无论你是开发者、设计师还是普通用户，当你需要在不同的颜色表示格式之间进行转换时，这个小工具将会非常有用。',
   },
   {
     label: '图片去色',

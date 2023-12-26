@@ -63,19 +63,89 @@ export interface Tag {
   avatar_color: string;
 }
 export const allTags: Tag[] = [
-  { name: Tags.HOT, icon: icon_hot, icon_check: icon_hot_check, label: '热门工具', bg_color: '', avatar_color: '' },
-  { name: Tags.LIKE, icon: icon_like, icon_check: icon_like_check, label: '我的收藏', bg_color: '', avatar_color: '' },
-  { name: Tags.ENCODE, icon: icon_encode, icon_check: icon_encode_check, label: '编码解码', bg_color: '', avatar_color: '' },
-  { name: Tags.ENCRYPT, icon: icon_encryption, icon_check: icon_encryption_check, label: '加密解密', bg_color: '', avatar_color: '' },
-  { name: Tags.DEV, icon: dev, icon_check: dev_check, label: '辅助开发', bg_color: '', avatar_color: '' },
-  { name: Tags.JSON, icon: json, icon_check: json_check, label: 'JSON 加工', bg_color: '', avatar_color: '' },
-  { name: Tags.TEXT, icon: icon_text, icon_check: icon_text_check, label: '文字处理', bg_color: '', avatar_color: '' },
-  { name: Tags.IMAGE, icon: json, icon_check: json_check, label: '图片加工', bg_color: '', avatar_color: '' },
-  { name: Tags.BINARY, icon: dev, icon_check: dev_check, label: '二进制处理', bg_color: '', avatar_color: '' },
-  { name: Tags.OTHER, icon: other, icon_check: other_check, label: '其他', bg_color: '', avatar_color: '' },
+  {
+    name: Tags.HOT,
+    icon: icon_hot,
+    icon_check: icon_hot_check,
+    label: '热门工具',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.LIKE,
+    icon: icon_like,
+    icon_check: icon_like_check,
+    label: '我的收藏',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.ENCODE,
+    icon: icon_encode,
+    icon_check: icon_encode_check,
+    label: '编码解码',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.ENCRYPT,
+    icon: icon_encryption,
+    icon_check: icon_encryption_check,
+    label: '加密解密',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.DEV,
+    icon: dev,
+    icon_check: dev_check,
+    label: '辅助开发',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.JSON,
+    icon: json,
+    icon_check: json_check,
+    label: 'JSON 加工',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.TEXT,
+    icon: icon_text,
+    icon_check: icon_text_check,
+    label: '文字处理',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.IMAGE,
+    icon: json,
+    icon_check: json_check,
+    label: '图片加工',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.BINARY,
+    icon: dev,
+    icon_check: dev_check,
+    label: '二进制处理',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.OTHER,
+    icon: other,
+    icon_check: other_check,
+    label: '其他',
+    bg_color: '',
+    avatar_color: '',
+  },
 ].map((item, index) => {
   const [avatarColor, bgColor] = tagColor[index];
-  if(!item.bg_color) item.bg_color = bgColor;
-  if(!item.avatar_color) item.avatar_color = avatarColor;
+  if (!item.bg_color) item.bg_color = bgColor;
+  if (!item.avatar_color) item.avatar_color = avatarColor;
   return item;
 });
