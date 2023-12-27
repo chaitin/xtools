@@ -186,6 +186,14 @@ export const allTools: Tool[] = [
     tags: [Tags.OTHER, Tags.OFFICIAL],
     path: '/excalidraw',
     key: [],
-    subTitle: '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
+    subTitle:
+      '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
+  },
+  {
+    label: '图片压缩',
+    tags: [Tags.IMAGE],
+    path: '/img_sharp',
+    key: ['图片压缩'],
+    subTitle: '免费在线的图片压缩小工具',
   },
 ];
