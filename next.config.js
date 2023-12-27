@@ -16,11 +16,6 @@ const nextConfig = withPlugins([withTM], {
         destination: '/tools/home',
         permanent: true,
       },
-      // {
-      //   source: '/tools',
-      //   destination: '/tools/home',
-      //   permanent: true,
-      // },
     ];
   },
 });

@@ -2,17 +2,9 @@ import { grayText } from '@/constant';
 import { usePath } from '@/hooks';
 import { allTags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
-import {
-  Box,
-  Button,
-  Paper,
-  Stack,
-  SxProps,
-  Theme,
-  Typography,
-} from '@mui/material';
-import React from 'react';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import { Box, Button, Stack, SxProps, Theme, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 
 const MainContent: React.FC<{
   children: React.ReactElement;
@@ -25,24 +17,72 @@ const MainContent: React.FC<{
     allTools.find((item) => item.path === path)
   );
   const handleFullScreen = () => {
-    const fullscreenElement = document.getElementById(
-      'fullscreen-element'
-    ) as any;
-    if (fullscreenElement?.requestFullscreen) {
-      fullscreenElement.requestFullscreen();
-    } else if (fullscreenElement?.mozRequestFullScreen) {
-      // 兼容 Firefox
-      fullscreenElement?.mozRequestFullScreen();
-    } else if (fullscreenElement?.webkitRequestFullscreen) {
-      // 兼容 Chrome, Safari 和 Opera
-      fullscreenElement?.webkitRequestFullscreen();
-    } else if (fullscreenElement?.msRequestFullscreen) {
-      // 兼容 IE/Edge
-      fullscreenElement?.msRequestFullscreen();
-    }
+    const fullscreenElement = document.body as any;
+    new Promise((r) => {
+      if (fullscreenElement?.requestFullscreen) {
+        r(fullscreenElement.requestFullscreen());
+      } else if (fullscreenElement?.mozRequestFullScreen) {
+        // 兼容 Firefox
+        r(fullscreenElement?.mozRequestFullScreen());
+      } else if (fullscreenElement?.webkitRequestFullscreen) {
+        // 兼容 Chrome, Safari 和 Opera
+        r(fullscreenElement?.webkitRequestFullscreen());
+      } else if (fullscreenElement?.msRequestFullscreen) {
+        // 兼容 IE/Edge
+        r(fullscreenElement?.msRequestFullscreen());
+      }
+    }).then(() => {
+      const dom = document.getElementById('fullscreen-element');
+      if (dom) {
+        dom.style.position = 'fixed';
+        dom.style.inset = '0';
+        dom.style.maxWidth = '100vw';
+      }
+    });
   };
+  useEffect(() => {
+    // 检查是否处于全屏状态
+    function isFullscreen() {
+      return (
+        document.fullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).msFullscreenElement
+      );
+    }
+    const handleFullscreenChange = (e: Event) => {
+      if (!isFullscreen()) {
+        const dom = document.getElementById('fullscreen-element');
+        if (dom) {
+          dom.style.position = 'unset';
+          dom.style.inset = '0';
+          dom.style.maxWidth = 'unset';
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener(
+        'webkitfullscreenchange',
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        'mozfullscreenchange',
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        'MSFullscreenChange',
+        handleFullscreenChange
+      );
+    };
+  }, []);
   return (
-    <Paper
+    <Stack
       sx={{
         px: '50px',
         py: 2,
@@ -96,7 +136,12 @@ const MainContent: React.FC<{
         direction='row'
         alignItems='center'
         justifyContent='space-between'
-        sx={{ position: 'relative', width: '100%', alignSelf: 'stretch' }}
+        sx={{
+          position: 'relative',
+          width: '100%',
+          alignSelf: 'stretch',
+          mb: '24px',
+        }}
       >
         <Typography
           variant='caption'
@@ -130,18 +175,17 @@ const MainContent: React.FC<{
       <Stack
         id='fullscreen-element'
         sx={{
-          mt: '24px',
           gap: '18px',
           maxWidth: '1020px',
           fontFamily: 'Mono',
           mx: 'auto',
-          height: '100%',
+          flex: 1,
           width: '100%',
         }}
       >
         {children}
       </Stack>
-    </Paper>
+    </Stack>
   );
 };
 

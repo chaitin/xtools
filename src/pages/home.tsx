@@ -69,7 +69,8 @@ export default function App() {
     if (mainPageRef.current && scrollTop !== undefined) {
       mainPageRef.current?.scrollTo({ top: scrollTop });
     }
-  }, [mainPageRef.current, scrollTop]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainPageRef.current]);
 
   return (
     <Paper

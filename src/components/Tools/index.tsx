@@ -19,7 +19,7 @@ export const ToolsForm = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
 
-  margin: 'auto',
+  mx: 'auto',
   gap: 16,
   '& .MuiOutlinedInput-root': {
     flexShrink: 0,
