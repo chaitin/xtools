@@ -25,7 +25,6 @@ const Board: React.FC = () => {
       }}
     >
       <Box
-        className='nihao'
         sx={{
           flex: 1,
           width: '100%',

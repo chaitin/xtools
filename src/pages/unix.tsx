@@ -238,7 +238,7 @@ const Unix: React.FC = () => {
         >
           <Stack
             sx={{
-              margin: 'auto',
+              mx: 'auto',
               mt: '24px',
               gap: '18px',
               fontFamily: 'PingFangSC',
