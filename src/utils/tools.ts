@@ -181,4 +181,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '输入普通文本，转换为 Leet 文本',
   },
+  {
+    label: '手绘白板',
+    tags: [Tags.OTHER, Tags.OFFICIAL],
+    path: '/excalidraw',
+    key: [],
+    subTitle: '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
+  },
 ];

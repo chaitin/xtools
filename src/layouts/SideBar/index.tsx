@@ -9,10 +9,10 @@ import Link from 'next/link';
 const SideBar: React.FC<{}> = () => {
   const { anchor } = useContext(AnchorContext);
   const [linkAnchor, setLinkAnchor] = useState(false);
-  const [checkAnchor, setChectAnchor] = useState('');
+  const [checkAnchor, setCheckAnchor] = useState('');
   useEffect(() => {
     if (linkAnchor) setLinkAnchor(false);
-    else setChectAnchor(anchor);
+    else setCheckAnchor(anchor);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor]);
   return (
@@ -34,10 +34,10 @@ const SideBar: React.FC<{}> = () => {
             key={item.name}
             shallow
             onClick={() => {
-              setChectAnchor(item.name);
+              setCheckAnchor(item.name);
               setLinkAnchor(true);
             }}
-            href={'/#' + item.name}
+            href={'/home/#' + item.name}
             style={{ alignSelf: 'stretch' }}
             className='custom-link'
           >

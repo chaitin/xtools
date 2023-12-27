@@ -75,7 +75,7 @@ const Header: React.FC<{}> = () => {
         fontWeight={600}
         sx={{ mr: 2, color: 'rgba(11, 37, 98, 1)' }}
       >
-        <Link className='custom-link' href='/'>
+        <Link className='custom-link' href='/home'>
           百川在线工具箱
         </Link>
       </Typography>
@@ -143,12 +143,7 @@ const Header: React.FC<{}> = () => {
             })
           }
           options={allTools}
-          renderOption={(
-            props: object,
-            option: Tool,
-            state: object,
-            ownerState: object
-          ) => (
+          renderOption={(props: object, option: Tool) => (
             <Box
               sx={{
                 borderBottom: '1px solid rgba(0, 0, 0, 0.05)',

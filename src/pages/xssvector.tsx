@@ -174,6 +174,7 @@ const XSS: React.FC = () => {
 
   useEffect(() => {
     updateCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSrcChange = useCallback(

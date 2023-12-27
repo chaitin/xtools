@@ -55,3 +55,4 @@ type SocketClient = {
 };
 
 declare module 'nextPage/nextpage';
+declare module '@excalidraw/excalidraw';
