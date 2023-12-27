@@ -126,6 +126,13 @@ export const allTools: Tool[] = [
     key: [],
   },
   {
+    label: 'JSON 转 Go',
+    tags: [Tags.JSON],
+    path: '/json2go',
+    key: [],
+    subTitle: 'JSON 转 Go 结构体。',
+  },
+  {
     label: '随机数/密码生成',
     tags: [Tags.OTHER, Tags.HOT],
     path: '/random',
