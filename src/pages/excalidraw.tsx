@@ -12,8 +12,32 @@ const Board: React.FC = () => {
   }, []);
 
   return (
-    <MainContent>
-      <Box sx={{ height: '500px' }}>{Excalidraw && <Excalidraw />}</Box>
+    <MainContent
+      fullScreen
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        '& .MuiTypography-caption': {
+          alignSelf: 'flex-start',
+          minWidth: '200px',
+          pr: 2,
+        },
+      }}
+    >
+      <Box
+        className='nihao'
+        sx={{
+          flex: 1,
+          width: '100%',
+          alignSelf: 'stretch',
+          '& > div': {
+            border: '1px solid rgba(0,0,0,0.2)',
+            borderRadius: '4px',
+          },
+        }}
+      >
+        {Excalidraw && <Excalidraw />}
+      </Box>
     </MainContent>
   );
 };

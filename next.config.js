@@ -13,10 +13,14 @@ const nextConfig = withPlugins([withTM], {
     return [
       {
         source: '/',
-        destination: '/tools',
-        basePath: false,
+        destination: '/tools/home',
         permanent: true,
       },
+      // {
+      //   source: '/tools',
+      //   destination: '/tools/home',
+      //   permanent: true,
+      // },
     ];
   },
 });

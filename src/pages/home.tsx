@@ -66,10 +66,10 @@ export default function App() {
   }, [likeList]);
 
   useEffect(() => {
-    if (mainPageRef.current) {
+    if (mainPageRef.current && scrollTop !== undefined) {
       mainPageRef.current?.scrollTo({ top: scrollTop });
     }
-  }, [mainPageRef.current]);
+  }, [mainPageRef.current, scrollTop]);
 
   return (
     <Paper
