@@ -118,6 +118,13 @@ export const allTools: Tool[] = [
     key: [],
   },
   {
+    label: 'JSON 转 Go',
+    tags: [Tags.JSON],
+    path: '/json2go',
+    key: [],
+    subTitle: 'JSON 转 Go 结构体。',
+  },
+  {
     label: '随机数/密码生成',
     tags: [Tags.OTHER, Tags.HOT],
     path: '/random',
@@ -186,6 +193,7 @@ export const allTools: Tool[] = [
     tags: [Tags.OTHER, Tags.OFFICIAL],
     path: '/excalidraw',
     key: [],
-    subTitle: '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
+    subTitle:
+      '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
   },
 ];
