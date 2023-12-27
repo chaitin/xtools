@@ -141,6 +141,13 @@ export const allTools: Tool[] = [
       '无论你是开发者、设计师还是普通用户，当你需要在不同的颜色表示格式之间进行转换时，这个小工具将会非常有用。',
   },
   {
+    label: 'git 指令速查',
+    tags: [Tags.DEV, Tags.OTHER],
+    path: '/git',
+    key: [],
+    subTitle: 'git 指令速查小工具。',
+  },
+  {
     label: '图片去色',
     tags: [Tags.IMAGE],
     path: '/uncolor',
@@ -196,12 +203,5 @@ export const allTools: Tool[] = [
     key: [],
     subTitle:
       '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
-  },
-  {
-    label: '图片压缩',
-    tags: [Tags.IMAGE],
-    path: '/img_sharp',
-    key: ['图片压缩'],
-    subTitle: '免费在线的图片压缩小工具',
   },
 ];
