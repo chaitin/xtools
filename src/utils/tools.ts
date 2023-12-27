@@ -32,6 +32,14 @@ export const allTools: Tool[] = [
       '图片的 BASE64 编码就是将图片数据编码成字符串，使用该字符串代替图片地址，从而不需要使用图片的 URL 地址。',
   },
   {
+    label: 'JSON JavaScript 互转',
+    tags: [Tags.ENCODE, Tags.JSON],
+    path: '/json2js',
+    key: [],
+    subTitle:
+      'JSON JS 互转小工具，支持 JSON => JavaScript，JavaScript => JSON。',
+  },
+  {
     label: '进制转换',
     tags: [Tags.OTHER],
     path: '/radix_convert',
