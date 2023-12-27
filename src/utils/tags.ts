@@ -27,6 +27,7 @@ export enum Tags {
   IMAGE = 'image',
   BINARY = 'binary',
   SECURITY = 'security',
+  OFFICIAL = 'official',
 }
 const tagColor = [
   ['rgba(245, 117, 130, 1)', 'rgba(245, 117, 130, 0.2)'],
@@ -77,6 +78,14 @@ export const allTags: Tag[] = [
     icon: icon_like,
     icon_check: icon_like_check,
     label: '我的收藏',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.OFFICIAL,
+    icon: icon_encode,
+    icon_check: icon_encode_check,
+    label: '办公工具',
     bg_color: '',
     avatar_color: '',
   },
@@ -151,7 +160,8 @@ export const allTags: Tag[] = [
     label: '其他',
     bg_color: '',
     avatar_color: '',
-  }].map((item, index) => {
+  },
+].map((item, index) => {
   const [avatarColor, bgColor] = tagColor[index];
   if (!item.bg_color) item.bg_color = bgColor;
   if (!item.avatar_color) item.avatar_color = avatarColor;

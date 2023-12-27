@@ -181,4 +181,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '输入普通文本，转换为 Leet 文本',
   },
+  {
+    label: '白板画图',
+    tags: [Tags.OTHER, Tags.OFFICIAL],
+    path: '/excalidraw',
+    key: [],
+    subTitle: '白板',
+  },
 ];

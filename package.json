@@ -25,6 +25,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@excalidraw/excalidraw": "^0.17.2",
     "@homegrown/word-counter": "^0.1.7",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.155",
