@@ -32,6 +32,14 @@ export const allTools: Tool[] = [
       '图片的 BASE64 编码就是将图片数据编码成字符串，使用该字符串代替图片地址，从而不需要使用图片的 URL 地址。',
   },
   {
+    label: 'JSON JavaScript 互转',
+    tags: [Tags.ENCODE, Tags.JSON],
+    path: '/json2js',
+    key: [],
+    subTitle:
+      'JSON JS 互转小工具，支持 JSON => JavaScript，JavaScript => JSON。',
+  },
+  {
     label: '进制转换',
     tags: [Tags.OTHER],
     path: '/radix_convert',
@@ -195,5 +203,12 @@ export const allTools: Tool[] = [
     key: [],
     subTitle:
       '技术文章配图神器，基于 Excalidraw 实现，可以方便的绘制流程图、统计图、原型图等',
+  },
+  {
+    label: '图片压缩',
+    tags: [Tags.IMAGE],
+    path: '/img_sharp',
+    key: ['图片压缩'],
+    subTitle: '免费在线的图片压缩小工具',
   },
 ];
