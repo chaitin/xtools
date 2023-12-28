@@ -219,6 +219,13 @@ export const allTools: Tool[] = [
     subTitle: '字符串和 HEX 编码互相转换工具',
   },
   {
+    label: 'CIDR 计算',
+    tags: [Tags.OTHER],
+    path: '/cidr',
+    key: ['cidr 计算'],
+    subTitle: '计算 CIDR 工具',
+  },
+  {
     label: 'HTML 实体编解码',
     tags: [Tags.ENCODE],
     path: '/htmlentity',
