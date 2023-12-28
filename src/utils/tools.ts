@@ -275,4 +275,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'UUID 生成小工具。',
   },
+  {
+    label: 'Htpasswd',
+    tags: [Tags.ENCODE],
+    path: '/htpasswd',
+    key: ['密码加密'],
+    subTitle: '在线 htpasswd 生成工具，多用于 Nginx Basic Auth',
+  },
 ];
