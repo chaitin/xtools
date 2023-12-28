@@ -289,4 +289,11 @@ export const allTools: Tool[] = [
     key: ['密码加密'],
     subTitle: '在线 htpasswd 生成工具，多用于 Nginx Basic Auth',
   },
+  {
+    label: '文本对比 diff',
+    tags: [Tags.OTHER, Tags.TEXT],
+    path: '/diff',
+    key: ['在线文本对比Diff', '高亮显示'],
+    subTitle: '在线文本对比Diff，支持多种对比模式，差异部分高亮显示',
+  },
 ];
