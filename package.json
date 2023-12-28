@@ -35,11 +35,13 @@
     "ahooks": "^3.7.8",
     "axios": "^1.4.0",
     "big-integer": "^1.6.52",
+    "change-case": "^5.3.0",
     "compressorjs": "^1.2.1",
     "crypto-js": "^4.2.0",
     "eslint-config-next": "^14.0.4",
     "html-entities": "^2.4.0",
     "ip": "^1.1.8",
+    "js-yaml": "^4.1.0",
     "json-2-csv": "^5.0.1",
     "next": "^14.0.4",
     "next-compose-plugins": "^2.2.1",
@@ -84,6 +86,7 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "gofmt.js": "^0.0.2",
     "husky": "^8.0.0",
-    "lint-staged": "^15.2.0"
+    "lint-staged": "^15.2.0",
+    "uuid": "^9.0.1"
   }
 }

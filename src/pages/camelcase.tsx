@@ -1,0 +1,185 @@
+import alert from '@/components/Alert';
+import MainContent from '@/components/MainContent';
+import { defaultTextClick } from '@/constant';
+import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import { Box, OutlinedInput, Tab, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import * as changeCase from 'change-case';
+
+const MyLabel = styled('label')({
+  cursor: 'pointer',
+});
+
+const mockSnake = `name_is_so_long`;
+
+const Base64: React.FC = () => {
+  const [method, setMethod] = React.useState('toCamelCase');
+  const [input, setInput] = useState<string>(mockSnake);
+  const [output, setOutput] = useState<string>('');
+
+  const funcMap = useMemo(() => {
+    const toSnake = (str: string): string => changeCase.snakeCase(str);
+    const toCamelCase = (str: string): string => {
+      return changeCase.pascalCase(str);
+    };
+    const m = new Map<String, Function>();
+    m.set('toSnake', toSnake);
+    m.set('toCamelCase', toCamelCase);
+    return m;
+  }, []);
+
+  const handleChange = (event: React.SyntheticEvent, method: string) => {
+    setMethod(method);
+    const fn = funcMap.get(method);
+    if (fn) {
+      setOutput(fn(input));
+    }
+  };
+
+  const handleInputChanged = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      var value = event.target.value;
+      setInput(value);
+      var fn = funcMap.get(method);
+      if (fn) {
+        setOutput(fn(value));
+      }
+    },
+    [funcMap, method]
+  );
+
+  const handleCopyClick = useCallback(() => {
+    alert.success('复制成功');
+  }, []);
+
+  const handleCleanClick = useCallback(() => {
+    setInput('');
+    setOutput('');
+  }, []);
+
+  useEffect(() => {
+    const fn = funcMap.get('toCamelCase');
+    if (fn) {
+      setOutput(fn(mockSnake));
+    }
+  }, []);
+
+  return (
+    <MainContent>
+      <>
+        <TabContext value={method}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleChange}>
+              <Tab
+                label='转驼峰'
+                value='toCamelCase'
+                sx={{ textTransform: 'none !important' }}
+              />
+              <Tab
+                label='转下划线'
+                value='toSnake'
+                sx={{ textTransform: 'none !important' }}
+              />
+            </TabList>
+          </Box>
+        </TabContext>
+        <Typography
+          sx={{ width: '180px' }}
+          variant='body2'
+          color={defaultTextClick}
+        >
+          输入
+        </Typography>
+        <Box sx={{ position: 'relative' }}>
+          <OutlinedInput
+            sx={{
+              width: '100%',
+              fontFamily: 'Mono',
+              textarea: { paddingRight: '35px' },
+            }}
+            value={input}
+            onChange={handleInputChanged}
+            margin='dense'
+            minRows='5'
+            maxRows='10'
+            multiline
+            autoFocus
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              right: '16px',
+              top: '16px',
+              width: '30px',
+              paddingTop: '5px',
+              height: '30px',
+              textAlign: 'center',
+              bgcolor: '#eee',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              color: input ? '#52C41A' : '#fff',
+              '&:hover': {
+                color: '#52C41A',
+              },
+            }}
+          >
+            <MyLabel onClick={handleCleanClick}>
+              <CleaningServicesRoundedIcon fontSize='small' />
+            </MyLabel>
+          </Box>
+        </Box>
+        <Typography
+          sx={{ width: '180px' }}
+          variant='body2'
+          color={defaultTextClick}
+        >
+          输出
+        </Typography>
+        <Box sx={{ position: 'relative' }}>
+          <OutlinedInput
+            sx={{
+              width: '100%',
+              fontFamily: 'Mono',
+              textarea: { paddingRight: '35px' },
+            }}
+            value={output}
+            margin='dense'
+            minRows='5'
+            maxRows='10'
+            multiline
+            readOnly
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              right: '16px',
+              top: '16px',
+              width: '30px',
+              paddingTop: '5px',
+              height: '30px',
+              textAlign: 'center',
+              bgcolor: '#eee',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              color: input ? '#52C41A' : '#fff',
+              '&:hover': {
+                color: '#52C41A',
+              },
+            }}
+          >
+            <CopyToClipboard text={output} onCopy={handleCopyClick}>
+              <ContentCopyIcon fontSize='small' />
+            </CopyToClipboard>
+          </Box>
+        </Box>
+      </>
+    </MainContent>
+  );
+};
+
+export default Base64;

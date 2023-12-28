@@ -55,6 +55,13 @@ export const allTools: Tool[] = [
     subTitle: '字数统计小工具，支持中文、英文、数字、标点符号等的统计。',
   },
   {
+    label: '下划线驼峰互转',
+    tags: [Tags.TEXT],
+    path: '/camelcase',
+    key: [],
+    subTitle: '下划线驼峰互转小工具。',
+  },
+  {
     label: '大小写转换',
     tags: [Tags.TEXT],
     path: '/case_convert',
@@ -145,12 +152,25 @@ export const allTools: Tool[] = [
     tags: [Tags.OTHER, Tags.HOT],
     path: '/cidr',
     key: [],
-    subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
+    subTitle: '计算 cidr 的小工具',
+  },
+    label: 'JSON 转 yaml',
+    tags: [Tags.JSON],
+    path: '/json2yaml',
+    key: [],
+    subTitle: 'JSON 转 yaml 小工具。',
   },
   {
     label: '随机数/密码生成',
     tags: [Tags.OTHER, Tags.HOT],
     path: '/random',
+    key: [],
+    subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
+  },
+  {
+    label: '随机 IP 生成器',
+    tags: [Tags.OTHER],
+    path: '/random_ip',
     key: [],
     subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
   },
@@ -247,4 +267,12 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '干饭人🍚必备小工具。',
   },
+  {
+    label: 'UUID 生成',
+    tags: [Tags.DEV],
+    path: '/uuid_gen',
+    key: [],
+    subTitle: 'UUID 生成小工具。',
+  },
+
 ];
