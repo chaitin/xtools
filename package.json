@@ -57,6 +57,7 @@
     "remark-gfm": "^3.0.1",
     "remark-toc": "^8.0.1",
     "slick-carousel": "^1.8.1",
+    "sql-formatter": "^15.0.2",
     "swiper": "^8.4.7",
     "typescript": "5.0.4",
     "xlsx": "^0.18.5",

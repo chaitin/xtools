@@ -88,7 +88,8 @@ export const allTools: Tool[] = [
     tags: [Tags.ENCRYPT, Tags.SECURITY],
     path: '/md5fastcollision',
     key: [],
-    subTitle: '在线碰撞 MD5，生成 MD5 哈希相同的不同原始文本，基于 md5 fastcall 实现',
+    subTitle:
+      '在线碰撞 MD5，生成 MD5 哈希相同的不同原始文本，基于 md5 fastcall 实现',
   },
   {
     label: '密码哈希',
@@ -160,6 +161,13 @@ export const allTools: Tool[] = [
     path: '/git',
     key: [],
     subTitle: 'git 指令速查小工具。',
+  },
+  {
+    label: 'SQL 格式化',
+    tags: [Tags.DEV],
+    path: '/sqlfmt',
+    key: [],
+    subTitle: 'SQL 格式化小工具。',
   },
   {
     label: '图片去色',
