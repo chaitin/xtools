@@ -106,6 +106,13 @@ export const allTools: Tool[] = [
       '在线碰撞 MD5，生成 MD5 哈希相同的不同原始文本，基于 md5 fastcall 实现',
   },
   {
+    label: 'ZIP 密码在线破解',
+    tags: [Tags.ENCRYPT, Tags.SECURITY],
+    path: '/zipcrack',
+    key: [],
+    subTitle: '在线破解 ZIP 压缩包的文件密码',
+  },
+  {
     label: '密码哈希',
     tags: [Tags.ENCRYPT],
     path: '/hash',
