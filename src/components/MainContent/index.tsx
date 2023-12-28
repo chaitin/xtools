@@ -33,10 +33,13 @@ const MainContent: React.FC<{
       }
     }).then(() => {
       const dom = document.getElementById('fullscreen-element');
+      const riverHeader = document.getElementById('rivers-header'); // hack for rivers header
+
       if (dom) {
         dom.style.position = 'fixed';
         dom.style.inset = '0';
         dom.style.maxWidth = '100vw';
+        if (riverHeader) riverHeader.style.display = 'none';
       }
     });
   };
@@ -53,10 +56,12 @@ const MainContent: React.FC<{
     const handleFullscreenChange = (e: Event) => {
       if (!isFullscreen()) {
         const dom = document.getElementById('fullscreen-element');
+        const riverHeader = document.getElementById('rivers-header'); // hack for rivers header
         if (dom) {
           dom.style.position = 'unset';
           dom.style.inset = '0';
           dom.style.maxWidth = 'unset';
+          if (riverHeader) riverHeader.style.display = 'block';
         }
       }
     };
@@ -89,6 +94,7 @@ const MainContent: React.FC<{
         overflow: 'auto',
         flex: 1,
         borderRadius: '8px',
+        background: '#fff',
         boxShadow:
           '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
         ...sx,
