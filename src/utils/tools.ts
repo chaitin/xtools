@@ -32,6 +32,13 @@ export const allTools: Tool[] = [
       '图片的 BASE64 编码就是将图片数据编码成字符串，使用该字符串代替图片地址，从而不需要使用图片的 URL 地址。',
   },
   {
+    label: '图片添加水印',
+    tags: [Tags.IMAGE],
+    path: '/watermark',
+    key: [],
+    subTitle: '给图片添加水印',
+  },
+  {
     label: 'JSON JavaScript 互转',
     tags: [Tags.ENCODE, Tags.JSON],
     path: '/json2js',
