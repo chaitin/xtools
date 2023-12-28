@@ -108,8 +108,8 @@ const Hash: React.FC = () => {
     (event: React.MouseEvent<HTMLElement>) => {
       if (cnt() / 1000 / 1000 / 1000 > 100) {
         message('计算量太大了，别破解了，没啥希望');
-      } else if (data.byteLength > 1024 * 50) {
-        message('暂时还不支持破解超过 50 KB 的压缩包');
+        //} else if (data.byteLength > 1024 * 50) {
+        //  message('暂时还不支持破解超过 50 KB 的压缩包');
       } else {
         setIng(true);
         setTimeout(() => {
@@ -121,8 +121,8 @@ const Hash: React.FC = () => {
             [
               maxLength,
               alphabet.split('').sort().join(''),
-              new Uint8Array(data),
-              data.byteLength,
+              new Uint8Array(data, 0, 50 * 1024),
+              Math.min(data.byteLength, 50 * 1024),
             ]
           );
           if (p) {
