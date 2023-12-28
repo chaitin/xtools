@@ -57,3 +57,4 @@ type SocketClient = {
 declare module 'nextPage/nextpage';
 declare module '@excalidraw/excalidraw';
 declare module 'gofmt.js';
+declare module 'uuid';

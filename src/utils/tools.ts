@@ -240,4 +240,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '干饭人🍚必备小工具。',
   },
+  {
+    label: 'UUID 生成',
+    tags: [Tags.DEV],
+    path: '/uuid_gen',
+    key: [],
+    subTitle: 'UUID 生成小工具。',
+  },
 ];
