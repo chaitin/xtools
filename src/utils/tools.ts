@@ -148,6 +148,13 @@ export const allTools: Tool[] = [
     subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
   },
   {
+    label: '随机 IP 生成器',
+    tags: [Tags.OTHER],
+    path: '/random_ip',
+    key: [],
+    subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
+  },
+  {
     label: '颜色格式转换',
     tags: [Tags.OTHER],
     path: '/color_convert',
