@@ -304,6 +304,13 @@ export const allTools: Tool[] = [
     subTitle: ' 随机 USER-AGENT 生成工具',
   },
   {
+    label: '随机 USER-AGENT',
+    tags: [Tags.OTHER],
+    path: '/random_ua',
+    key: ['随机 UA'],
+    subTitle: ' 随机 USER-AGENT 生成工具',
+  },
+  {
     label: '文本对比 diff',
     tags: [Tags.OTHER, Tags.TEXT],
     path: '/diff',
