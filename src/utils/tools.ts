@@ -141,6 +141,13 @@ export const allTools: Tool[] = [
     subTitle: 'JSON 转 Go 结构体。',
   },
   {
+    label: 'CIDR 计算器',
+    tags: [Tags.OTHER, Tags.HOT],
+    path: '/cidr',
+    key: [],
+    subTitle: '该功能由浏览器在本地完成，您的任何输入都不会提交到服务端。',
+  },
+  {
     label: '随机数/密码生成',
     tags: [Tags.OTHER, Tags.HOT],
     path: '/random',
