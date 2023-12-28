@@ -233,4 +233,11 @@ export const allTools: Tool[] = [
     key: ['图片压缩'],
     subTitle: '免费在线的图片压缩小工具',
   },
+  {
+    label: '早中晚吃啥呢',
+    tags: [Tags.OTHER],
+    path: '/eatwhat',
+    key: [],
+    subTitle: '干饭人🍚必备小工具。',
+  },
 ];
