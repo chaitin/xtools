@@ -148,6 +148,13 @@ export const allTools: Tool[] = [
     subTitle: 'JSON 转 Go 结构体。',
   },
   {
+    label: 'JSON 转 yaml',
+    tags: [Tags.JSON],
+    path: '/json2yaml',
+    key: [],
+    subTitle: 'JSON 转 yaml 小工具。',
+  },
+  {
     label: '随机数/密码生成',
     tags: [Tags.OTHER, Tags.HOT],
     path: '/random',
