@@ -3,10 +3,9 @@ import { Slider, Box, Button, Stack, Tab, Grid } from '@mui/material';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import Compressor from 'compressorjs';
-
 import React, { useCallback, useState } from 'react';
 import { styled } from '@mui/material/styles';
+import { shrinkImage } from 'shrinkpng';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -71,7 +70,7 @@ const ImgSharp: React.FC = () => {
       };
       reader.readAsDataURL(f);
       setFile(f);
-      sharp(quality, f);
+      doSharp(quality, f);
     },
     [f, quality]
   );
@@ -79,7 +78,7 @@ const ImgSharp: React.FC = () => {
   const handleQualityChanged = useCallback(
     (event: Event, newValue: number | number[]) => {
       setQuality(newValue as number);
-      sharp(quality, f as File);
+      doSharp(quality, f as File);
     },
     [f, quality]
   );
@@ -95,28 +94,17 @@ const ImgSharp: React.FC = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  function sharp(q: number, f: File) {
-    if (typeof f === undefined) {
-      console.log('请选择图片...');
-      return;
-    }
-    new Compressor(f, {
-      quality: q / 100,
-      success(result) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          if (e.target !== null) {
-            setOut(e.target.result as string);
-          }
-        };
-        reader.readAsDataURL(result);
-        setSharpSize(formatFileSize(result.size));
-        setOutFile(result as File);
-      },
-      error(err) {
-        console.log(err.message);
-      },
-    });
+  async function doSharp(q: number, file: File) {
+    const _file = await shrinkImage(file, { quality: q });
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      if (e.target !== null) {
+        setOut(e.target.result as string);
+      }
+    };
+    reader.readAsDataURL(_file);
+    setSharpSize(formatFileSize(_file.size));
+    setOutFile(_file as File);
   }
 
   return (
