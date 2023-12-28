@@ -97,7 +97,7 @@ const TripleDES: React.FC = () => {
       let k = crypto.enc.Utf8.parse(key);
 
       console.log(src, key, mode, padding, encoding, iv);
-      
+
       let result;
       if (method === 'encrypt') {
         let plaintext = crypto.enc.Utf8.parse(src);

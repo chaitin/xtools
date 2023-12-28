@@ -21,7 +21,8 @@ function addSpaceBetweenChineseAndEnglish(inputStr: string) {
 }
 
 const _C = () => {
-  const [input, setInput] = useState<string>(`你好世界1234你好世界ACVs你好世界`);
+  const [input, setInput] =
+    useState<string>(`你好世界1234你好世界ACVs你好世界`);
   const [translate, setTranslate] = useState<string>('');
 
   const handleClick = useCallback(() => {

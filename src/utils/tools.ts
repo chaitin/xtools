@@ -88,7 +88,8 @@ export const allTools: Tool[] = [
     tags: [Tags.ENCRYPT, Tags.SECURITY],
     path: '/md5fastcollision',
     key: [],
-    subTitle: '在线碰撞 MD5，生成 MD5 哈希相同的不同原始文本，基于 md5 fastcall 实现',
+    subTitle:
+      '在线碰撞 MD5，生成 MD5 哈希相同的不同原始文本，基于 md5 fastcall 实现',
   },
   {
     label: '密码哈希',
@@ -224,5 +225,12 @@ export const allTools: Tool[] = [
     path: '/img_sharp',
     key: ['图片压缩'],
     subTitle: '免费在线的图片压缩小工具',
+  },
+  {
+    label: 'htpasswd',
+    tags: [Tags.ENCODE],
+    path: '/htpasswd',
+    key: ['密码加密'],
+    subTitle: '在线 htpasswd 生成工具',
   },
 ];
