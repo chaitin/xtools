@@ -226,6 +226,13 @@ export const allTools: Tool[] = [
     subTitle: '字符串和 HEX 编码互相转换工具',
   },
   {
+    label: 'CIDR 计算',
+    tags: [Tags.OTHER],
+    path: '/cidr',
+    key: ['cidr 计算'],
+    subTitle: '计算 CIDR 工具',
+  },
+  {
     label: 'HTML 实体编解码',
     tags: [Tags.ENCODE],
     path: '/htmlentity',
@@ -295,6 +302,20 @@ export const allTools: Tool[] = [
     path: '/htpasswd',
     key: ['密码加密'],
     subTitle: '在线 htpasswd 生成工具，多用于 Nginx Basic Auth',
+  },
+  {
+    label: '随机 USER-AGENT',
+    tags: [Tags.OTHER],
+    path: '/random_ua',
+    key: ['随机 UA'],
+    subTitle: ' 随机 USER-AGENT 生成工具',
+  },
+  {
+    label: '随机 USER-AGENT',
+    tags: [Tags.OTHER],
+    path: '/random_ua',
+    key: ['随机 UA'],
+    subTitle: ' 随机 USER-AGENT 生成工具',
   },
   {
     label: '文本对比 diff',
