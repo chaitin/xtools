@@ -11,12 +11,15 @@ import 'ace-builds/src-noconflict/theme-monokai';
 const mock =
   '黄焖鸡\r\n牛肉粉\r\n老乡鸡\r\nKFC\r\n牛腩饭\r\n鳗鱼饭\r\n袁记云饺';
 
+
 const Eatwhat: React.FC = () => {
   const [food, setFoods] = useState<string>('');
+
   const [output, setEatWhat] = useState<string>('');
 
   const handleEditorChange = (value: string) => {
     // 将编辑器内容保存到状态
+
     setFoods(value);
   };
 

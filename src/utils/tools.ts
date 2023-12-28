@@ -148,6 +148,12 @@ export const allTools: Tool[] = [
     subTitle: 'JSON 转 Go 结构体。',
   },
   {
+    label: 'CIDR 计算器',
+    tags: [Tags.OTHER, Tags.HOT],
+    path: '/cidr',
+    key: [],
+    subTitle: '计算 cidr 的小工具',
+  },
     label: 'JSON 转 yaml',
     tags: [Tags.JSON],
     path: '/json2yaml',
@@ -268,4 +274,5 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'UUID 生成小工具。',
   },
+
 ];
