@@ -296,4 +296,11 @@ export const allTools: Tool[] = [
     key: ['密码加密'],
     subTitle: '在线 htpasswd 生成工具，多用于 Nginx Basic Auth',
   },
+  {
+    label: '随机 USER-AGENT',
+    tags: [Tags.OTHER],
+    path: '/random_ua',
+    key: ['随机 UA'],
+    subTitle: ' 随机 USER-AGENT 生成工具',
+  },
 ];
