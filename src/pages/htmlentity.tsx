@@ -111,7 +111,7 @@ const Hex: React.FC = () => {
               cursor: 'pointer',
               color: input ? '#52C41A' : '#fff',
               '&:hover': {
-                color: '#52C41A',
+                color: '#345AFF',
               },
             }}
           >
@@ -155,7 +155,7 @@ const Hex: React.FC = () => {
               cursor: 'pointer',
               color: input ? '#52C41A' : '#fff',
               '&:hover': {
-                color: '#52C41A',
+                color: '#345AFF',
               },
             }}
           >

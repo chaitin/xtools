@@ -154,6 +154,7 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '计算 cidr 的小工具',
   },
+  {
     label: 'JSON 转 yaml',
     tags: [Tags.JSON],
     path: '/json2yaml',
@@ -274,5 +275,4 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'UUID 生成小工具。',
   },
-
 ];
