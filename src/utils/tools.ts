@@ -55,6 +55,13 @@ export const allTools: Tool[] = [
     subTitle: '字数统计小工具，支持中文、英文、数字、标点符号等的统计。',
   },
   {
+    label: '下划线驼峰互转',
+    tags: [Tags.TEXT],
+    path: '/camelcase',
+    key: [],
+    subTitle: '下划线驼峰互转小工具。',
+  },
+  {
     label: '大小写转换',
     tags: [Tags.TEXT],
     path: '/case_convert',

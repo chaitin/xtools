@@ -11,13 +11,13 @@ import 'ace-builds/src-noconflict/theme-monokai';
 const mock =
   '黄焖鸡\r\n牛肉粉\r\n老乡鸡\r\nKFC\r\n牛腩饭\r\n鳗鱼饭\r\n袁记云饺';
 
-const JsonFmt: React.FC = () => {
-  const [json, setJson] = useState<string>('');
+const Eatwhat: React.FC = () => {
+  const [food, setFoods] = useState<string>('');
   const [output, setEatWhat] = useState<string>('');
 
   const handleEditorChange = (value: string) => {
     // 将编辑器内容保存到状态
-    setJson(value);
+    setFoods(value);
   };
 
   function splitAndRandomSelect(inputString: string) {
@@ -29,7 +29,7 @@ const JsonFmt: React.FC = () => {
   }
 
   const fmtJson = (s: string) => {
-    setJson(s);
+    setFoods(s);
     if (s.length == 0) {
       setEatWhat('');
       return;
@@ -38,7 +38,7 @@ const JsonFmt: React.FC = () => {
   };
 
   useEffect(() => {
-    fmtJson(mock);
+    setFoods(mock);
   }, []);
 
   return (
@@ -70,7 +70,7 @@ const JsonFmt: React.FC = () => {
             <Box>
               <Button
                 onClick={() => {
-                  setJson('');
+                  setFoods('');
                   setEatWhat('');
                 }}
               >
@@ -88,7 +88,7 @@ const JsonFmt: React.FC = () => {
               height: 'calc(100vh - 345px)',
               fontFamily: 'Mono',
             }}
-            value={json}
+            value={food}
             mode='json'
             theme='monokai'
             onChange={handleEditorChange}
@@ -114,11 +114,19 @@ const JsonFmt: React.FC = () => {
             <div>输出</div>
             <Box>
               <Button
+                variant='contained'
+                color='success'
+                size='large'
+                sx={{
+                  height: '30px',
+                  borderRadius: '5px',
+                  textAlign: 'center',
+                }}
                 onClick={() => {
-                  fmtJson(json);
+                  fmtJson(food);
                 }}
               >
-                吃啥！
+                吃啥🍚！
               </Button>
               <Button
                 onClick={() => {
@@ -151,4 +159,4 @@ const JsonFmt: React.FC = () => {
   );
 };
 
-export default JsonFmt;
+export default Eatwhat;
