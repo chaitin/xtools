@@ -39,6 +39,7 @@
     "crypto-js": "^4.2.0",
     "eslint-config-next": "^14.0.4",
     "html-entities": "^2.4.0",
+    "js-yaml": "^4.1.0",
     "json-2-csv": "^5.0.1",
     "next": "^14.0.4",
     "next-compose-plugins": "^2.2.1",
