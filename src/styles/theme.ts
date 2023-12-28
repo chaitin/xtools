@@ -260,6 +260,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: `"SF Pro SC","HanHei SC","SF Pro Text","Myriad Set Pro",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","SF Pro Icons","Apple Legacy Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif`,
+        },
+      },
+    },
   },
 });
 
