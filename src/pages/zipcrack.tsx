@@ -32,7 +32,7 @@ const Hash: React.FC = () => {
   const [fileName, setFileName] = useState<string>();
   const [data, setData] = useState<ArrayBuffer>(new ArrayBuffer(0));
   const [alphabet, setAlphabet] = useState<string>('1234567890');
-  const [maxLength, setMaxLength] = useState<number>(6);
+  const [maxLength, setMaxLength] = useState<number>(8);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [ing, setIng] = useState<boolean>(false);
   const [messageContent, setMessageContent] = useState<string>('');
@@ -77,10 +77,6 @@ const Hash: React.FC = () => {
           setData(e.target.result as ArrayBuffer);
         }
       };
-      if (files[0].size > 1024 * 1024) {
-        message('暂不支持处理超过 1MB 的文件');
-        return;
-      }
       setFileName(files[0].name);
       reader.readAsArrayBuffer(files[0]);
     },
@@ -106,12 +102,13 @@ const Hash: React.FC = () => {
 
   const handleCrack = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      if (cnt() / 1000 / 1000 / 1000 > 100) {
+      if (data.byteLength > 0 && cnt() / 1000 / 1000 / 1000 > 100) {
         message('计算量太大了，别破解了，没啥希望');
         //} else if (data.byteLength > 1024 * 50) {
         //  message('暂时还不支持破解超过 50 KB 的压缩包');
       } else {
         setIng(true);
+        setResult('正在破解，有点慢，可能会有点卡，稍等等');
         setTimeout(() => {
           console.log(data);
           const p = wasm.ccall(
@@ -121,14 +118,14 @@ const Hash: React.FC = () => {
             [
               maxLength,
               alphabet.split('').sort().join(''),
-              new Uint8Array(data, 0, 50 * 1024),
+              new Uint8Array(data, 0, Math.min(data.byteLength, 50 * 1024)),
               Math.min(data.byteLength, 50 * 1024),
             ]
           );
           if (p) {
-            setResult(p);
+            setResult('破解成功，密码是 ' + p);
           } else {
-            setResult('文件不太对');
+            setResult('破解失败，文件不太对');
           }
 
           setIng(false);
@@ -187,7 +184,7 @@ const Hash: React.FC = () => {
           </Grid>
         </Grid>
         <Box>
-          将尝试 {cnt()} 个密码，预计需要 {cost()}
+          将尝试 {cnt().toLocaleString('en-US')} 个密码，预计需要 {cost()}
         </Box>
         <Button
           size='small'
