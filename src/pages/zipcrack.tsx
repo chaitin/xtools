@@ -77,10 +77,6 @@ const Hash: React.FC = () => {
           setData(e.target.result as ArrayBuffer);
         }
       };
-      if (files[0].size > 1024 * 1024) {
-        message('暂不支持处理超过 1MB 的文件');
-        return;
-      }
       setFileName(files[0].name);
       reader.readAsArrayBuffer(files[0]);
     },
@@ -121,7 +117,7 @@ const Hash: React.FC = () => {
             [
               maxLength,
               alphabet.split('').sort().join(''),
-              new Uint8Array(data, 0, 50 * 1024),
+              new Uint8Array(data, 0, Math.min(data.byteLength, 50 * 1024)),
               Math.min(data.byteLength, 50 * 1024),
             ]
           );
