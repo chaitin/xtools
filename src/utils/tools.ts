@@ -233,6 +233,13 @@ export const allTools: Tool[] = [
     subTitle: '将彩色图片转换为黑白图片',
   },
   {
+    label: '图片像素化',
+    tags: [Tags.IMAGE],
+    path: '/pixel_img',
+    key: [],
+    subTitle: '图片像素化工具',
+  },
+  {
     label: 'Hex 编解码',
     tags: [Tags.ENCODE],
     path: '/hex',
