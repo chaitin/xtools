@@ -148,6 +148,13 @@ export const allTools: Tool[] = [
     subTitle: '在线 三重DES 算法加解密工具。',
   },
   {
+    label: 'RSA 加解密',
+    tags: [Tags.ENCRYPT],
+    path: '/rsa',
+    key: [],
+    subTitle: '在线 RSA 算法加解密工具。',
+  },
+  {
     label: 'JSON 转 CSV',
     tags: [Tags.JSON],
     path: '/jsontocsv',
