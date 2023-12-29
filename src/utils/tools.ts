@@ -155,6 +155,13 @@ export const allTools: Tool[] = [
     subTitle: '在线 RSA 算法加解密工具。',
   },
   {
+    label: '摩斯电码 加解密',
+    tags: [Tags.ENCRYPT],
+    path: '/morse',
+    key: [],
+    subTitle: '在线 摩斯电码 加解密工具。',
+  },
+  {
     label: 'JSON 转 CSV',
     tags: [Tags.JSON],
     path: '/jsontocsv',

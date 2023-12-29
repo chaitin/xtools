@@ -72,6 +72,7 @@
     "swiper": "^8.4.7",
     "typescript": "5.0.4",
     "xlsx": "^0.18.5",
+    "xmorse": "^1.0.0",
     "yarn": "^1.22.21"
   },
   "devDependencies": {
