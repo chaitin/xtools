@@ -125,11 +125,25 @@ const Header: React.FC<{}> = () => {
       >
         <Autocomplete
           disablePortal
-          blurOnSelect
           id='combo-box-demo'
           open={openSearch}
+          autoComplete
           onClose={() => setOpenSearch(false)}
           onOpen={() => setOpenSearch(true)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              // Prevent's default 'Enter' behavior.
+              event.defaultMuiPrevented = true;
+              const tool = allTools.find(
+                (item) => item.label === (event.target as any)?.value || ''
+              );
+              if (tool) {
+                setOpenSearch(false);
+                router.push(tool.path);
+              }
+              // your handler code
+            }
+          }}
           filterOptions={(menu, state) =>
             menu.filter((item) => {
               return (
@@ -143,30 +157,30 @@ const Header: React.FC<{}> = () => {
             })
           }
           options={allTools}
-          renderOption={(props: object, option: Tool) => (
-            <Box
-              sx={{
-                borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-                '&:hover': {
-                  background: 'rgba(17, 35, 90, 0.05)',
-                },
-              }}
-            >
-              <Link
-                href={option.path}
-                className='custom-link'
+          renderOption={(props: object, option: Tool, state) => {
+            return (
+              <Box
+                sx={{
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+                  '&:hover': {
+                    background: 'rgba(17, 35, 90, 0.05)',
+                  },
+                }}
                 onClick={() => setOpenSearch(false)}
+                {...props}
               >
-                <ToolCard tool={option} showStar={false} />
-              </Link>
-            </Box>
-          )}
+                <Link href={option.path} className='custom-link'>
+                  <ToolCard tool={option} showStar={false} />
+                </Link>
+              </Box>
+            );
+          }}
           sx={{ height: '100%' }}
+          autoHighlight
           renderInput={(params) => (
             <Stack direction='row'>
               <SearchIcon sx={{ mt: 1, mx: 1 }} />
               <TextField
-                // autoFocus
                 {...params}
                 placeholder='搜索'
                 sx={{ height: '100%' }}

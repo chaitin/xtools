@@ -43,6 +43,11 @@ export default function App({
           name='viewport'
           content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'
         />
+        <title>
+          {currentItem?.label
+            ? currentItem?.label + ' - 百川在线工具箱'
+            : '百川云常用工具'}
+        </title>
         <meta
           name='description'
           property='og:description'
