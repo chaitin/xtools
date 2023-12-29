@@ -39,6 +39,13 @@ export const allTools: Tool[] = [
     subTitle: '给图片添加水印',
   },
   {
+    label: '图片添加圆角',
+    tags: [Tags.IMAGE],
+    path: '/img_radius',
+    key: [],
+    subTitle: '给图片添加圆角',
+  },
+  {
     label: 'JSON JavaScript 互转',
     tags: [Tags.ENCODE, Tags.JSON],
     path: '/json2js',
@@ -309,13 +316,6 @@ export const allTools: Tool[] = [
     path: '/htpasswd',
     key: ['密码加密'],
     subTitle: '在线 htpasswd 生成工具，多用于 Nginx Basic Auth',
-  },
-  {
-    label: '随机 USER-AGENT',
-    tags: [Tags.OTHER],
-    path: '/random_ua',
-    key: ['随机 UA'],
-    subTitle: ' 随机 USER-AGENT 生成工具',
   },
   {
     label: '随机 USER-AGENT',
