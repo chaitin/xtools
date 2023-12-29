@@ -91,7 +91,7 @@ export const allTools: Tool[] = [
   },
   {
     label: 'Unix 时间戳转换',
-    tags: [Tags.DEV, Tags.HOT],
+    tags: [Tags.DEV],
     path: '/unix',
     key: [],
     subTitle:
@@ -99,7 +99,7 @@ export const allTools: Tool[] = [
   },
   {
     label: 'ASCII 码表',
-    tags: [Tags.DEV],
+    tags: [Tags.DEV, Tags.HOT],
     path: '/ascii',
     key: [],
     subTitle: 'ASCII 码查询表。',
@@ -114,14 +114,14 @@ export const allTools: Tool[] = [
   },
   {
     label: 'ZIP 密码在线破解',
-    tags: [Tags.ENCRYPT, Tags.SECURITY],
+    tags: [Tags.ENCRYPT, Tags.SECURITY, Tags.HOT],
     path: '/zipcrack',
     key: [],
     subTitle: '在线破解 ZIP 压缩包的文件密码',
   },
   {
     label: '密码哈希',
-    tags: [Tags.ENCRYPT],
+    tags: [Tags.ENCRYPT, Tags.HOT],
     path: '/hash',
     key: [],
     subTitle: '在线 MD5，SHA256 哈希算法计算小工具。',
@@ -290,7 +290,7 @@ export const allTools: Tool[] = [
   },
   {
     label: '手绘白板',
-    tags: [Tags.OTHER, Tags.OFFICIAL],
+    tags: [Tags.OTHER, Tags.OFFICIAL, Tags.HOT],
     path: '/excalidraw',
     key: [],
     subTitle:

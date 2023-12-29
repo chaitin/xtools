@@ -55,7 +55,7 @@ const Hash: React.FC = () => {
   };
 
   const cost = () => {
-    const s = cnt() / 10000000;
+    const s = cnt() / 800000;
     if (s > 3600) {
       return `${Math.floor(s / 3600)} 小时左右`;
     } else if (s > 60) {
@@ -117,9 +117,11 @@ const Hash: React.FC = () => {
             ['number', 'string', 'array', 'number'],
             [
               maxLength,
-              alphabet.split('').sort().join(''),
-              new Uint8Array(data, 0, Math.min(data.byteLength, 50 * 1024)),
-              Math.min(data.byteLength, 50 * 1024),
+              ':' + alphabet.split('').sort().join(''),
+              new Uint8Array(data, 0, data.byteLength),
+              data.byteLength,
+              //new Uint8Array(data, 0, Math.min(data.byteLength, 50 * 1024)),
+              //Math.min(data.byteLength, 50 * 1024),
             ]
           );
           if (p) {
