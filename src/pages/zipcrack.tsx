@@ -117,7 +117,7 @@ const Hash: React.FC = () => {
             ['number', 'string', 'array', 'number'],
             [
               maxLength,
-              ':' + alphabet.split('').sort().join(''),
+              alphabet.split('').sort().join(''),
               new Uint8Array(data, 0, data.byteLength),
               data.byteLength,
               //new Uint8Array(data, 0, Math.min(data.byteLength, 50 * 1024)),
