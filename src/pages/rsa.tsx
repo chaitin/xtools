@@ -107,7 +107,16 @@ const AES: React.FC = () => {
       return '';
     }
 
-    var encrypted = key.encrypt(plaintext, getPadding(padding));
+    plaintext = forge.util.encodeUtf8(plaintext);
+    var encrypted;
+    try {
+      encrypted = key.encrypt(plaintext, getPadding(padding));
+    } catch (error) {
+      const err = error as Error;
+      console.log(err);
+      alertActions.error('加密失败！');
+      return '';
+    }
     switch (encoding) {
       case 'Hex':
         return forge.util.bytesToHex(encrypted);
@@ -160,10 +169,12 @@ const AES: React.FC = () => {
     try {
       decrypted = key.decrypt(bytes, getPadding(padding));
     } catch (error) {
+      const err = error as Error;
+      console.log(err);
       alertActions.error('解密失败！');
       return '';
     }
-    return decrypted.replace(/^\0+/, '');
+    return forge.util.decodeUtf8(decrypted.replace(/^\0+/, ''));
   }
 
   const handleEncrypt = () => {
@@ -175,36 +186,44 @@ const AES: React.FC = () => {
   };
 
   const handleParsePublicKey = () => {
-    const key = parsePublicKey(publicKey);
-    if (key) {
-      const keyInfo = {
-        n: key.n.toString(),
-        e: key.e.toString(),
-      };
-      setKeyInfo(keyInfo);
-      setOpenDialog(true);
-    } else {
-      alertActions.error('请输入公钥！');
+    try {
+      const key = parsePublicKey(publicKey);
+      if (key) {
+        const keyInfo = {
+          n: key.n.toString(),
+          e: key.e.toString(),
+        };
+        setKeyInfo(keyInfo);
+        setOpenDialog(true);
+      }
+    } catch (error) {
+      const err = error as Error;
+      console.log(err);
+      alertActions.error('请输入正确公钥！');
     }
   };
 
   const handleParsePrivateKey = () => {
-    const key = parsePrivateKey(privateKey);
-    if (key) {
-      const keyInfo = {
-        n: key.n.toString(),
-        e: key.e.toString(),
-        d: key.d.toString(),
-        p: key.p.toString(),
-        q: key.q.toString(),
-        dP: key.dP.toString(),
-        dQ: key.dQ.toString(),
-        qInv: key.qInv.toString(),
-      };
-      setKeyInfo(keyInfo);
-      setOpenDialog(true);
-    } else {
-      alertActions.error('请输入私钥！');
+    try {
+      const key = parsePrivateKey(privateKey);
+      if (key) {
+        const keyInfo = {
+          n: key.n.toString(),
+          e: key.e.toString(),
+          d: key.d.toString(),
+          p: key.p.toString(),
+          q: key.q.toString(),
+          dP: key.dP.toString(),
+          dQ: key.dQ.toString(),
+          qInv: key.qInv.toString(),
+        };
+        setKeyInfo(keyInfo);
+        setOpenDialog(true);
+      }
+    } catch (error) {
+      const err = error as Error;
+      console.log(err);
+      alertActions.error('请输入正确私钥！');
     }
   };
 
@@ -214,7 +233,8 @@ const AES: React.FC = () => {
       { bits: keyBits, e: 0x10001, workers: 1 },
       function (err, keypair) {
         if (err) {
-          alertActions.error(err.message);
+          console.log(err);
+          alertActions.error('密钥生成失败！');
         } else {
           setPublicKey(forge.pki.publicKeyToPem(keypair.publicKey));
           setPrivateKey(forge.pki.privateKeyToPem(keypair.privateKey));
