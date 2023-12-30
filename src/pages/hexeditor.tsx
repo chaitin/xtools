@@ -1,18 +1,30 @@
 import MainContent from '@/components/MainContent';
 import {
-  Alert,
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
+
   Stack,
 } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+
+
+import { FixedSizeList } from 'react-window';
+import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
+import DownloadIcon from '@mui/icons-material/Download';
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+
+const theme = {
+  backgroud: '#21252B',
+  backgroudLineNo: '#282C34',
+  backgroudLineNoHighLight: '#323842',
+  backgroudHighLight: '#61AFEF',
+  text: '#ABB2BF',
+  textWeak: '#ABB2BF33',
+  textStrong: '#F6F7F9',
+  textModified: '#E06C75',
+}
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -26,143 +38,25 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const Span = styled('span')({});
-
-const LineNo = styled('span')({
-  fontFamily: 'Mono',
-  fontSize: '14px',
-  color: 'rgba(0,0,0,0.9)',
-  height: '32px',
-  lineHeight: '32px',
-  backgroundColor: 'rgb(222, 222, 222)',
-  paddingTop: '8px',
-  paddingBottom: '8px',
-  paddingLeft: '10px',
-  paddingRight: '20px',
-  marginRight: '50px',
-});
-
-const Hex = styled('span')({
-  fontFamily: 'Mono',
-  fontSize: '14px',
-  fontWeight: '600',
-  color: 'rgba(0,0,0,0.9)',
-  height: '32px',
-  lineHeight: '32px',
-  paddingTop: '6px',
-  paddingBottom: '6px',
-  paddingLeft: '5px',
-  paddingRight: '5px',
-  cursor: 'text',
-});
-
-const Text = styled('span')({
-  fontFamily: 'Mono',
-  fontSize: '14px',
-  color: 'rgba(0,0,0,0.7)',
-  height: '32px',
-  lineHeight: '32px',
-  paddingTop: '6px',
-  paddingBottom: '6px',
-  paddingLeft: '1px',
-  paddingRight: '1px',
-  cursor: 'default',
-});
-
-const Editor = styled('input')({
-  width: '100px',
-  borderTop: 0,
-  borderLeft: 0,
-  borderRight: 0,
-  outline: 'none',
-  marginLeft: '60px',
-  marginRight: '60px',
-  padding: '10px',
-  fontFamily: 'Mono',
-  fontSize: '36px',
-  letterSpacing: '10px',
-});
+const nToHexWithPadding = (n: number, padding: number) => ('0'.repeat(padding) + n.toString(16)).slice(-padding)
+const nToASCIIPrintale = (n: number) => ((n >= 0x20 && n <= 0x7e) ? String.fromCharCode(n) : '.')
 
 const HexEditor: React.FC = () => {
-  const [data, setData] = useState<ArrayBuffer>(new ArrayBuffer(0x100));
+  const [dataOrigin, setDataOrigin] = useState<Uint8Array>(new Uint8Array(0x100));
+  const [dataNew, setDataNew] = useState<Uint8Array>(new Uint8Array(0x100));
   const [hoverID, setHoverID] = useState<number>(-1);
-  const [edit, setEdit] = useState<boolean>(false);
-  const [showMessage, setShowMessage] = useState<boolean>(false);
-  const [editID, setEditID] = useState<number>(-1);
-  const [editByte, setEditByte] = useState<string>('00');
-  const buffer = useMemo(() => new Uint8Array(data), [data]);
+  const [editing, setEditing] = useState<boolean>(false);
   const [fileName, setFileName] = useState<string>();
 
-  const handleMouseEnter = (x: number) => {
-    return (event: React.MouseEvent<HTMLElement>) => {
-      setHoverID(x);
-    };
-  };
-
-  const handleMouseOut = (event: React.MouseEvent<HTMLElement>) => {
-    setHoverID(-1);
-  };
-
-  const getHex = (x: number) => {
-    if (x < 0 || x >= buffer.length) {
-      return <Hex sx={{ color: 'rgba(0,0,0,0.1)' }}>--</Hex>;
-    }
-    return (
-      <Hex
-        onClick={handleHexClick(x)}
-        onMouseEnter={handleMouseEnter(x)}
-        onMouseOut={handleMouseOut}
-        sx={
-          x === hoverID
-            ? { color: 'rgb(0,0,0)', backgroundColor: 'rgba(52, 90, 255, 0.2)' }
-            : {}
-        }
-      >
-        {('00' + buffer[x].toString(16)).slice(-2)}
-      </Hex>
-    );
-  };
-
-  const getText = (x: number) => {
-    if (x < 0 || x >= buffer.length) {
-      return <Text sx={{ color: 'rgba(0,0,0,0.1)' }}>-</Text>;
-    }
-    if (buffer[x] >= 0x21 && buffer[x] <= 0x7e) {
-      return (
-        <Text
-          onMouseEnter={handleMouseEnter(x)}
-          onMouseOut={handleMouseOut}
-          sx={
-            x === hoverID
-              ? {
-                  color: 'rgb(0,0,0)',
-                  backgroundColor: 'rgba(52, 90, 255, 0.2)',
-                }
-              : {}
-          }
-        >
-          {String.fromCharCode(buffer[x])}
-        </Text>
-      );
+  const asciiColor = (id: number) => {
+    if (id === hoverID) {
+      return theme.textStrong;
+    } else if (dataNew[id] < 0x20 || dataNew[id] > 0x7e) {
+      return theme.textWeak
     } else {
-      return (
-        <Text
-          onMouseEnter={handleMouseEnter(x)}
-          onMouseOut={handleMouseOut}
-          sx={
-            x === hoverID
-              ? {
-                  color: 'rgb(0,0,0)',
-                  backgroundColor: 'rgba(52, 90, 255, 0.2)',
-                }
-              : { color: 'rgba(0,0,0,0.3)' }
-          }
-        >
-          .
-        </Text>
-      );
+      return theme.text;
     }
-  };
+  }
 
   const handleSelectFile = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,147 +67,203 @@ const HexEditor: React.FC = () => {
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target !== null) {
-          setData(e.target.result as ArrayBuffer);
+          const arrOrigin = new Uint8Array(e.target.result as ArrayBuffer)
+          setDataOrigin(arrOrigin);
+          const arrNew = new Uint8Array(new ArrayBuffer(arrOrigin.byteLength));
+          arrNew.set(arrOrigin);
+          setDataNew(arrNew);
         }
       };
-      if (files[0].size > 1024 * 1024) {
-        setShowMessage(true);
-        return;
-      }
       setFileName(files[0].name);
       reader.readAsArrayBuffer(files[0]);
     },
     []
   );
 
-  const handleHexClick = useCallback(
-    (x: number) => {
-      return (event: React.MouseEvent<HTMLElement>) => {
-        setEditID(x);
-        setEdit(true);
-        setEditByte(('00' + buffer[x].toString(16)).slice(-2));
-      };
-    },
-    [buffer]
-  );
-
-  const handleEditCommit = useCallback(
+  const handleMouseEnter = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      setEdit(false);
-      buffer[editID] = parseInt(editByte, 16);
-    },
-    [buffer, editID, editByte]
+      if (editing) {
+        return
+      }
+      const id = parseInt((event.target as HTMLElement).getAttribute('id') as string)
+      if (id < dataNew.byteLength) {
+        setHoverID(id);
+      }
+    }, [dataNew, editing]
   );
 
-  const handleEditClose = (event: React.MouseEvent<HTMLElement>) => {
-    setEdit(false);
-  };
-
-  const editor = Array(Math.ceil(buffer.length / 16))
-    .fill(0)
-    .map((_, x) => {
-      return (
-        <Box key={x} sx={{ height: '32px' }}>
-          <LineNo>{('00000000' + (x * 0x10).toString(16)).slice(-8)}</LineNo>
-          {getHex(x * 0x10 + 0x00)}
-          {getHex(x * 0x10 + 0x01)}
-          {getHex(x * 0x10 + 0x02)}
-          {getHex(x * 0x10 + 0x03)}
-          {getHex(x * 0x10 + 0x04)}
-          {getHex(x * 0x10 + 0x05)}
-          {getHex(x * 0x10 + 0x06)}
-          {getHex(x * 0x10 + 0x07)}
-          <Span sx={{ marginRight: '20px' }}></Span>
-          {getHex(x * 0x10 + 0x08)}
-          {getHex(x * 0x10 + 0x09)}
-          {getHex(x * 0x10 + 0x0a)}
-          {getHex(x * 0x10 + 0x0b)}
-          {getHex(x * 0x10 + 0x0c)}
-          {getHex(x * 0x10 + 0x0d)}
-          {getHex(x * 0x10 + 0x0e)}
-          {getHex(x * 0x10 + 0x0f)}
-
-          <Span sx={{ marginRight: '50px' }}></Span>
-          {getText(x * 0x10 + 0x00)}
-          {getText(x * 0x10 + 0x01)}
-          {getText(x * 0x10 + 0x02)}
-          {getText(x * 0x10 + 0x03)}
-          {getText(x * 0x10 + 0x04)}
-          {getText(x * 0x10 + 0x05)}
-          {getText(x * 0x10 + 0x06)}
-          {getText(x * 0x10 + 0x07)}
-          {getText(x * 0x10 + 0x08)}
-          {getText(x * 0x10 + 0x09)}
-          {getText(x * 0x10 + 0x0a)}
-          {getText(x * 0x10 + 0x0b)}
-          {getText(x * 0x10 + 0x0c)}
-          {getText(x * 0x10 + 0x0d)}
-          {getText(x * 0x10 + 0x0e)}
-          {getText(x * 0x10 + 0x0f)}
-        </Box>
-      );
-    });
-
-  const onEditByteChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEditByte(event.target.value);
-    },
-    []
+  const handleMouseLeave = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (editing) {
+        return
+      }
+      setHoverID(-1);
+    }, [editing]
   );
 
-  const handleMessageClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    setShowMessage(false);
-  };
+  const handleMouseClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      const element = (event.target as HTMLElement)
+      const id = parseInt(element.getAttribute('id') as string)
+      if (id < dataNew.byteLength) {
+        setHoverID(id);
+        element.contentEditable = 'true';
+        console.log(element)
+        element.focus();
+        const range = window.getSelection()?.getRangeAt(0);
+        const cursorPosition = range?.startOffset as number;
+        range?.setStart(element.firstChild as ChildNode, cursorPosition < element.innerHTML.length ? cursorPosition : element.innerHTML.length)
+      }
+      setEditing(true);
+    }, [dataNew, editing]
+  );
+    
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+    }, [dataNew]
+  );
+
+  const handleKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      //console.log(event);
+      const element = (event.target as HTMLElement)
+      const range = window.getSelection()?.getRangeAt(0);
+      const cursorPosition = range?.startOffset as number;
+      console.log(range?.startOffset);
+      element.innerHTML = (element.innerHTML.replace(/[^0-9A-Fa-f]/g, '') + '00').slice(0, 2)
+      if (event.key == 'Escape' || event.key == 'Enter') {
+        const id = parseInt(element.getAttribute('id') as string)
+        dataNew[id] = parseInt(element.innerHTML, 0x10)
+        setEditing(false);
+        element.contentEditable = 'false';
+      } 
+      console.log(range?.startOffset);
+      range?.setStart(element.firstChild as ChildNode, cursorPosition < element.innerHTML.length ? cursorPosition : element.innerHTML.length)
+    }, [dataNew]
+  );
+    
+  const handleBlur = useCallback(
+    (event: React.FocusEvent<HTMLElement>) => {
+      const element = (event.target as HTMLElement)
+      const id = parseInt(element.getAttribute('id') as string)
+      dataNew[id] = parseInt(element.innerHTML, 0x10)
+      setEditing(false);
+      element.contentEditable = 'false';
+    }, [dataNew]
+  );
+
+  const handleSaveFile = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      const url = URL.createObjectURL(new Blob([dataNew], { type: 'application/octet-stream' }));
+      const aTag = document.createElement('a');
+      aTag.style.display = 'none';
+      aTag.href = url;
+      aTag.download = 'new_' + fileName;
+      document.body.appendChild(aTag);
+      aTag.click();
+      URL.revokeObjectURL(url);
+    }, [dataNew]
+  );
+
+
+  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
+    <div style={{ ...style }}>
+      <div style={{
+        display: 'inline-block',
+        width: '110px',
+        color: theme.text,
+        backgroundColor: index === Math.floor(hoverID / 0x10) ? theme.backgroudLineNoHighLight : theme.backgroudLineNo,
+        paddingLeft: '20px',
+      }}>{nToHexWithPadding(index * 10, 8)}</div>
+      <div style={{
+        display: 'inline-block',
+        padding: '0 20px',
+      }}>{Array(0x10).fill(0).map((_, i) => (
+        <div key={i}
+          id={(index * 0x10 + i).toString()}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleMouseClick}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
+          style={{
+            display: 'inline-block',
+            width: '32px',
+            textAlign: 'center',
+            fontWeight: index * 0x10 + i === hoverID ? '600' : '400',
+            color: dataNew[index * 0x10 + i] === dataOrigin[index * 0x10 + i] ? theme.textStrong : theme.textModified,
+            backgroundColor: index * 0x10 + i === hoverID ? theme.backgroudHighLight : '',
+            marginRight: (i == 0x07) ? '20px' : '',
+          }}
+        >{index * 0x10 + i < dataNew.byteLength ? nToHexWithPadding(dataNew[index * 0x10 + i], 2) : ''}</div>))}
+      </div>
+      <div style={{
+        display: 'inline-block',
+        padding: '0 10px',
+        backgroundColor: theme.backgroudLineNo,
+      }}>{Array(0x10).fill(0).map((_, i) => (
+        <div key={i}
+          id={(index * 0x10 + i).toString()}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleMouseClick}
+          style={{
+            display: 'inline-block',
+            width: '10px',
+            textAlign: 'center',
+            fontWeight: index * 0x10 + i === hoverID ? '600' : '400',
+            color: asciiColor(index * 0x10 + i),
+            backgroundColor: index * 0x10 + i === hoverID ? theme.backgroudHighLight : '',
+          }}
+        >{index * 0x10 + i < dataNew.byteLength ? nToASCIIPrintale(dataNew[index * 0x10 + i]) : ''}</div>))}
+      </div>
+    </div>
+  );
 
   return (
     <MainContent>
-      <>
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <Stack spacing={1} sx={{ color: '#FF1844' }}>
-            <Button
-              component='label'
-              variant='outlined'
-              sx={{ borderRadius: '3px', height: '40px' }}
-            >
-              {fileName ? '已加载文件 ' + fileName : '加载文件'}
-              <VisuallyHiddenInput type='file' onChange={handleSelectFile} />
-            </Button>
-          </Stack>
-          <Stack
-            sx={{
-              border: 'rgb(222,222,222) solid 1px',
-              borderRadius: '3px',
-              marginTop: '20px',
-              userSelect: 'none',
-            }}
+      <Stack spacing={3} sx={{ height: '100%' }}>
+        <Stack direction="row" spacing={2}>
+          <Button
+            startIcon={<OpenInBrowserIcon />}
+            component='label'
+            variant='outlined'
+            sx={{ borderRadius: '4px', width: '100%', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
           >
-            {editor}
-          </Stack>
+            {fileName ? '已加载文件 - ' + fileName : '打开文件'}
+            <VisuallyHiddenInput type='file' onChange={handleSelectFile} />
+          </Button>
+          <Button
+            startIcon={<DownloadIcon />}
+            component='label'
+            variant='outlined'
+            onClick={handleSaveFile}
+            sx={{ borderRadius: '4px', width: '150px' }}
+          >保存文件</Button>
+        </Stack>
+
+        <Box sx={{
+          height: '100%',
+          marginTop: '20px',
+          userSelect: 'none',
+          lineHeight: '32px',
+          fontFamily: 'Mono',
+          fontSize: '14px',
+          padding: '10px 0',
+          backgroundColor: theme.backgroud,
+        }}>
+          <AutoSizer>
+            {(size: Size) => (
+              <FixedSizeList
+                height={size.height}
+                itemCount={Math.ceil(dataNew.byteLength / 0x10)}
+                itemSize={32}
+                width={size.width}
+              >{Row}</FixedSizeList>)}
+          </AutoSizer>
         </Box>
-        <Snackbar
-          open={showMessage}
-          autoHideDuration={6000}
-          onClose={handleMessageClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <Alert variant='outlined' severity='error' sx={{ width: '100%' }}>
-            暂不支持处理超过 1MB 的文件
-          </Alert>
-        </Snackbar>
-        <Dialog open={edit} onClose={handleEditClose}>
-          <DialogTitle>修改字节</DialogTitle>
-          <DialogContent>
-            <Editor value={editByte} onChange={onEditByteChange}></Editor>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleEditClose}>取消</Button>
-            <Button onClick={handleEditCommit}>确认</Button>
-          </DialogActions>
-        </Dialog>
-      </>
+      </Stack>
     </MainContent>
   );
 };
