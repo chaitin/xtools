@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import MainContent from '@/components/MainContent';
 import { Slider, Grid, Button, Box, IconButton } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import ImageDownload from '@/components/ImageDownload';
 
 function ImageWithBorderRadiusTool() {
   const [imageFile, setImageFile] = useState(null);
@@ -126,18 +127,7 @@ function ImageWithBorderRadiusTool() {
             overflow: 'auto',
           }}
         >
-          {imagePreviewUrl && (
-            <img
-              src={imagePreviewUrl}
-              alt='Preview'
-              style={{
-                maxHeight: '80%',
-                maxWidth: '100%',
-                height: 'auto',
-                width: 'auto',
-              }}
-            />
-          )}
+          {imagePreviewUrl && <ImageDownload src={imagePreviewUrl} />}
           <canvas ref={canvasRef} style={{ display: 'none' }} />
         </Box>
       </>
