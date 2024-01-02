@@ -1,17 +1,16 @@
 import MenuView from '@/components/MainContent';
+import TextFieldWithClean from '@/components/TextFieldWithClean';
+import TextFieldWithCopy from '@/components/TextFieldWithCopy';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import {
   Box,
   FormControlLabel,
   FormLabel,
-  InputAdornment,
   Radio,
   RadioGroup,
   Stack,
   Tab,
-  TextField,
-  Typography,
 } from '@mui/material';
 import crypto from 'crypto-js';
 import React, { useCallback } from 'react';
@@ -97,7 +96,7 @@ const TripleDES: React.FC = () => {
       let k = crypto.enc.Utf8.parse(key);
 
       console.log(src, key, mode, padding, encoding, iv);
-      
+
       let result;
       if (method === 'encrypt') {
         let plaintext = crypto.enc.Utf8.parse(src);
@@ -190,6 +189,12 @@ const TripleDES: React.FC = () => {
     []
   );
 
+  const handleCleanSrcClick = useCallback(() => {
+    setSrc('');
+    setKey('');
+    setIV('');
+  }, []);
+
   return (
     <MenuView>
       <>
@@ -209,43 +214,27 @@ const TripleDES: React.FC = () => {
             </TabList>
           </Box>
         </TabContext>
-        <TextField
+        <TextFieldWithClean
           size='small'
           value={key}
+          label={(method === 'encrypt' ? '加密' : '解密') + '密钥'}
           variant='outlined'
           onChange={onKeyChange}
+          onClean={handleCleanSrcClick}
           placeholder='建议为 24 位字符'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment
-                position='start'
-                sx={{ width: '100px', fontFamily: 'Mono' }}
-              >
-                {method === 'encrypt' ? '加密' : '解密'}密钥
-              </InputAdornment>
-            ),
-          }}
           sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
         />
         {mode !== 'ecb' ? (
-          <TextField
+          <TextFieldWithClean
             size='small'
             value={iv}
+            label={mode === 'ctr' ? 'Nonce' : 'IV'}
             variant='outlined'
             onChange={onIVChange}
+            onClean={handleCleanSrcClick}
             placeholder={
               mode === 'ctr' ? '建议为 8 位字符的 Nonce' : '建议为 8 位字符'
             }
-            InputProps={{
-              startAdornment: (
-                <InputAdornment
-                  position='start'
-                  sx={{ width: '100px', fontFamily: 'Mono' }}
-                >
-                  {mode === 'ctr' ? 'Nonce' : 'IV'}
-                </InputAdornment>
-              ),
-            }}
             sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
           />
         ) : (
@@ -327,23 +316,20 @@ const TripleDES: React.FC = () => {
             <FormControlLabel value='Hex' control={<Radio />} label='Hex' />
           </RadioGroup>
         </Stack>
-        <Typography sx={{ marginTop: '10px' }}>
-          {method === 'encrypt' ? '明文' : '密文'}
-        </Typography>
-        <TextField
+        <TextFieldWithClean
           value={src}
           variant='outlined'
+          label={method === 'encrypt' ? '明文' : '密文'}
           multiline
           rows={3}
+          onClean={handleCleanSrcClick}
           onChange={onSrcChange}
           sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
         />
-        <Typography sx={{ marginTop: '10px' }}>
-          {method === 'encrypt' ? '密文' : '明文'}
-        </Typography>
-        <TextField
+        <TextFieldWithCopy
           value={dst}
           variant='outlined'
+          label={method === 'encrypt' ? '密文' : '明文'}
           multiline
           rows={3}
           onChange={onDstChange}

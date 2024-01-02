@@ -13,7 +13,11 @@ const TextFieldWithCopy: React.FC<OutlinedTextFieldProps> = (props) => {
 
   return (
     <Box sx={{ position: 'relative', width: '100%' }}>
-      <TextField {...otherProps} variant='outlined' />
+      <TextField
+        {...otherProps}
+        sx={{ width: '100%', ...otherProps.sx }}
+        variant='outlined'
+      />
       <Box
         sx={{
           position: 'absolute',
