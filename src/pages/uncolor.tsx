@@ -1,3 +1,4 @@
+import ImageDownload from '@/components/ImageDownload';
 import MainContent from '@/components/MainContent';
 import { Box, Button, Stack } from '@mui/material';
 
@@ -19,15 +20,6 @@ const VisuallyHiddenInput = styled('input')({
 const UploadImg = styled('img')({
   maxHeight: '100%',
   maxWidth: '100%',
-});
-
-const OutImg = styled('img')({
-  Width: '100%',
-  border: 'black solid 1px',
-  borderColor: 'rgba(0, 0, 0, 0.1)',
-  margin: '20px',
-  padding: '20px',
-  borderRadius: '3px',
 });
 
 const MySpan = styled('span')({});
@@ -101,7 +93,7 @@ const ImgBase64: React.FC = () => {
             <UploadImg src={imageIn} />
             <VisuallyHiddenInput type='file' onChange={handleSelectFile} />
           </Button>
-          <OutImg src={uncolorOut} />
+          <ImageDownload src={uncolorOut} />
         </Stack>
       </Box>
     </MainContent>

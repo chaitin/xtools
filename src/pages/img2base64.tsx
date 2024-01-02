@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 
 import React, { useCallback, useState } from 'react';
 import { styled } from '@mui/material/styles';
+import ImageDownload from '@/components/ImageDownload';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -155,7 +156,7 @@ const ImgBase64: React.FC = () => {
               >
                 转换
               </Button>
-              <OutImg src={decodeOut} />
+              <ImageDownload src={decodeOut} />
             </Stack>
           </TabPanel>
         </TabContext>

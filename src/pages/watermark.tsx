@@ -1,10 +1,10 @@
 import MainContent from '@/components/MainContent';
 import WatermarkComponent from '@/components/Watermark';
-import { downloadFile } from '@/components/Watermark/utils';
 import { Box, Button, Stack, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
+import ImageDownload from '@/components/ImageDownload';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -16,19 +16,6 @@ const VisuallyHiddenInput = styled('input')({
   left: 0,
   whiteSpace: 'nowrap',
   width: 1,
-});
-
-const OutImg = styled('img')({
-  width: '100%',
-});
-
-const OutImgWrap = styled('div')({
-  width: '100%',
-  border: 'black solid 1px',
-  borderColor: 'rgba(0, 0, 0, 0.1)',
-  marginTop: '20px',
-  padding: '20px',
-  borderRadius: '3px',
 });
 
 const Watermark: React.FC = () => {
@@ -110,9 +97,6 @@ const Watermark: React.FC = () => {
     image1.src = image1Url;
   };
 
-  const handleDownload = () => {
-    downloadFile(mergeImage, '');
-  };
   useEffect(() => {
     onMergeImage(imageIn, markImage);
   }, [watchAllFields.offset[0], watchAllFields.offset[1]]);
@@ -289,11 +273,8 @@ const Watermark: React.FC = () => {
           </Box>
         </Stack>
         {imageIn && (
-          <OutImgWrap>
-            <Button variant='contained' sx={{ mb: 1 }} onClick={handleDownload}>
-              图片下载
-            </Button>
-            <OutImg src={mergeImage} />
+          <Box>
+            <ImageDownload src={mergeImage} />
             <WatermarkComponent
               content={watchAllFields.context}
               font={{
@@ -303,7 +284,7 @@ const Watermark: React.FC = () => {
               gap={watchAllFields.gap as [number, number]}
               onWaterMarkChange={onWaterMarkChange}
             ></WatermarkComponent>
-          </OutImgWrap>
+          </Box>
         )}
       </Box>
     </MainContent>

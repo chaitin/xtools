@@ -226,6 +226,14 @@ export const allTools: Tool[] = [
     subTitle: 'SQL 格式化小工具。',
   },
   {
+    label: 'SQLite 在线浏览',
+    tags: [Tags.DEV],
+    path: '/sqlite',
+    key: [],
+    subTitle:
+      '在线管理 SQLite 数据库, 在线浏览 SQLite 数据, 自定义 SQLite 查询语句',
+  },
+  {
     label: '图片去色',
     tags: [Tags.IMAGE],
     path: '/uncolor',

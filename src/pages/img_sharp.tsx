@@ -6,6 +6,7 @@ import TabList from '@mui/lab/TabList';
 import React, { useCallback, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { shrinkImage } from 'shrinkpng';
+import ImageDownload from '@/components/ImageDownload';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -83,17 +84,6 @@ const ImgSharp: React.FC = () => {
     [f, quality]
   );
 
-  const handleDownload = () => {
-    const url = window.URL.createObjectURL(outF as File);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-  };
-
   async function doSharp(q: number, file: File) {
     const _file = await shrinkImage(file, { quality: q });
     const reader = new FileReader();
@@ -162,23 +152,7 @@ const ImgSharp: React.FC = () => {
                   压缩后大小: {sharpSize}
                 </Grid>
               </Grid>
-              {out ? (
-                <Button
-                  component='label'
-                  variant='outlined'
-                  onClick={handleDownload}
-                  sx={{
-                    borderRadius: '3px',
-                    minHeight: '100px',
-                    padding: '0',
-                    img: { width: '100%' },
-                  }}
-                >
-                  <UploadImg src={out} />
-                </Button>
-              ) : (
-                <></>
-              )}
+              {out ? <ImageDownload src={out} /> : <></>}
             </Stack>
           </TabPanel>
         </TabContext>

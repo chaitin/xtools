@@ -224,7 +224,7 @@ const HexEditor: React.FC = () => {
             paddingLeft: '20px',
           }}
         >
-          {nToHexWithPadding(index * 10, 8)}
+          {nToHexWithPadding(index * 0x10, 8)}
         </div>
         <div
           style={{
