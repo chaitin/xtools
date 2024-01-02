@@ -60,3 +60,4 @@ declare module 'gofmt.js';
 declare module 'uuid';
 declare module 'apache-crypt';
 declare module 'bcryptjs';
+declare module 'jsfuck';
