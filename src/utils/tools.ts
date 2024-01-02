@@ -353,4 +353,11 @@ export const allTools: Tool[] = [
     key: ['在线文本对比Diff', '高亮显示'],
     subTitle: '在线文本对比Diff，支持多种对比模式，差异部分高亮显示',
   },
+  {
+    label: '在线 JSFuck 加密',
+    tags: [Tags.ENCODE],
+    path: '/jsfuck',
+    key: ['在线 JSFuck 加密'],
+    subTitle: 'JSFuck 加密',
+  },
 ];
