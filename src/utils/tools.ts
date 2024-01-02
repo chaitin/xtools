@@ -248,6 +248,13 @@ export const allTools: Tool[] = [
     subTitle: '图片像素化工具',
   },
   {
+    label: '图片格式转换',
+    tags: [Tags.IMAGE],
+    path: '/img_conversion',
+    key: [],
+    subTitle: '支持 png, jpg, jpeg, webp, bmp, gif, ico 格式',
+  },
+  {
     label: 'Hex 编解码',
     tags: [Tags.ENCODE],
     path: '/hex',
