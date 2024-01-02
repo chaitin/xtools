@@ -346,4 +346,11 @@ export const allTools: Tool[] = [
     key: ['在线文本对比Diff', '高亮显示'],
     subTitle: '在线文本对比Diff，支持多种对比模式，差异部分高亮显示',
   },
+  {
+    label: 'ping',
+    tags: [Tags.OTHER],
+    path: '/ping',
+    key: ['ping'],
+    subTitle: '在线 ping',
+  },
 ];
