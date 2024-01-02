@@ -360,4 +360,11 @@ export const allTools: Tool[] = [
     key: ['在线 JSFuck 加密'],
     subTitle: 'JSFuck 加密',
   },
+  {
+    label: '颜色吸取器',
+    tags: [Tags.OTHER],
+    path: '/color_picker',
+    key: [],
+    subTitle: '在线颜色吸取器，可以快速生成十种常用颜色的代码',
+  },
 ];
