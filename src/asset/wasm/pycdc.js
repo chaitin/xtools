@@ -303,10 +303,6 @@ if (!ENVIRONMENT_IS_NODE) {
   function _malloc() {
     abort("malloc() called but not included in the build - add '_malloc' to EXPORTED_FUNCTIONS");
   }
-  function _free() {
-    // Show a helpful error since we used to include free by default in the past.
-    abort("free() called but not included in the build - add '_free' to EXPORTED_FUNCTIONS");
-  }
 
   // Memory management
 
@@ -420,6 +416,8 @@ if (!ENVIRONMENT_IS_NODE) {
     runtimeInitialized = true;
 
     checkStackCookie();
+
+    setStackLimits();
 
     
   if (!Module["noFSInit"] && !FS.init.initialized)
@@ -622,6 +620,20 @@ if (!ENVIRONMENT_IS_NODE) {
   }
 
   // include: runtime_exceptions.js
+  // Base Emscripten EH error class
+  class EmscriptenEH extends Error {}
+
+  class EmscriptenSjLj extends EmscriptenEH {}
+
+  class CppException extends EmscriptenEH {
+    constructor(excPtr) {
+      super(excPtr);
+      this.excPtr = excPtr;
+      const excInfo = getExceptionMessage(excPtr);
+      this.name = excInfo[0];
+      this.message = excInfo[1];
+    }
+  }
   // end include: runtime_exceptions.js
   var wasmBinaryFile;
   wasmBinaryFile = './wasm/pycdc.wasm';
@@ -733,6 +745,10 @@ if (!ENVIRONMENT_IS_NODE) {
       // TODO(sbc): Read INITIAL_MEMORY out of the wasm file in post-link mode.
       //assert(wasmMemory.buffer.byteLength === 16777216);
       updateMemoryViews();
+
+      wasmTable = wasmExports['__indirect_function_table'];
+      
+      assert(wasmTable, "table not found in wasm exports");
 
       addOnInit(wasmExports['__wasm_call_ctors']);
 
@@ -898,6 +914,108 @@ if (!ENVIRONMENT_IS_NODE) {
         }
       };
 
+    var decrementExceptionRefcount = (ptr) => ___cxa_decrement_exception_refcount(ptr);
+
+    
+    
+    var withStackSave = (f) => {
+        var stack = stackSave();
+        var ret = f();
+        stackRestore(stack);
+        return ret;
+      };
+    
+    var UTF8Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder('utf8') : undefined;
+    
+      /**
+       * Given a pointer 'idx' to a null-terminated UTF8-encoded string in the given
+       * array that contains uint8 values, returns a copy of that string as a
+       * Javascript String object.
+       * heapOrArray is either a regular array, or a JavaScript typed array view.
+       * @param {number} idx
+       * @param {number=} maxBytesToRead
+       * @return {string}
+       */
+    var UTF8ArrayToString = (heapOrArray, idx, maxBytesToRead) => {
+        var endIdx = idx + maxBytesToRead;
+        var endPtr = idx;
+        // TextDecoder needs to know the byte length in advance, it doesn't stop on
+        // null terminator by itself.  Also, use the length info to avoid running tiny
+        // strings through TextDecoder, since .subarray() allocates garbage.
+        // (As a tiny code save trick, compare endPtr against endIdx using a negation,
+        // so that undefined means Infinity)
+        while (heapOrArray[endPtr] && !(endPtr >= endIdx)) ++endPtr;
+    
+        if (endPtr - idx > 16 && heapOrArray.buffer && UTF8Decoder) {
+          return UTF8Decoder.decode(heapOrArray.subarray(idx, endPtr));
+        }
+        var str = '';
+        // If building with TextDecoder, we have already computed the string length
+        // above, so test loop end condition against that
+        while (idx < endPtr) {
+          // For UTF8 byte structure, see:
+          // http://en.wikipedia.org/wiki/UTF-8#Description
+          // https://www.ietf.org/rfc/rfc2279.txt
+          // https://tools.ietf.org/html/rfc3629
+          var u0 = heapOrArray[idx++];
+          if (!(u0 & 0x80)) { str += String.fromCharCode(u0); continue; }
+          var u1 = heapOrArray[idx++] & 63;
+          if ((u0 & 0xE0) == 0xC0) { str += String.fromCharCode(((u0 & 31) << 6) | u1); continue; }
+          var u2 = heapOrArray[idx++] & 63;
+          if ((u0 & 0xF0) == 0xE0) {
+            u0 = ((u0 & 15) << 12) | (u1 << 6) | u2;
+          } else {
+            if ((u0 & 0xF8) != 0xF0) warnOnce('Invalid UTF-8 leading byte ' + ptrToString(u0) + ' encountered when deserializing a UTF-8 string in wasm memory to a JS string!');
+            u0 = ((u0 & 7) << 18) | (u1 << 12) | (u2 << 6) | (heapOrArray[idx++] & 63);
+          }
+    
+          if (u0 < 0x10000) {
+            str += String.fromCharCode(u0);
+          } else {
+            var ch = u0 - 0x10000;
+            str += String.fromCharCode(0xD800 | (ch >> 10), 0xDC00 | (ch & 0x3FF));
+          }
+        }
+        return str;
+      };
+    
+      /**
+       * Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the
+       * emscripten HEAP, returns a copy of that string as a Javascript String object.
+       *
+       * @param {number} ptr
+       * @param {number=} maxBytesToRead - An optional length that specifies the
+       *   maximum number of bytes to read. You can omit this parameter to scan the
+       *   string until the first 0 byte. If maxBytesToRead is passed, and the string
+       *   at [ptr, ptr+maxBytesToReadr[ contains a null byte in the middle, then the
+       *   string will cut short at that byte index (i.e. maxBytesToRead will not
+       *   produce a string of exact length [ptr, ptr+maxBytesToRead[) N.B. mixing
+       *   frequent uses of UTF8ToString() with and without maxBytesToRead may throw
+       *   JS JIT optimizations off, so it is worth to consider consistently using one
+       * @return {string}
+       */
+    var UTF8ToString = (ptr, maxBytesToRead) => {
+        assert(typeof ptr == 'number', `UTF8ToString expects a number (got ${typeof ptr})`);
+        return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : '';
+      };
+    var getExceptionMessageCommon = (ptr) => withStackSave(() => {
+        var type_addr_addr = stackAlloc(4);
+        var message_addr_addr = stackAlloc(4);
+        ___get_exception_message(ptr, type_addr_addr, message_addr_addr);
+        var type_addr = HEAPU32[((type_addr_addr)>>2)];
+        var message_addr = HEAPU32[((message_addr_addr)>>2)];
+        var type = UTF8ToString(type_addr);
+        _free(type_addr);
+        var message;
+        if (message_addr) {
+          message = UTF8ToString(message_addr);
+          _free(message_addr);
+        }
+        return [type, message];
+      });
+    var getExceptionMessage = (ptr) => getExceptionMessageCommon(ptr);
+    Module['getExceptionMessage'] = getExceptionMessage;
+
     
       /**
        * @param {number} ptr
@@ -918,6 +1036,8 @@ if (!ENVIRONMENT_IS_NODE) {
       }
     }
 
+    var incrementExceptionRefcount = (ptr) => ___cxa_increment_exception_refcount(ptr);
+
     var noExitRuntime = Module['noExitRuntime'] || true;
 
     var ptrToString = (ptr) => {
@@ -925,6 +1045,12 @@ if (!ENVIRONMENT_IS_NODE) {
         // With CAN_ADDRESS_2GB or MEMORY64, pointers are already unsigned.
         ptr >>>= 0;
         return '0x' + ptr.toString(16).padStart(8, '0');
+      };
+
+    var setStackLimits = () => {
+        var stackLow = _emscripten_stack_get_base();
+        var stackHigh = _emscripten_stack_get_end();
+        ___set_stack_limits(stackLow, stackHigh);
       };
 
     
@@ -956,6 +1082,42 @@ if (!ENVIRONMENT_IS_NODE) {
         }
       };
 
+    var ___assert_fail = (condition, filename, line, func) => {
+        abort(`Assertion failed: ${UTF8ToString(condition)}, at: ` + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
+      };
+
+    var exceptionCaught =  [];
+    
+    
+    var uncaughtExceptionCount = 0;
+    var ___cxa_begin_catch = (ptr) => {
+        var info = new ExceptionInfo(ptr);
+        if (!info.get_caught()) {
+          info.set_caught(true);
+          uncaughtExceptionCount--;
+        }
+        info.set_rethrown(false);
+        exceptionCaught.push(info);
+        ___cxa_increment_exception_refcount(info.excPtr);
+        return info.get_exception_ptr();
+      };
+
+    
+    var exceptionLast = 0;
+    
+    
+    var ___cxa_end_catch = () => {
+        // Clear state flag.
+        _setThrew(0, 0);
+        assert(exceptionCaught.length > 0);
+        // Call destructor if one is registered then clear it.
+        var info = exceptionCaught.pop();
+    
+        ___cxa_decrement_exception_refcount(info.excPtr);
+        exceptionLast = 0; // XXX in decRef?
+      };
+
+    
     /** @constructor */
     function ExceptionInfo(excPtr) {
         this.excPtr = excPtr;
@@ -1027,17 +1189,98 @@ if (!ENVIRONMENT_IS_NODE) {
         };
       }
     
-    var exceptionLast = 0;
+    var ___resumeException = (ptr) => {
+        if (!exceptionLast) {
+          exceptionLast = new CppException(ptr);
+        }
+        throw exceptionLast;
+      };
     
-    var uncaughtExceptionCount = 0;
+    
+    var findMatchingCatch = (args) => {
+        var thrown =
+          exceptionLast?.excPtr;
+        if (!thrown) {
+          // just pass through the null ptr
+          setTempRet0(0);
+          return 0;
+        }
+        var info = new ExceptionInfo(thrown);
+        info.set_adjusted_ptr(thrown);
+        var thrownType = info.get_type();
+        if (!thrownType) {
+          // just pass through the thrown ptr
+          setTempRet0(0);
+          return thrown;
+        }
+    
+        // can_catch receives a **, add indirection
+        // The different catch blocks are denoted by different types.
+        // Due to inheritance, those types may not precisely match the
+        // type of the thrown object. Find one which matches, and
+        // return the type of the catch block which should be called.
+        for (var arg in args) {
+          var caughtType = args[arg];
+    
+          if (caughtType === 0 || caughtType === thrownType) {
+            // Catch all clause matched or exactly the same type is caught
+            break;
+          }
+          var adjusted_ptr_addr = info.ptr + 16;
+          if (___cxa_can_catch(caughtType, thrownType, adjusted_ptr_addr)) {
+            setTempRet0(caughtType);
+            return thrown;
+          }
+        }
+        setTempRet0(thrownType);
+        return thrown;
+      };
+    var ___cxa_find_matching_catch_2 = () => findMatchingCatch([]);
+
+    var ___cxa_find_matching_catch_3 = (arg0) => findMatchingCatch([arg0]);
+
+    
+    
+    var ___cxa_rethrow = () => {
+        var info = exceptionCaught.pop();
+        if (!info) {
+          abort('no exception to throw');
+        }
+        var ptr = info.excPtr;
+        if (!info.get_rethrown()) {
+          // Only pop if the corresponding push was through rethrow_primary_exception
+          exceptionCaught.push(info);
+          info.set_rethrown(true);
+          info.set_caught(false);
+          uncaughtExceptionCount++;
+        }
+        exceptionLast = new CppException(ptr);
+        throw exceptionLast;
+      };
+
+    
+    
     var ___cxa_throw = (ptr, type, destructor) => {
         var info = new ExceptionInfo(ptr);
         // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
         info.init(type, destructor);
-        exceptionLast = ptr;
+        exceptionLast = new CppException(ptr);
         uncaughtExceptionCount++;
-        assert(false, 'Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.');
+        throw exceptionLast;
       };
+
+    var ___cxa_uncaught_exceptions = () => uncaughtExceptionCount;
+
+    
+    
+    var ___handle_stack_overflow = (requested) => {
+        var base = _emscripten_stack_get_base();
+        var end = _emscripten_stack_get_end();
+        abort(`stack overflow (Attempt to set SP to ${ptrToString(requested)}` +
+              `, with stack limits [${ptrToString(end)} - ${ptrToString(base)}` +
+              ']). If you require more stack space build with -sSTACK_SIZE=<bytes>');
+      };
+
 
     var setErrNo = (value) => {
         HEAP32[((___errno_location())>>2)] = value;
@@ -1186,59 +1429,6 @@ if (!ENVIRONMENT_IS_NODE) {
     };
     
     
-    var UTF8Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder('utf8') : undefined;
-    
-      /**
-       * Given a pointer 'idx' to a null-terminated UTF8-encoded string in the given
-       * array that contains uint8 values, returns a copy of that string as a
-       * Javascript String object.
-       * heapOrArray is either a regular array, or a JavaScript typed array view.
-       * @param {number} idx
-       * @param {number=} maxBytesToRead
-       * @return {string}
-       */
-    var UTF8ArrayToString = (heapOrArray, idx, maxBytesToRead) => {
-        var endIdx = idx + maxBytesToRead;
-        var endPtr = idx;
-        // TextDecoder needs to know the byte length in advance, it doesn't stop on
-        // null terminator by itself.  Also, use the length info to avoid running tiny
-        // strings through TextDecoder, since .subarray() allocates garbage.
-        // (As a tiny code save trick, compare endPtr against endIdx using a negation,
-        // so that undefined means Infinity)
-        while (heapOrArray[endPtr] && !(endPtr >= endIdx)) ++endPtr;
-    
-        if (endPtr - idx > 16 && heapOrArray.buffer && UTF8Decoder) {
-          return UTF8Decoder.decode(heapOrArray.subarray(idx, endPtr));
-        }
-        var str = '';
-        // If building with TextDecoder, we have already computed the string length
-        // above, so test loop end condition against that
-        while (idx < endPtr) {
-          // For UTF8 byte structure, see:
-          // http://en.wikipedia.org/wiki/UTF-8#Description
-          // https://www.ietf.org/rfc/rfc2279.txt
-          // https://tools.ietf.org/html/rfc3629
-          var u0 = heapOrArray[idx++];
-          if (!(u0 & 0x80)) { str += String.fromCharCode(u0); continue; }
-          var u1 = heapOrArray[idx++] & 63;
-          if ((u0 & 0xE0) == 0xC0) { str += String.fromCharCode(((u0 & 31) << 6) | u1); continue; }
-          var u2 = heapOrArray[idx++] & 63;
-          if ((u0 & 0xF0) == 0xE0) {
-            u0 = ((u0 & 15) << 12) | (u1 << 6) | u2;
-          } else {
-            if ((u0 & 0xF8) != 0xF0) warnOnce('Invalid UTF-8 leading byte ' + ptrToString(u0) + ' encountered when deserializing a UTF-8 string in wasm memory to a JS string!');
-            u0 = ((u0 & 7) << 18) | (u1 << 12) | (u2 << 6) | (heapOrArray[idx++] & 63);
-          }
-    
-          if (u0 < 0x10000) {
-            str += String.fromCharCode(u0);
-          } else {
-            var ch = u0 - 0x10000;
-            str += String.fromCharCode(0xD800 | (ch >> 10), 0xDC00 | (ch & 0x3FF));
-          }
-        }
-        return str;
-      };
     
     var FS_stdin_getChar_buffer = [];
     
@@ -3757,26 +3947,6 @@ if (!ENVIRONMENT_IS_NODE) {
         },
     };
     
-    
-      /**
-       * Given a pointer 'ptr' to a null-terminated UTF8-encoded string in the
-       * emscripten HEAP, returns a copy of that string as a Javascript String object.
-       *
-       * @param {number} ptr
-       * @param {number=} maxBytesToRead - An optional length that specifies the
-       *   maximum number of bytes to read. You can omit this parameter to scan the
-       *   string until the first 0 byte. If maxBytesToRead is passed, and the string
-       *   at [ptr, ptr+maxBytesToReadr[ contains a null byte in the middle, then the
-       *   string will cut short at that byte index (i.e. maxBytesToRead will not
-       *   produce a string of exact length [ptr, ptr+maxBytesToRead[) N.B. mixing
-       *   frequent uses of UTF8ToString() with and without maxBytesToRead may throw
-       *   JS JIT optimizations off, so it is worth to consider consistently using one
-       * @return {string}
-       */
-    var UTF8ToString = (ptr, maxBytesToRead) => {
-        assert(typeof ptr == 'number', `UTF8ToString expects a number (got ${typeof ptr})`);
-        return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : '';
-      };
     var SYSCALLS = {
     DEFAULT_POLLMASK:5,
     calculateAt(dirfd, path, allowEmpty) {
@@ -4207,6 +4377,8 @@ if (!ENVIRONMENT_IS_NODE) {
     }
     }
 
+    var _llvm_eh_typeid_for = (type) => type;
+
     var isLeapYear = (year) => year%4 === 0 && (year%100 !== 0 || year%400 === 0);
     
     var arraySum = (array, index) => {
@@ -4568,6 +4740,19 @@ if (!ENVIRONMENT_IS_NODE) {
         return ret;
       };
 
+    var wasmTableMirror = [];
+    
+    var wasmTable;
+    var getWasmTableEntry = (funcPtr) => {
+        var func = wasmTableMirror[funcPtr];
+        if (!func) {
+          if (funcPtr >= wasmTableMirror.length) wasmTableMirror.length = funcPtr + 1;
+          wasmTableMirror[funcPtr] = func = wasmTable.get(funcPtr);
+        }
+        assert(wasmTable.get(funcPtr) == func, "JavaScript-side Wasm function table mirror is out of date!");
+        return func;
+      };
+
     var getCFunc = (ident) => {
         var func = Module['_' + ident]; // closure exported function
         assert(func, 'Cannot call unknown function ' + ident + ', make sure it is exported');
@@ -4700,7 +4885,25 @@ if (!ENVIRONMENT_IS_NODE) {
   }
   var wasmImports = {
     /** @export */
+    __assert_fail: ___assert_fail,
+    /** @export */
+    __cxa_begin_catch: ___cxa_begin_catch,
+    /** @export */
+    __cxa_end_catch: ___cxa_end_catch,
+    /** @export */
+    __cxa_find_matching_catch_2: ___cxa_find_matching_catch_2,
+    /** @export */
+    __cxa_find_matching_catch_3: ___cxa_find_matching_catch_3,
+    /** @export */
+    __cxa_rethrow: ___cxa_rethrow,
+    /** @export */
     __cxa_throw: ___cxa_throw,
+    /** @export */
+    __cxa_uncaught_exceptions: ___cxa_uncaught_exceptions,
+    /** @export */
+    __handle_stack_overflow: ___handle_stack_overflow,
+    /** @export */
+    __resumeException: ___resumeException,
     /** @export */
     __syscall_fcntl64: ___syscall_fcntl64,
     /** @export */
@@ -4726,14 +4929,66 @@ if (!ENVIRONMENT_IS_NODE) {
     /** @export */
     fd_write: _fd_write,
     /** @export */
+    invoke_diii: invoke_diii,
+    /** @export */
+    invoke_fiii: invoke_fiii,
+    /** @export */
+    invoke_i: invoke_i,
+    /** @export */
+    invoke_ii: invoke_ii,
+    /** @export */
+    invoke_iii: invoke_iii,
+    /** @export */
+    invoke_iiii: invoke_iiii,
+    /** @export */
+    invoke_iiiii: invoke_iiiii,
+    /** @export */
+    invoke_iiiiii: invoke_iiiiii,
+    /** @export */
+    invoke_iiiiiii: invoke_iiiiiii,
+    /** @export */
+    invoke_iiiiiiii: invoke_iiiiiiii,
+    /** @export */
+    invoke_iiiiiiiiiii: invoke_iiiiiiiiiii,
+    /** @export */
+    invoke_iiiiiiiiiiii: invoke_iiiiiiiiiiii,
+    /** @export */
+    invoke_iiiiiiiiiiiii: invoke_iiiiiiiiiiiii,
+    /** @export */
+    invoke_jiiii: invoke_jiiii,
+    /** @export */
+    invoke_v: invoke_v,
+    /** @export */
+    invoke_vi: invoke_vi,
+    /** @export */
+    invoke_vii: invoke_vii,
+    /** @export */
+    invoke_viii: invoke_viii,
+    /** @export */
+    invoke_viiii: invoke_viiii,
+    /** @export */
+    invoke_viiiii: invoke_viiiii,
+    /** @export */
+    invoke_viiiiiii: invoke_viiiiiii,
+    /** @export */
+    invoke_viiiiiiiiii: invoke_viiiiiiiiii,
+    /** @export */
+    invoke_viiiiiiiiiiiiiii: invoke_viiiiiiiiiiiiiii,
+    /** @export */
+    llvm_eh_typeid_for: _llvm_eh_typeid_for,
+    /** @export */
     strftime_l: _strftime_l
   };
   var wasmExports = createWasm();
   var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors');
   var _decompile = Module['_decompile'] = createExportWrapper('decompile');
   var _main = Module['_main'] = createExportWrapper('__main_argc_argv');
+  var ___cxa_free_exception = createExportWrapper('__cxa_free_exception');
   var ___errno_location = createExportWrapper('__errno_location');
   var _fflush = Module['_fflush'] = createExportWrapper('fflush');
+  var _free = Module['_free'] = createExportWrapper('free');
+  var _setThrew = createExportWrapper('setThrew');
+  var setTempRet0 = createExportWrapper('setTempRet0');
   var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports['emscripten_stack_init'])();
   var _emscripten_stack_get_free = () => (_emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'])();
   var _emscripten_stack_get_base = () => (_emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'])();
@@ -4742,12 +4997,271 @@ if (!ENVIRONMENT_IS_NODE) {
   var stackRestore = createExportWrapper('stackRestore');
   var stackAlloc = createExportWrapper('stackAlloc');
   var _emscripten_stack_get_current = () => (_emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'])();
+  var ___cxa_decrement_exception_refcount = createExportWrapper('__cxa_decrement_exception_refcount');
+  var ___cxa_increment_exception_refcount = createExportWrapper('__cxa_increment_exception_refcount');
+  var ___get_exception_message = Module['___get_exception_message'] = createExportWrapper('__get_exception_message');
+  var ___cxa_can_catch = createExportWrapper('__cxa_can_catch');
   var ___cxa_is_pointer_type = createExportWrapper('__cxa_is_pointer_type');
+  var ___set_stack_limits = Module['___set_stack_limits'] = createExportWrapper('__set_stack_limits');
   var dynCall_jiji = Module['dynCall_jiji'] = createExportWrapper('dynCall_jiji');
   var dynCall_viijii = Module['dynCall_viijii'] = createExportWrapper('dynCall_viijii');
+  var dynCall_jiiii = Module['dynCall_jiiii'] = createExportWrapper('dynCall_jiiii');
   var dynCall_iiiiij = Module['dynCall_iiiiij'] = createExportWrapper('dynCall_iiiiij');
   var dynCall_iiiiijj = Module['dynCall_iiiiijj'] = createExportWrapper('dynCall_iiiiijj');
   var dynCall_iiiiiijj = Module['dynCall_iiiiiijj'] = createExportWrapper('dynCall_iiiiiijj');
+
+  function invoke_ii(index,a1) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_viii(index,a1,a2,a3) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2,a3);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iii(index,a1,a2) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_vii(index,a1,a2) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_v(index) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)();
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiii(index,a1,a2,a3) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_viiii(index,a1,a2,a3,a4) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2,a3,a4);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiiiii(index,a1,a2,a3,a4,a5,a6) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_vi(index,a1) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiii(index,a1,a2,a3,a4) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_viiiii(index,a1,a2,a3,a4,a5) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2,a3,a4,a5);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiiii(index,a1,a2,a3,a4,a5) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4,a5);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_fiii(index,a1,a2,a3) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_diii(index,a1,a2,a3) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_i(index) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)();
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_viiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_iiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11) {
+    var sp = stackSave();
+    try {
+      return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_viiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_viiiiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15) {
+    var sp = stackSave();
+    try {
+      getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
+
+  function invoke_jiiii(index,a1,a2,a3,a4) {
+    var sp = stackSave();
+    try {
+      return dynCall_jiiii(index,a1,a2,a3,a4);
+    } catch(e) {
+      stackRestore(sp);
+      if (!(e instanceof EmscriptenEH)) throw e;
+      _setThrew(1, 0);
+    }
+  }
 
 
   // include: postamble.js
@@ -4877,7 +5391,6 @@ if (!ENVIRONMENT_IS_NODE) {
     'makePromise',
     'idsToPromises',
     'makePromiseCallback',
-    'findMatchingCatch',
     'Browser_asyncPrepareDataCounter',
     'setMainLoop',
     'getSocketFromFD',
@@ -4951,6 +5464,7 @@ if (!ENVIRONMENT_IS_NODE) {
     'getHeapMax',
     'abortOnCannotGrowMemory',
     'ENV',
+    'setStackLimits',
     'MONTH_DAYS_REGULAR',
     'MONTH_DAYS_LEAP',
     'MONTH_DAYS_REGULAR_CUMULATIVE',
@@ -5011,6 +5525,11 @@ if (!ENVIRONMENT_IS_NODE) {
     'exceptionLast',
     'exceptionCaught',
     'ExceptionInfo',
+    'findMatchingCatch',
+    'getExceptionMessageCommon',
+    'incrementExceptionRefcount',
+    'decrementExceptionRefcount',
+    'getExceptionMessage',
     'Browser',
     'wget',
     'SYSCALLS',

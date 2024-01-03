@@ -1,5 +1,6 @@
 import MainContent from '@/components/MainContent';
-import { Box, Button, TextareaAutosize } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import TextFieldWithCopy from '@/components/TextFieldWithCopy';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 
@@ -31,7 +32,6 @@ const Pyc2py: React.FC = () => {
       ['string', 'array', 'number'],
       [filename, new Uint8Array(arr, 0, arr.byteLength), arr.byteLength]
     );
-    console.log(result);
     return result;
   };
 
@@ -67,13 +67,19 @@ const Pyc2py: React.FC = () => {
         </Button>
         <Box sx={{ height: '20px' }} />
         {fileName ? (
-          <TextareaAutosize
-            aria-label='反编译结果'
+          <TextFieldWithCopy
+            value={result}
+            label='反编译结果'
             minRows={10}
             maxRows={Infinity}
+            multiline
             style={{ width: '100%' }}
-            value={result}
-            readOnly
+            InputProps={{ readOnly: true }}
+            sx={{
+              width: '100%',
+              textarea: { fontSize: '14px', fontFamily: 'Mono' },
+            }}
+            variant={'outlined'}
           />
         ) : (
           <></>
