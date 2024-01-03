@@ -1,19 +1,11 @@
-import alert from '@/components/Alert';
 import MainContent from '@/components/MainContent';
-import { defaultTextClick } from '@/constant';
-import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import { Box, OutlinedInput, Tab, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Tab } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { encode, decode } from 'html-entities';
-
-const MyLabel = styled('label')({
-  cursor: 'pointer',
-});
+import TextFieldWithCopy from '@/components/TextFieldWithCopy';
+import TextFieldWithClean from '@/components/TextFieldWithClean';
 
 const Hex: React.FC = () => {
   const [method, setMethod] = React.useState('encode');
@@ -47,10 +39,6 @@ const Hex: React.FC = () => {
     [funcMap, method]
   );
 
-  const handleCopyClick = useCallback(() => {
-    alert.success('复制成功');
-  }, []);
-
   const handleCleanClick = useCallback(() => {
     setInput('');
     setOutput('');
@@ -75,95 +63,37 @@ const Hex: React.FC = () => {
             </TabList>
           </Box>
         </TabContext>
-        <Typography
-          sx={{ width: '180px' }}
-          variant='body2'
-          color={defaultTextClick}
-        >
-          输入
-        </Typography>
-        <Box sx={{ position: 'relative' }}>
-          <OutlinedInput
-            sx={{
-              width: '100%',
-              fontFamily: 'Mono',
-              textarea: { paddingRight: '35px' },
-            }}
-            value={input}
-            onChange={handleInputChanged}
-            margin='dense'
-            minRows='5'
-            maxRows='10'
-            multiline
-            autoFocus
-          />
-          <Box
-            sx={{
-              position: 'absolute',
-              right: '16px',
-              top: '16px',
-              width: '30px',
-              paddingTop: '5px',
-              height: '30px',
-              textAlign: 'center',
-              bgcolor: '#eee',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              color: input ? '#52C41A' : '#fff',
-              '&:hover': {
-                color: '#345AFF',
-              },
-            }}
-          >
-            <MyLabel onClick={handleCleanClick}>
-              <CleaningServicesRoundedIcon fontSize='small' />
-            </MyLabel>
-          </Box>
-        </Box>
-        <Typography
-          sx={{ width: '180px' }}
-          variant='body2'
-          color={defaultTextClick}
-        >
-          输出
-        </Typography>
-        <Box sx={{ position: 'relative' }}>
-          <OutlinedInput
-            sx={{
-              width: '100%',
-              fontFamily: 'Mono',
-              textarea: { paddingRight: '35px' },
-            }}
-            value={output}
-            margin='dense'
-            minRows='5'
-            maxRows='10'
-            multiline
-            readOnly
-          />
-          <Box
-            sx={{
-              position: 'absolute',
-              right: '16px',
-              top: '16px',
-              width: '30px',
-              paddingTop: '5px',
-              height: '30px',
-              textAlign: 'center',
-              bgcolor: '#eee',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              color: input ? '#52C41A' : '#fff',
-              '&:hover': {
-                color: '#345AFF',
-              },
-            }}
-          >
-            <CopyToClipboard text={output} onCopy={handleCopyClick}>
-              <ContentCopyIcon fontSize='small' />
-            </CopyToClipboard>
-          </Box>
-        </Box>
+        <TextFieldWithClean
+          variant='outlined'
+          label='输入'
+          value={input}
+          onChange={handleInputChanged}
+          onClean={handleCleanClick}
+          minRows='5'
+          maxRows='10'
+          size='small'
+          multiline
+          sx={{
+            width: '100%',
+            textarea: { fontFamily: 'Mono' },
+          }}
+        />
+        <TextFieldWithCopy
+          variant='outlined'
+          label='输出'
+          value={output}
+          minRows='5'
+          maxRows='10'
+          size='small'
+          multiline
+          InputProps={{
+            readOnly: true,
+          }}
+          sx={{
+            width: '100%',
+            textarea: { fontFamily: 'Mono' },
+          }}
+        />
       </>
     </MainContent>
   );

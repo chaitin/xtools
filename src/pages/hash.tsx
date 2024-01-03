@@ -1,15 +1,15 @@
 import MainContent from '@/components/MainContent';
 import crypto from 'crypto-js';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Box, Stack, Typography, Tab } from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
+import { Box, Stack, Tab } from '@mui/material';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import LoadingButton from '@mui/lab/LoadingButton';
-import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import TextFieldWithCopy from '@/components/TextFieldWithCopy';
+import TextFieldWithClean from '@/components/TextFieldWithClean';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -24,14 +24,6 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 const Hash: React.FC = () => {
-  const [src, setSrc] = useState<string>('');
-  const [method, setMethod] = React.useState('encode');
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleChange = (event: React.SyntheticEvent, method: string) => {
-    setMethod(method);
-  };
-
   const methods = useMemo(() => {
     return (val: any) => {
       return [
@@ -54,27 +46,33 @@ const Hash: React.FC = () => {
     return { name: x.name, value: '' };
   });
 
+  const [src, setSrc] = useState<string>('');
+  const [fileName, setFileName] = useState<string>('');
+  const [method, setMethod] = React.useState('encode');
+  const [loading, setLoading] = useState<boolean>(false);
   const [values, setValues] = useState(initValue);
+
+  const handleChange = (event: React.SyntheticEvent, method: string) => {
+    setMethod(method);
+  };
+
+  const handleCleanClick = useCallback(() => {
+    setSrc('');
+    setValues(initValue);
+  }, []);
 
   let outElements = values.map((x) => {
     return (
-      <TextField
+      <TextFieldWithCopy
         key={x.name}
+        label={x.name}
         size='small'
         value={x.value}
         variant='outlined'
         InputProps={{
-          startAdornment: (
-            <InputAdornment
-              position='start'
-              sx={{ width: '150px', fontFamily: 'Mono' }}
-            >
-              {x.name}
-            </InputAdornment>
-          ),
           readOnly: true,
         }}
-        sx={{ input: { fontSize: '14px', fontFamily: 'Mono' } }}
+        sx={{ width: '100%', input: { fontSize: '14px', fontFamily: 'Mono' } }}
       />
     );
   });
@@ -105,6 +103,7 @@ const Hash: React.FC = () => {
             setLoading(false);
           }
         };
+        setFileName(files[0].name);
         reader.readAsArrayBuffer(files[0]);
       }, 200);
     },
@@ -130,29 +129,35 @@ const Hash: React.FC = () => {
             </TabList>
           </Box>
           <TabPanel value='encode' sx={{ paddingLeft: 0, paddingRight: 0 }}>
-            <Typography variant='subtitle2'>输入</Typography>
-            <TextField
-              value={src}
+            <TextFieldWithClean
               variant='outlined'
-              multiline
-              rows={3}
-              fullWidth
+              label='输入'
+              value={src}
               onChange={onSrcChange}
-              sx={{ textarea: { fontSize: '14px', fontFamily: 'Mono' } }}
+              onClean={handleCleanClick}
+              rows={3}
+              multiline
+              sx={{
+                width: '100%',
+                textarea: { fontSize: '14px', fontFamily: 'Mono' },
+              }}
             />
           </TabPanel>
           <TabPanel value='decode' sx={{ paddingLeft: 0, paddingRight: 0 }}>
-            <Typography variant='subtitle2'>输入</Typography>
             <Box sx={{ position: 'relative', alignSelf: 'flex-start' }}>
               <LoadingButton
                 loading={loading}
                 loadingPosition='start'
                 size='small'
-                sx={{ borderRadius: '4px' }}
+                sx={{ borderRadius: '4px', width: '100%' }}
                 variant='contained'
                 startIcon={<CloudUploadIcon />}
               >
-                {!loading ? '选择文件' : '正在计算'}
+                {!loading
+                  ? fileName
+                    ? '已选择文件 - ' + fileName
+                    : '选择文件'
+                  : '正在计算'}
               </LoadingButton>
               <VisuallyHiddenInput
                 sx={{
@@ -170,8 +175,7 @@ const Hash: React.FC = () => {
             </Box>
           </TabPanel>
         </TabContext>
-        <Typography variant='subtitle2'>输出</Typography>
-        <Stack spacing={1}>{outElements}</Stack>
+        <Stack spacing={2}>{outElements}</Stack>
       </Box>
     </MainContent>
   );
