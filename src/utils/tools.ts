@@ -381,4 +381,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '在线颜色吸取器，可以快速生成十种常用颜色的代码',
   },
+  {
+    label: 'LESS CSS 互转',
+    tags: [Tags.DEV],
+    path: '/less2css',
+    key: [],
+    subTitle: '支持 less 转 css，css 转 less',
+  },
 ];
