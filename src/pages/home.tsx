@@ -66,8 +66,16 @@ export default function App() {
   }, [likeList]);
 
   useEffect(() => {
-    if (mainPageRef.current && scrollTop !== undefined) {
+    if (!mainPageRef.current) return;
+    if (scrollTop) {
       mainPageRef.current?.scrollTo({ top: scrollTop });
+    } else if (window.location.hash && mainPageRef?.current.children) {
+      for (let liElement of mainPageRef?.current.children) {
+        if (liElement.id === window.location.hash.slice(1)) {
+          mainPageRef.current?.scrollTo({ top: liElement.offsetTop - 80 });
+          break;
+        }
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainPageRef.current]);
@@ -78,6 +86,7 @@ export default function App() {
       ref={mainPageRef}
       sx={{
         p: 3,
+        pt: 0,
         width: '100%',
         borderRadius: 2,
         overflow: 'auto',
@@ -87,7 +96,7 @@ export default function App() {
       elevation={0}
     >
       {tagAndTools?.map((tag) => (
-        <Box id={tag.name} key={tag.name}>
+        <Box id={tag.name} key={tag.name} sx={{ position: 'relative', pt: 3 }}>
           <Typography variant='subtitle2' sx={{ mb: 2 }}>
             {tag.label}
           </Typography>

@@ -5,11 +5,16 @@ import { Button, Paper, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useLocalStorageState } from 'ahooks';
 
 const SideBar: React.FC<{}> = () => {
   const { anchor } = useContext(AnchorContext);
   const [linkAnchor, setLinkAnchor] = useState(false);
   const [checkAnchor, setCheckAnchor] = useState('');
+  const [, setScrollTop] = useLocalStorageState<number>('home_scrollTop', {
+    defaultValue: 0,
+  });
+
   useEffect(() => {
     if (linkAnchor) setLinkAnchor(false);
     else setCheckAnchor(anchor);
@@ -36,10 +41,12 @@ const SideBar: React.FC<{}> = () => {
             onClick={() => {
               setCheckAnchor(item.name);
               setLinkAnchor(true);
+              setScrollTop(undefined);
             }}
             href={'/home/#' + item.name}
             style={{ alignSelf: 'stretch' }}
             className='custom-link'
+            prefetch
           >
             <Button
               sx={{
