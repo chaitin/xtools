@@ -4,7 +4,7 @@ import TextFieldWithCopy from '@/components/TextFieldWithCopy';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 
-import wasm from '@/asset/wasm/pycdc.js';
+import wasm from '@/asset/wasm/pycdas.js';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -69,7 +69,7 @@ const Pyc2py: React.FC = () => {
         {fileName ? (
           <TextFieldWithCopy
             value={result}
-            label='反编译结果'
+            label='反汇编结果'
             minRows={10}
             maxRows={Infinity}
             multiline

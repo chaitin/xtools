@@ -290,6 +290,13 @@ export const allTools: Tool[] = [
     subTitle: 'pyc 反编译工具',
   },
   {
+    label: 'Pyc 转 Asm',
+    tags: [Tags.BINARY],
+    path: '/pyc2asm',
+    key: ['pyc 转 asm', 'pyc 反汇编'],
+    subTitle: 'pyc 反汇编工具',
+  },
+  {
     label: '文件格式识别',
     tags: [Tags.OTHER, Tags.BINARY],
     path: '/file',
