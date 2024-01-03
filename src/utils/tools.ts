@@ -283,6 +283,13 @@ export const allTools: Tool[] = [
     subTitle: 'Hex 16 进制在线查看, 在线编辑工具',
   },
   {
+    label: 'Pyc 转 Py',
+    tags: [Tags.BINARY],
+    path: '/pyc2py',
+    key: ['pyc 转 py', 'pyc 反编译'],
+    subTitle: 'pyc 反编译工具',
+  },
+  {
     label: '文件格式识别',
     tags: [Tags.OTHER, Tags.BINARY],
     path: '/file',
