@@ -381,4 +381,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '在线颜色吸取器，可以快速生成十种常用颜色的代码',
   },
+  {
+    label: 'markdown html 格式互转',
+    tags: [Tags.DEV],
+    path: '/md2html',
+    key: [],
+    subTitle: 'markdown html 格式互转',
+  },
 ];
