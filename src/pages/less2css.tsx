@@ -251,7 +251,7 @@ const _C = () => {
               height: 'calc(100vh - 310px)',
             }}
             value={convert === ConvertType.B2A ? b : a}
-            mode={convert === ConvertType.B2A ? AceMode.A2B : AceMode.B2A}
+            mode={convert === ConvertType.B2A ? AceMode.B2A : AceMode.A2B}
             theme='monokai'
             onChange={convert === ConvertType.B2A ? setB : setA}
             editorProps={{ $blockScrolling: true }}
@@ -265,7 +265,7 @@ const _C = () => {
               height: 'calc(100vh - 310px)',
             }}
             value={error || (convert === ConvertType.B2A ? a : b)}
-            mode={convert === ConvertType.B2A ? AceMode.B2A : AceMode.A2B}
+            mode={convert === ConvertType.B2A ? AceMode.A2B : AceMode.B2A}
             theme='monokai'
             readOnly
             editorProps={{ $blockScrolling: true }}
