@@ -402,4 +402,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'JSON 转 XML，XML 转 JSON',
   },
+  {
+    label: '图片 OCR 识别',
+    tags: [Tags.IMAGE],
+    path: '/ocr',
+    key: [],
+    subTitle: '支持识别中文、英语、俄语、德语、法语、日语、韩语',
+  },
 ];
