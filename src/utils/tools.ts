@@ -381,4 +381,32 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '在线颜色吸取器，可以快速生成十种常用颜色的代码',
   },
+  {
+    label: 'LESS CSS 互转',
+    tags: [Tags.DEV],
+    path: '/less2css',
+    key: [],
+    subTitle: '支持 less 转 css，css 转 less',
+  },
+  {
+    label: 'markdown html 格式互转',
+    tags: [Tags.DEV],
+    path: '/md2html',
+    key: [],
+    subTitle: 'markdown html 格式互转',
+  },
+  {
+    label: 'JSON XML 互转',
+    tags: [Tags.JSON],
+    path: '/json2xml',
+    key: [],
+    subTitle: 'JSON 转 XML，XML 转 JSON',
+  },
+  {
+    label: '图片 OCR 识别',
+    tags: [Tags.IMAGE],
+    path: '/ocr',
+    key: [],
+    subTitle: '支持识别中文、英语、俄语、德语、法语、日语、韩语',
+  },
 ];
