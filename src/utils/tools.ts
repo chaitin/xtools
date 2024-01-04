@@ -381,4 +381,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '在线颜色吸取器，可以快速生成十种常用颜色的代码',
   },
+  {
+    label: 'JSON XML 互转',
+    tags: [Tags.JSON],
+    path: '/json2xml',
+    key: [],
+    subTitle: 'JSON 转 XML，XML 转 JSON',
+  },
 ];

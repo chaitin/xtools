@@ -78,6 +78,7 @@
     "swiper": "^8.4.7",
     "typescript": "5.0.4",
     "xlsx": "^0.18.5",
+    "xml2js": "^0.6.2",
     "xmorse": "^1.0.0",
     "yarn": "^1.22.21"
   },
@@ -95,6 +96,7 @@
     "@types/react-dom": "18.2.4",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/sql.js": "^1.4.9",
+    "@types/xml2js": "^0.4.14",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
