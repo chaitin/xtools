@@ -388,4 +388,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '支持 less 转 css，css 转 less',
   },
+  {
+    label: 'markdown html 格式互转',
+    tags: [Tags.DEV],
+    path: '/md2html',
+    key: [],
+    subTitle: 'markdown html 格式互转',
+  },
 ];

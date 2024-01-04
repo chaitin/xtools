@@ -5,17 +5,18 @@ import { useCallback, useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import LESS from 'less';
-import c2l from 'css2less';
+import TurndownService from 'turndown';
+import { marked } from 'marked';
+import * as DOMPurify from 'dompurify';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/src-noconflict/theme-monokai';
-import 'ace-builds/src-noconflict/mode-less';
-import 'ace-builds/src-noconflict/mode-css';
+import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/mode-markdown';
 
 /**
- * A => Less
- * B => CSS
+ * A => markdown
+ * B => html
  *
  * 适用于两种语言的互转模版
  * 1. 更改 import ace-builds/src-noconflict/mode-*
@@ -30,28 +31,28 @@ enum ConvertType {
 }
 // 导出文件 MIME 类型；未知设为空
 enum ConvertFileType {
-  A2B = 'text/css',
+  A2B = 'text/html',
   B2A = '',
 }
 // 导出文件名；未知 MIME 类型补充后缀
 enum ExportType {
-  A2B = 'lesstocss',
-  B2A = 'csstoless.less',
+  A2B = 'mdtohtml',
+  B2A = 'htmltomd.md',
 }
 // 按钮文字
 enum ButtonText {
-  A2B = 'LESS',
-  B2A = 'CSS',
+  A2B = 'MARKDOWN',
+  B2A = 'HTML',
 }
 // 导入限制类型
 enum InputAccept {
-  A2B = '.less',
-  B2A = '.css',
+  A2B = '.md',
+  B2A = '.html',
 }
 // ace 编辑器 mode 类型
 enum AceMode {
-  A2B = 'less',
-  B2A = 'css',
+  A2B = 'markdown',
+  B2A = 'html',
 }
 
 const _C = () => {
@@ -60,11 +61,26 @@ const _C = () => {
   const [convert, setConvert] = useState(ConvertType.A2B);
   const [error, setError] = useState('');
 
+  const postprocess = (v: string) => {
+    return DOMPurify.sanitize(v);
+  };
+
+  marked.use({
+    pedantic: false,
+    gfm: true,
+    breaks: false,
+    hooks: {
+      postprocess,
+    },
+  });
+
   // 处理 a2b
   const a2b = async (v: string) => {
     try {
-      const res = await LESS.render(v);
-      setB(res.css);
+      const html = await marked.parse(
+        v.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, '')
+      );
+      setB(html);
     } catch (e) {
       setError(String(e));
     }
@@ -73,8 +89,13 @@ const _C = () => {
   // 处理 b2a
   const b2a = async (v: string) => {
     try {
-      const res = await c2l(v, {});
-      setA(res);
+      const td = new TurndownService({
+        headingStyle: 'atx',
+        hr: '---',
+        codeBlockStyle: 'fenced',
+      });
+      const md = await td.turndown(v);
+      setA(md);
     } catch (e) {
       setError(String(e) || '未知错误');
     }
@@ -251,7 +272,7 @@ const _C = () => {
               height: 'calc(100vh - 310px)',
             }}
             value={convert === ConvertType.B2A ? b : a}
-            mode={convert === ConvertType.B2A ? AceMode.B2A : AceMode.A2B}
+            mode={convert === ConvertType.B2A ? AceMode.A2B : AceMode.B2A}
             theme='monokai'
             onChange={convert === ConvertType.B2A ? setB : setA}
             editorProps={{ $blockScrolling: true }}
@@ -265,7 +286,7 @@ const _C = () => {
               height: 'calc(100vh - 310px)',
             }}
             value={error || (convert === ConvertType.B2A ? a : b)}
-            mode={convert === ConvertType.B2A ? AceMode.A2B : AceMode.B2A}
+            mode={convert === ConvertType.B2A ? AceMode.B2A : AceMode.A2B}
             theme='monokai'
             readOnly
             editorProps={{ $blockScrolling: true }}
