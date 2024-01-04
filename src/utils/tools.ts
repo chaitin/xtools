@@ -395,4 +395,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'markdown html 格式互转',
   },
+  {
+    label: 'JSON XML 互转',
+    tags: [Tags.JSON],
+    path: '/json2xml',
+    key: [],
+    subTitle: 'JSON 转 XML，XML 转 JSON',
+  },
 ];

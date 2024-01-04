@@ -5,18 +5,16 @@ import { useCallback, useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import TurndownService from 'turndown';
-import { marked } from 'marked';
-import * as DOMPurify from 'dompurify';
+import { parseStringPromise, Builder } from 'xml2js';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/src-noconflict/theme-monokai';
-import 'ace-builds/src-noconflict/mode-html';
-import 'ace-builds/src-noconflict/mode-markdown';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/mode-xml';
 
 /**
- * A => markdown
- * B => html
+ * A => json
+ * B => xml
  *
  * 适用于两种语言的互转模版
  * 1. 更改 import ace-builds/src-noconflict/mode-*
@@ -31,28 +29,28 @@ enum ConvertType {
 }
 // 导出文件 MIME 类型；未知设为空
 enum ConvertFileType {
-  A2B = 'text/html',
-  B2A = '',
+  A2B = 'application/json',
+  B2A = 'application/xml',
 }
 // 导出文件名；未知 MIME 类型补充后缀
 enum ExportType {
-  A2B = 'mdtohtml',
-  B2A = 'htmltomd.md',
+  A2B = 'jsontoxml',
+  B2A = 'xmltojson',
 }
 // 按钮文字
 enum ButtonText {
-  A2B = 'MARKDOWN',
-  B2A = 'HTML',
+  A2B = 'JSON',
+  B2A = 'XML',
 }
 // 导入限制类型
 enum InputAccept {
-  A2B = '.md',
-  B2A = '.html',
+  A2B = '.json',
+  B2A = '.xml',
 }
 // ace 编辑器 mode 类型
 enum AceMode {
-  A2B = 'markdown',
-  B2A = 'html',
+  A2B = 'json',
+  B2A = 'xml',
 }
 
 const _C = () => {
@@ -61,26 +59,12 @@ const _C = () => {
   const [convert, setConvert] = useState(ConvertType.A2B);
   const [error, setError] = useState('');
 
-  const postprocess = (v: string) => {
-    return DOMPurify.sanitize(v);
-  };
-
-  marked.use({
-    pedantic: false,
-    gfm: true,
-    breaks: false,
-    hooks: {
-      postprocess,
-    },
-  });
-
   // 处理 a2b
   const a2b = async (v: string) => {
     try {
-      const html = await marked.parse(
-        v.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, '')
-      );
-      setB(html);
+      const builder = new Builder();
+      const xml = builder.buildObject(JSON.parse(v));
+      setB(xml);
     } catch (e) {
       setError(String(e));
     }
@@ -89,13 +73,8 @@ const _C = () => {
   // 处理 b2a
   const b2a = async (v: string) => {
     try {
-      const td = new TurndownService({
-        headingStyle: 'atx',
-        hr: '---',
-        codeBlockStyle: 'fenced',
-      });
-      const md = await td.turndown(v);
-      setA(md);
+      const json = await parseStringPromise(v, { explicitArray: false });
+      setA(JSON.stringify(json, null, 2));
     } catch (e) {
       setError(String(e) || '未知错误');
     }
@@ -104,8 +83,8 @@ const _C = () => {
   const saveStringToFile = () => {
     const blob =
       convert === ConvertType.A2B
-        ? new Blob([b], { type: ConvertFileType.A2B })
-        : new Blob([a], { type: ConvertFileType.B2A });
+        ? new Blob([b], { type: ConvertFileType.B2A })
+        : new Blob([a], { type: ConvertFileType.A2B });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.download =
@@ -129,11 +108,15 @@ const _C = () => {
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
+      console.log(
+        '🐵 ~ file: json2xml.tsx:112 ~ handleFileChange ~ file:',
+        file
+      );
       if (
         file.type ===
         (convert === ConvertType.A2B
-          ? ConvertFileType.B2A
-          : ConvertFileType.A2B)
+          ? ConvertFileType.A2B
+          : ConvertFileType.B2A)
       ) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
@@ -272,9 +255,9 @@ const _C = () => {
               height: 'calc(100vh - 310px)',
             }}
             value={convert === ConvertType.B2A ? b : a}
+            mode={convert === ConvertType.B2A ? AceMode.B2A : AceMode.A2B}
             theme='monokai'
             onChange={convert === ConvertType.B2A ? setB : setA}
-            mode={convert === ConvertType.B2A ? AceMode.B2A : AceMode.A2B}
             editorProps={{ $blockScrolling: true }}
           />
           <AceEditor
