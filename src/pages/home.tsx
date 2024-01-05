@@ -28,11 +28,14 @@ export default function App() {
     const handleScroll = () => {
       if (!mainPageRef.current?.children) return;
       const scrollPosition = mainPageRef?.current.scrollTop;
-      for (let liElement of mainPageRef?.current.children) {
-        const liTop = liElement.offsetTop;
+      let originTop = 0;
+      for (let i = 0; i < mainPageRef?.current?.children?.length; i++) {
+        const liElement = mainPageRef?.current?.children[i];
+        if (i === 0) originTop = liElement.offsetTop;
+        const liTop = liElement.offsetTop - originTop;
         const liBottom = liTop + liElement.offsetHeight;
         setScrollTop(scrollPosition);
-        if (scrollPosition >= liTop - 150 && scrollPosition < liBottom - 100) {
+        if (scrollPosition >= liTop && scrollPosition < liBottom) {
           const liId = liElement.getAttribute('id');
           updateAnchor(liId);
           break;
@@ -70,9 +73,14 @@ export default function App() {
     if (scrollTop) {
       mainPageRef.current?.scrollTo({ top: scrollTop });
     } else if (window.location.hash && mainPageRef?.current.children) {
-      for (let liElement of mainPageRef?.current.children) {
+      let originTop = 0;
+      for (let i = 0; i < mainPageRef?.current?.children?.length; i++) {
+        const liElement = mainPageRef?.current?.children[i];
+        if (i === 0) originTop = liElement.offsetTop;
         if (liElement.id === window.location.hash.slice(1)) {
-          mainPageRef.current?.scrollTo({ top: liElement.offsetTop - 80 });
+          mainPageRef.current?.scrollTo({
+            top: liElement.offsetTop - originTop,
+          });
           break;
         }
       }
