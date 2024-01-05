@@ -12,14 +12,31 @@
   <img src="https://img.shields.io/github/stars/chaitin/xtools?style=social">
 </p>
 
-## 工具列表
+## 🧰 工具列表
 
-### 安全工具
+### 🔥 安全工具
 - [MD5 在线碰撞](https://rivers.chaitin.cn/tools/md5fastcollision)
 - [ZIP 密码在线破解](https://rivers.chaitin.cn/tools/zipcrack)
 - [XSS 向量生成器](https://rivers.chaitin.cn/tools/xssvector)
 
+### 🔥 图片加工
+- [💡 图片像素化](https://rivers.chaitin.cn/tools/pixel_img)
+- [💡 图片格式转换](https://rivers.chaitin.cn/tools/img_conversion)
+- [💡 图片添加圆角](https://rivers.chaitin.cn/tools/img_radius)
+- [💡 图片 OCR 识别](https://rivers.chaitin.cn/tools/ocr)
+- [图片转 Base64](https://rivers.chaitin.cn/tools/img2base64)
+- [图片去色](https://rivers.chaitin.cn/tools/uncolor)
+- [图片添加水印](https://rivers.chaitin.cn/tools/watermark)
+- [图片压缩](https://rivers.chaitin.cn/tools/img_sharp)
+
+### 二进制处理
+- [💡 Pyc 转 Py](https://rivers.chaitin.cn/tools/pyc2py)
+- [💡 Pyc 转 Asm](https://rivers.chaitin.cn/tools/pyc2asm)
+- [Hex 编辑器](https://rivers.chaitin.cn/tools/hexeditor)
+- [文件格式识别](https://rivers.chaitin.cn/tools/file)
+
 ### 编码解码
+- [💡 在线 JSFuck 加密](https://rivers.chaitin.cn/tools/jsfuck)
 - [URL 编解码](https://rivers.chaitin.cn/tools/urlencoder)
 - [Base64 编解码](https://rivers.chaitin.cn/tools/base64)
 - [图片转 Base64](https://rivers.chaitin.cn/tools/img2base64)
@@ -29,6 +46,8 @@
 - [Htpasswd](https://rivers.chaitin.cn/tools/htpasswd)
 
 ### 加密解密
+- [💡 RSA 加解密](https://rivers.chaitin.cn/tools/rsa)
+- [💡 摩斯电码加解密](https://rivers.chaitin.cn/tools/morse)
 - [MD5 在线碰撞](https://rivers.chaitin.cn/tools/md5fastcollision)
 - [ZIP 密码在线破解](https://rivers.chaitin.cn/tools/zipcrack)
 - [密码哈希](https://rivers.chaitin.cn/tools/hash)
@@ -37,6 +56,9 @@
 - [3DES 加解密](https://rivers.chaitin.cn/tools/3des)
 
 ### 辅助开发
+- [💡 SQLite 在线浏览](https://rivers.chaitin.cn/tools/sqlite)
+- [💡 LESS CSS 互转](https://rivers.chaitin.cn/tools/less2css)
+- [💡 markdown html 格式互转](https://rivers.chaitin.cn/tools/md2html)
 - [Unix 时间戳转换](https://rivers.chaitin.cn/tools/unix)
 - [ASCII 码表](https://rivers.chaitin.cn/tools/ascii)
 - [git 指令速查](https://rivers.chaitin.cn/tools/git)
@@ -45,6 +67,7 @@
 - [UUID 生成](https://rivers.chaitin.cn/tools/uuid_gen)
 
 ### JSON 加工
+- [💡 JSON XML 互转](https://rivers.chaitin.cn/tools/json2xml)
 - [JSON JavaScript 互转](https://rivers.chaitin.cn/tools/json2js)
 - [JSON 转 CSV](https://rivers.chaitin.cn/tools/jsontocsv)
 - [JSON 格式化](https://rivers.chaitin.cn/tools/jsonfmt)
@@ -59,20 +82,11 @@
 - [中英文加空格](https://rivers.chaitin.cn/tools/cn_space_en)
 - [文本对比 diff](https://rivers.chaitin.cn/tools/diff)
 
-### 图片加工
-- [图片转 Base64](https://rivers.chaitin.cn/tools/img2base64)
-- [图片去色](https://rivers.chaitin.cn/tools/uncolor)
-- [图片添加水印](https://rivers.chaitin.cn/tools/watermark)
-- [图片压缩](https://rivers.chaitin.cn/tools/img_sharp)
-
-### 二进制处理
-- [Hex 编辑器](https://rivers.chaitin.cn/tools/hexeditor)
-- [文件格式识别](https://rivers.chaitin.cn/tools/file)
-
 ### 办公工具
 - [手绘白板](https://rivers.chaitin.cn/tools/excalidraw)
 
 ### 其他
+- [💡 颜色吸取器](https://rivers.chaitin.cn/tools/color_picker)
 - [进制转换](https://rivers.chaitin.cn/tools/radix_convert)
 - [随机数/密码生成](https://rivers.chaitin.cn/tools/random)
 - [CIDR 计算器](https://rivers.chaitin.cn/tools/cidr)
@@ -86,7 +100,7 @@
 - [随机 USER-AGENT](https://rivers.chaitin.cn/tools/random_ua)
 - [文本对比 diff](https://rivers.chaitin.cn/tools/diff)
 
-
+💡 ：最新上线工具
 
 ## 快速使用
 
@@ -113,8 +127,6 @@ npm run dev
 ```
 npm run build
 ```
-
-## 添加工具
 
 ## Star 历史 <a name="star-history"></a>
 
