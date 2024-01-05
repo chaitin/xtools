@@ -409,4 +409,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '支持识别中文、英语、俄语、德语、法语、日语、韩语',
   },
+  {
+    label: '视频提取音频',
+    tags: [Tags.MEDIA],
+    path: '/getvideoaudio',
+    key: [],
+    subTitle: '视频提取音频小工具',
+  },
 ];
