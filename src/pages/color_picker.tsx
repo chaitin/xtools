@@ -138,6 +138,10 @@ const _C = () => {
         const file = new File([blob], 'pixel.jpeg', { type: 'image/jpeg' });
         draw(file);
       });
+    const resize = () => handleMousemove();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
