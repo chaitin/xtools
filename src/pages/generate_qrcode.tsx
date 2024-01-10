@@ -12,6 +12,7 @@ import {
   TextField,
 } from '@mui/material';
 import QRCode, { QRCodeErrorCorrectionLevel } from 'qrcode';
+import QrcodeParse from 'qrcode-parser';
 import { useEffect, useState } from 'react';
 
 const OriginTypes = [
@@ -78,6 +79,7 @@ const _C = () => {
   const download = () => {
     const qrcodeCanvas = document.getElementById('qrcode') as HTMLCanvasElement;
     const url = qrcodeCanvas?.toDataURL();
+
     const a = document.createElement('a');
     a.href = url;
     a.download = 'qrcode.png';
@@ -285,6 +287,11 @@ const _C = () => {
           (options.width! / 4) | 0
         );
       }
+
+      const qrcodeUrl = qrcodeCanvas.toDataURL();
+      QrcodeParse(qrcodeUrl)
+        .then(() => setError(''))
+        .catch(() => setError('可能无法识别该图片中的二维码内容'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qrcodeData]);
@@ -337,7 +344,7 @@ const _C = () => {
                   textarea: { height: '100% !important' },
                 }}
                 value={text}
-                rows={5}
+                rows={4}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setText(event.target.value)
                 }
@@ -375,9 +382,6 @@ const _C = () => {
                 }}
               />
             </Box>
-          )}
-          {error && (
-            <Box sx={{ color: 'error.main', fontSize: '12px' }}>{error}</Box>
           )}
           <Button
             variant='contained'
@@ -559,6 +563,11 @@ const _C = () => {
               height='400px'
             ></Box>
           </Box>
+          {error && (
+            <Box sx={{ color: 'error.main', fontSize: '12px', mt: 2 }}>
+              {error}
+            </Box>
+          )}
           {!!qrcodeData ? (
             <Stack direction='column' spacing={2} sx={{ mt: 2 }}>
               <Box
