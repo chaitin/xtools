@@ -18,12 +18,8 @@ import { useEffect, useState } from 'react';
 const OriginTypes = [
   { label: '文本', value: 'text' },
   { label: '网址', value: 'url' },
-  // { label: "文件", value: "file" },
-  // { label: "图片", value: "image" },
-  // { label: "音视频", value: "media" },
-  // { label: "名片", value: "card" },
-  // { label: "微信", value: "wechat" },
 ];
+
 const LevelErrorResistance = {
   L: '7%',
   M: '15%',
@@ -88,59 +84,33 @@ const _C = () => {
     document.body.removeChild(a);
   };
 
-  const uploadBgi = () => {
-    const bgiInput = document.getElementById('bgiInput');
-    bgiInput?.click();
+  const upload = (type: string) => {
+    const input = document.getElementById(type);
+    input?.click();
   };
 
-  const uploadFgi = () => {
-    const fgiInput = document.getElementById('fgiInput');
-    fgiInput?.click();
-  };
-
-  const uploadLogo = () => {
-    const logoInput = document.getElementById('logoInput');
-    logoInput?.click();
-  };
-
-  const addBgi = (event: any) => {
+  const addGi = (event: any, type: 'bgimg' | 'fgimg' | 'logoimg') => {
     const file = event.target.files[0];
     const img = new Image();
     const canvas = document.createElement('canvas');
     img.src = URL.createObjectURL(file);
     img.onload = () => {
+      if (type === 'logoimg') {
+        setLogo(img);
+        return;
+      }
       canvas.width = options.width!;
       canvas.height = options.width!;
       const ctx = canvas.getContext('2d');
       ctx?.drawImage(img, 0, 0, options.width!, options.width!);
-      const bgiData = ctx?.getImageData(0, 0, options.width!, options.width!);
-      setBgcolor('#ffffff');
-      setBgimg(bgiData);
-    };
-  };
-
-  const addFgi = (event: any) => {
-    const file = event.target.files[0];
-    const img = new Image();
-    const canvas = document.createElement('canvas');
-    img.src = URL.createObjectURL(file);
-    img.onload = () => {
-      canvas.width = options.width!;
-      canvas.height = options.width!;
-      const ctx = canvas.getContext('2d');
-      ctx?.drawImage(img, 0, 0, options.width!, options.width!);
-      const fgiData = ctx?.getImageData(0, 0, options.width!, options.width!);
-      setFgcolor('#000000');
-      setFgimg(fgiData);
-    };
-  };
-
-  const addLogo = (event: any) => {
-    const file = event.target.files[0];
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
-    img.onload = () => {
-      setLogo(img);
+      const data = ctx?.getImageData(0, 0, options.width!, options.width!);
+      if (type === 'bgimg') {
+        setBgcolor('#ffffff');
+        setBgimg(data);
+      } else {
+        setFgcolor('#000000');
+        setFgimg(data);
+      }
     };
   };
 
@@ -157,11 +127,19 @@ const _C = () => {
 
   const deleteCanvas = () => {
     clear();
-    setText('');
-    setUrl('');
-    const qrcodeCanvas = document.getElementById('qrcode') as HTMLCanvasElement;
-    const qrcodeCtx = qrcodeCanvas!.getContext('2d');
-    qrcodeCtx?.clearRect(0, 0, options.width!, options.width!);
+    setTimeout(() => {
+      clear();
+      setText('');
+      setUrl('');
+      const qrcodeCanvas = document.getElementById(
+        'qrcode'
+      ) as HTMLCanvasElement;
+      const qrcodeCtx = qrcodeCanvas!.getContext('2d', {
+        willReadFrequently: true,
+      })!;
+      qrcodeCtx.clearRect(0, 0, options.width!, options.width!);
+    }, 0);
+    // requestAnimationFrame(deleteCanvas)
   };
 
   useEffect(() => {
@@ -177,7 +155,9 @@ const _C = () => {
       const qrcodeCanvas = document.getElementById(
         'qrcode'
       ) as HTMLCanvasElement;
-      const qrcodeCtx = qrcodeCanvas!.getContext('2d');
+      const qrcodeCtx = qrcodeCanvas!.getContext('2d', {
+        willReadFrequently: true,
+      })!;
 
       if (bgcolor) {
         for (let i = 0; i < qrcodePixels.length; i += 4) {
@@ -251,11 +231,12 @@ const _C = () => {
         }
       }
 
-      qrcodeCtx?.putImageData(qrcodeimg, 0, 0);
+      qrcodeCtx.putImageData(qrcodeimg, 0, 0);
 
       if (logo) {
-        qrcodeCtx?.beginPath();
-        qrcodeCtx?.arc(
+        // 绘制外圆
+        qrcodeCtx.beginPath();
+        qrcodeCtx.arc(
           options.width! / 2,
           options.width! / 2,
           (options.width! / 8 + 4) | 0,
@@ -263,12 +244,14 @@ const _C = () => {
           2 * Math.PI,
           false
         );
-        qrcodeCtx!.fillStyle = '#ffffff';
-        qrcodeCtx?.fill();
-        qrcodeCtx?.clip();
-        qrcodeCtx?.closePath();
-        qrcodeCtx?.beginPath();
-        qrcodeCtx?.arc(
+        qrcodeCtx.fillStyle = '#ffffff';
+        qrcodeCtx.fill();
+        qrcodeCtx.clip();
+        qrcodeCtx.closePath();
+
+        // 绘制内圆
+        qrcodeCtx.beginPath();
+        qrcodeCtx.arc(
           options.width! / 2,
           options.width! / 2,
           (options.width! / 8) | 0,
@@ -276,10 +259,11 @@ const _C = () => {
           2 * Math.PI,
           false
         );
-        qrcodeCtx?.fill();
-        qrcodeCtx?.clip();
-        qrcodeCtx?.closePath();
-        qrcodeCtx?.drawImage(
+        qrcodeCtx.fill();
+        qrcodeCtx.clip();
+        qrcodeCtx.closePath();
+
+        qrcodeCtx.drawImage(
           logo,
           (options.width! * 3) / 8,
           (options.width! * 3) / 8,
@@ -302,22 +286,20 @@ const _C = () => {
   }, [oType]);
 
   useEffect(() => {
-    setTimeout(() => {
-      const content = oType === 'text' ? text : url;
-      const qrcodeCanvas = document.getElementById(
-        'qrcode'
-      ) as HTMLCanvasElement;
-      if (!qrcodeCanvas || !content) return;
-      QRCode.toCanvas(qrcodeCanvas, content, options);
-      const qrcodeCtx = qrcodeCanvas!.getContext('2d');
-      const qrcodeData = qrcodeCtx?.getImageData(
-        0,
-        0,
-        options.width!,
-        options.width!
-      );
-      setQrcodeData(qrcodeData!);
-    }, 200);
+    const content = oType === 'text' ? text : url;
+    const qrcodeCanvas = document.getElementById('qrcode') as HTMLCanvasElement;
+    if (!qrcodeCanvas || !content) return;
+    QRCode.toCanvas(qrcodeCanvas, content, options);
+    const qrcodeCtx = qrcodeCanvas!.getContext('2d', {
+      willReadFrequently: true,
+    })!;
+    const qrcodeData = qrcodeCtx.getImageData(
+      0,
+      0,
+      options.width!,
+      options.width!
+    );
+    setQrcodeData(qrcodeData!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, bgimg, fgimg, bgcolor, fgcolor, logo, count]);
 
@@ -344,7 +326,7 @@ const _C = () => {
                   textarea: { height: '100% !important' },
                 }}
                 value={text}
-                rows={4}
+                rows={3}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setText(event.target.value)
                 }
@@ -393,14 +375,31 @@ const _C = () => {
           {!!qrcodeData && (
             <>
               <Box sx={{ fontSize: '16px', fontWeight: 600, mb: 2 }}>Logo</Box>
-              <Button
-                variant='outlined'
-                sx={{ borderRadius: '4px', width: '120px' }}
-                size='small'
-                onClick={uploadLogo}
+              <Stack
+                direction={'row'}
+                alignItems={'center'}
+                spacing={2}
+                sx={{ fontSize: '14px' }}
               >
-                上传 Logo
-              </Button>
+                <Button
+                  variant='outlined'
+                  sx={{ borderRadius: '4px', width: '120px' }}
+                  size='small'
+                  onClick={() => upload('logoInput')}
+                >
+                  上传 Logo
+                </Button>
+                {!!logo && (
+                  <Box
+                    sx={{ color: 'error.main', cursor: 'pointer' }}
+                    onClick={() => {
+                      setLogo(undefined);
+                    }}
+                  >
+                    清除
+                  </Box>
+                )}
+              </Stack>
               <Box sx={{ fontSize: '16px', fontWeight: 600, mb: 2 }}>颜色</Box>
               <Stack
                 direction={'row'}
@@ -432,7 +431,7 @@ const _C = () => {
                   variant='outlined'
                   sx={{ borderRadius: '4px', width: '120px' }}
                   size='small'
-                  onClick={uploadBgi}
+                  onClick={() => upload('bgiInput')}
                 >
                   {!!bgimg ? '更换背景图' : '上传背景图'}
                 </Button>
@@ -478,7 +477,7 @@ const _C = () => {
                   variant='outlined'
                   sx={{ borderRadius: '4px', width: '120px' }}
                   size='small'
-                  onClick={uploadFgi}
+                  onClick={() => upload('fgiInput')}
                 >
                   {!!fgimg ? '更换前景图' : '上传前景图'}
                 </Button>
@@ -584,6 +583,13 @@ const _C = () => {
                 <Button
                   variant='outlined'
                   sx={{ borderRadius: '4px', width: '100%' }}
+                  onClick={clear}
+                >
+                  清除美化
+                </Button>
+                <Button
+                  variant='outlined'
+                  sx={{ borderRadius: '4px', width: '100%' }}
                   onClick={deleteCanvas}
                 >
                   清空内容
@@ -616,7 +622,7 @@ const _C = () => {
           type='file'
           accept='image/*'
           style={{ display: 'none' }}
-          onChange={addBgi}
+          onChange={(event) => addGi(event, 'bgimg')}
         />
         <Box
           component={'input'}
@@ -624,7 +630,7 @@ const _C = () => {
           type='file'
           accept='image/*'
           style={{ display: 'none' }}
-          onChange={addFgi}
+          onChange={(event) => addGi(event, 'fgimg')}
         />
         <Box
           component={'input'}
@@ -632,7 +638,7 @@ const _C = () => {
           type='file'
           accept='image/*'
           style={{ display: 'none' }}
-          onChange={addLogo}
+          onChange={(event) => addGi(event, 'logoimg')}
         />
       </Stack>
     </MainContent>
