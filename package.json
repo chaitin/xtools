@@ -84,6 +84,7 @@
     "turndown": "^7.1.2",
     "typescript": "5.0.4",
     "xlsx": "^0.18.5",
+    "xml-formatter": "^3.6.0",
     "xml2js": "^0.6.2",
     "xmorse": "^1.0.0",
     "yarn": "^1.22.21"

@@ -29,6 +29,7 @@ export enum Tags {
   BINARY = 'binary',
   SECURITY = 'security',
   OFFICIAL = 'official',
+  FORMAT = 'format',
 }
 const tagColor = [
   ['rgba(245, 117, 130, 1)', 'rgba(245, 117, 130, 0.2)'],
@@ -151,6 +152,14 @@ export const allTags: Tag[] = [
     icon: dev,
     icon_check: dev_check,
     label: '二进制处理',
+    bg_color: '',
+    avatar_color: '',
+  },
+  {
+    name: Tags.FORMAT,
+    icon: icon_encode,
+    icon_check: icon_encode_check,
+    label: '格式化',
     bg_color: '',
     avatar_color: '',
   },
