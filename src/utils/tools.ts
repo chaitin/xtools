@@ -458,4 +458,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'TypeScript 格式化小工具',
   },
+  {
+    label: '二维码生成器',
+    tags: [Tags.OTHER],
+    path: '/generate_qrcode',
+    key: [],
+    subTitle: '二维码生成器小工具',
+  },
 ];
