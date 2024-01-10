@@ -465,4 +465,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '二维码生成器小工具',
   },
+  {
+    label: '二维码解析器',
+    tags: [Tags.OTHER],
+    path: '/de_qrcode',
+    key: [],
+    subTitle: '二维码解析器小工具',
+  },
 ];

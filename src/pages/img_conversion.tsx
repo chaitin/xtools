@@ -343,26 +343,22 @@ const _C = () => {
           style={{ display: 'none' }}
           onChange={saveFile}
         />
-        <Box
-          sx={{ mt: 2, border: '1px solid #eee', p: 2, borderRadius: '4px' }}
-        >
-          <Table
-            columns={columns}
-            data={fileList}
-            rowKey='id'
-            emptyText={
-              <Box
-                sx={{
-                  textAlign: 'center',
-                  color: '#999',
-                  fontSize: '12px',
-                }}
-              >
-                暂无数据
-              </Box>
-            }
-          />
-        </Box>
+        <Table
+          columns={columns}
+          data={fileList}
+          rowKey='id'
+          emptyText={
+            <Box
+              sx={{
+                textAlign: 'center',
+                color: '#999',
+                fontSize: '12px',
+              }}
+            >
+              暂无数据
+            </Box>
+          }
+        />
         <Button
           sx={{ mt: 2, borderRadius: '4px', width: '100%' }}
           variant='outlined'
