@@ -2,14 +2,14 @@ import MainContent from '@/components/MainContent';
 import Formater, { Mode } from '@/components/Formater';
 import React from 'react';
 
-const mock = '{"id": 1, "name": "test"}';
+const mock = '<html><h1>Hello Chaitin</h1></html>';
 
-const JsonFmt: React.FC = () => {
+const HTMLFmt: React.FC = () => {
   return (
     <MainContent>
-      <Formater mock={mock} mode={Mode.JSON} accept='.json' />
+      <Formater mock={mock} mode={Mode.HTML} accept='.html' />
     </MainContent>
   );
 };
 
-export default JsonFmt;
+export default HTMLFmt;
