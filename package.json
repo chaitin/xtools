@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@chaitin_rivers/multi_river": "^0.0.3",
+    "@chaitin_rivers/multi_river": "^0.0.5",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
