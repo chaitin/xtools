@@ -472,4 +472,25 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '二维码解析器小工具',
   },
+  {
+    label: '南丁格尔玫瑰图',
+    tags: [Tags.OFFICIAL, Tags.OTHER],
+    path: '/chart_nightingale',
+    key: [],
+    subTitle: '南丁格尔玫瑰图小工具',
+  },
+  {
+    label: '雷达图',
+    tags: [Tags.OFFICIAL, Tags.OTHER],
+    path: '/chart_radar',
+    key: [],
+    subTitle: '雷达图小工具',
+  },
+  {
+    label: '折线图',
+    tags: [Tags.OFFICIAL, Tags.OTHER],
+    path: '/chart_line',
+    key: [],
+    subTitle: '折线图小工具',
+  },
 ];

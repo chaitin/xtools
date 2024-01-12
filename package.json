@@ -46,6 +46,7 @@
     "crypto-js": "^4.2.0",
     "css2less": "^0.1.4",
     "dompurify": "^3.0.6",
+    "echarts": "^5.4.3",
     "eslint-config-next": "^14.0.4",
     "html-entities": "^2.4.0",
     "ip": "^1.1.8",
