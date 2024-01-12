@@ -30,7 +30,6 @@ const _C = () => {
   "rose 10": 29
 }`);
   const [chartData, setChartData] = useState<_DataItem[]>([]);
-  const [colors, setColors] = useState<string[]>([]);
   const [labelShow, setLabelShow] = useState(true);
   const [legendShow, setLegendShow] = useState(true);
   const [radius, setRadius] = useState([50, 200]);
@@ -99,7 +98,7 @@ const _C = () => {
       echartRef.current.setOption(option);
       setLoading(false);
     }
-  }, [chartData, colors, labelShow, radius, borderSx, legendShow, title]);
+  }, [chartData, labelShow, radius, borderSx, legendShow, title]);
 
   useEffect(() => {
     if (inputData) {
