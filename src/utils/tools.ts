@@ -493,4 +493,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '折线图小工具',
   },
+  {
+    label: '倒计时',
+    tags: [Tags.OTHER],
+    path: '/countdown',
+    key: [],
+    subTitle: '倒计时小工具',
+  },
 ];
