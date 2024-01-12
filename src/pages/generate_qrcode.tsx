@@ -68,7 +68,7 @@ const _C = () => {
   });
 
   const generate = () => {
-    if (!error) setCount(count + 1);
+    if (!(oType === 'url' && error)) setCount(count + 1);
     if (!text && !url) deleteCanvas();
   };
 
