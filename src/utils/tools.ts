@@ -472,4 +472,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '二维码解析器小工具',
   },
+  {
+    label: '倒计时',
+    tags: [Tags.OTHER],
+    path: '/countdown',
+    key: [],
+    subTitle: '倒计时小工具',
+  },
 ];
