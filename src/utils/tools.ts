@@ -417,6 +417,13 @@ export const allTools: Tool[] = [
     subTitle: '视频提取音频小工具',
   },
   {
+    label: '视频帧截图',
+    tags: [Tags.MEDIA],
+    path: '/videoframe',
+    key: [],
+    subTitle: '视频帧截图小工具',
+  },
+  {
     label: 'HTML 格式化',
     tags: [Tags.FORMAT],
     path: '/htmlfmt',
