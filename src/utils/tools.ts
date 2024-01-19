@@ -424,6 +424,13 @@ export const allTools: Tool[] = [
     subTitle: '视频帧截图小工具',
   },
   {
+    label: '视频转 gif',
+    tags: [Tags.MEDIA],
+    path: '/video2gif',
+    key: [],
+    subTitle: '视频转 gif 小工具',
+  },
+  {
     label: 'HTML 格式化',
     tags: [Tags.FORMAT],
     path: '/htmlfmt',
