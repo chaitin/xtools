@@ -126,95 +126,114 @@ const VideoFrame = () => {
           </Button>
           {!!video && <Box>{video.name}</Box>}
         </Stack>
-        {!!video && (
-          <>
+        <Box
+          sx={{
+            minHeight: '290px',
+            bgcolor: '#f5f5f5',
+          }}
+        >
+          {video ? (
             <Box
               component='video'
               id='videoEl'
               controls
+              sx={{ width: '100%' }}
               src={URL.createObjectURL(video)}
             ></Box>
+          ) : (
             <Box
+              onClick={upload}
               sx={{
                 fontSize: '12px',
-                bgcolor: 'rgba(0,0,0,0.1)',
-                px: 2,
-                borderRadius: '4px',
-                lineHeight: '40px',
-              }}
-              ref={messageRef}
-            ></Box>
-            <Box sx={{ fontSize: '18px', fontWeight: 'bold' }}>视频帧设置</Box>
-            <Stack
-              direction='row'
-              alignItems={'center'}
-              justifyContent={'space-between'}
-              spacing={2}
-            >
-              <Stack direction='row' alignItems={'center'} spacing={2}>
-                <Box>视频帧采样间隔</Box>
-                <OutlinedInput
-                  sx={{ width: '100px' }}
-                  type='number'
-                  value={(1 / interval).toFixed(2)}
-                  size='small'
-                  endAdornment='秒'
-                  onChange={(e) => {
-                    setInterval(Number(e.target.value) * 1000);
-                  }}
-                />
-                <Box>视频帧数</Box>
-                <OutlinedInput
-                  sx={{ width: '100px' }}
-                  type='number'
-                  value={interval}
-                  size='small'
-                  endAdornment='fps'
-                  onChange={(e) => {
-                    const v = Number(e.target.value);
-                    setInterval(v >= 0 ? v : interval);
-                  }}
-                />
-                <Box>预计截取 {Math.floor(duration * interval)} 张</Box>
-              </Stack>
-              <Button
-                variant='contained'
-                onClick={extract}
-                disabled={loadConfig || loadFrame}
-              >
-                提取视频帧
-              </Button>
-            </Stack>
-            <Box
-              sx={{
-                minHeight: '500px',
-                border: '1px dashed #ccc',
-                p: 2,
-                bgcolor: '#f5f5f5',
+                color: '#999',
+                textAlign: 'center',
+                lineHeight: '290px',
+                cursor: 'pointer',
               }}
             >
-              <Stack direction='row' flexWrap={'wrap'} sx={{ gap: 2 }}>
-                {imgs.map((it) => (
-                  <Box
-                    onClick={() => setCurImg(it)}
-                    component='img'
-                    width={409}
-                    src={it}
-                    key={it}
-                    sx={{ cursor: 'pointer' }}
-                  ></Box>
-                ))}
-              </Stack>
+              上传视频后即可提取视频帧截图
             </Box>
-            <Button
-              variant='contained'
-              onClick={download}
-              disabled={files.length === 0 || fileDown}
-            >
-              下载所有视频帧截图
-            </Button>
-          </>
-        )}
+          )}
+        </Box>
+        <Box
+          sx={{
+            fontSize: '12px',
+            bgcolor: 'rgba(0,0,0,0.1)',
+            px: 2,
+            borderRadius: '4px',
+            lineHeight: '40px',
+          }}
+          ref={messageRef}
+        ></Box>
+        <Box sx={{ fontSize: '18px', fontWeight: 'bold' }}>视频帧设置</Box>
+        <Stack
+          direction='row'
+          alignItems={'center'}
+          justifyContent={'space-between'}
+          spacing={2}
+        >
+          <Stack direction='row' alignItems={'center'} spacing={2}>
+            <Box>视频帧采样间隔</Box>
+            <OutlinedInput
+              sx={{ width: '100px' }}
+              type='number'
+              value={(1 / interval).toFixed(2)}
+              size='small'
+              endAdornment='秒'
+              onChange={(e) => {
+                setInterval(Number(e.target.value) * 1000);
+              }}
+            />
+            <Box>视频帧数</Box>
+            <OutlinedInput
+              sx={{ width: '100px' }}
+              type='number'
+              value={interval}
+              size='small'
+              endAdornment='fps'
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                setInterval(v >= 0 ? v : interval);
+              }}
+            />
+            <Box>预计截取 {Math.floor(duration * interval)} 张</Box>
+          </Stack>
+          <Button
+            variant='contained'
+            onClick={extract}
+            disabled={loadConfig || loadFrame || !video}
+          >
+            提取视频帧
+          </Button>
+        </Stack>
+        <Box
+          sx={{
+            minHeight: '500px',
+            border: '1px dashed #ccc',
+            p: 2,
+            bgcolor: '#f5f5f5',
+          }}
+        >
+          <Stack direction='row' flexWrap={'wrap'} sx={{ gap: 2 }}>
+            {imgs.map((it) => (
+              <Box
+                onClick={() => setCurImg(it)}
+                component='img'
+                width={409}
+                src={it}
+                key={it}
+                sx={{ cursor: 'pointer' }}
+              ></Box>
+            ))}
+          </Stack>
+        </Box>
+        <Button
+          variant='contained'
+          onClick={download}
+          disabled={files.length === 0 || fileDown}
+        >
+          下载所有视频帧截图
+        </Button>
         <Box
           id='videoframe'
           component='input'
