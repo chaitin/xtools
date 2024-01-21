@@ -284,6 +284,7 @@ const _C = () => {
           direction='row'
           alignItems='center'
           justifyContent='space-between'
+          sx={{ mb: 2 }}
         >
           <Stack direction='row' alignItems={'center'} spacing={2}>
             <Button

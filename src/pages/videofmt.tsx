@@ -1,15 +1,15 @@
 import MainContent from '@/components/MainContent';
 import dynamic from 'next/dynamic';
 
-const VideoFrame = () => {
-  const Frame = dynamic(() => import('@/components/Dynamic/Frame'), {
+const VideoFMT = () => {
+  const VideoFmt = dynamic(() => import('@/components/Dynamic/VideoFmt'), {
     ssr: false,
   });
   return (
     <MainContent>
-      <Frame />
+      <VideoFmt />
     </MainContent>
   );
 };
 
-export default VideoFrame;
+export default VideoFMT;

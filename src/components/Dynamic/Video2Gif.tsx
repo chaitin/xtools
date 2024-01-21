@@ -10,12 +10,10 @@ dayjs.extend(duration);
 
 const _C = () => {
   const [video, setVideo] = useState<File>();
-  const [duration, setDuration] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
   const [transformTime, setTransformTime] = useState<number>(3);
   const [gif, setGif] = useState<string>('');
 
-  const [loadFile, setLoadFile] = useState(false);
   const [loadConfig, setLoadingConfig] = useState(false);
   const [loadTransform, setLoadTransform] = useState(false);
 
@@ -25,17 +23,6 @@ const _C = () => {
   const upload = () => {
     const videoInput = document.getElementById('video');
     videoInput?.click();
-  };
-
-  const download = () => {
-    setLoadFile(true);
-    const link = document.createElement('a');
-    link.href = gif;
-    link.download = 'output.gif';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setLoadFile(false);
   };
 
   const transform = async () => {
@@ -83,14 +70,6 @@ const _C = () => {
     });
     setLoadingConfig(false);
   };
-
-  useEffect(() => {
-    const videoEl = document.getElementById('videoEl') as HTMLVideoElement;
-    videoEl?.addEventListener('loadeddata', () => {
-      const duration = videoEl?.duration || 0;
-      setDuration(duration);
-    });
-  }, [video]);
 
   useEffect(() => {
     loadPlugin();
