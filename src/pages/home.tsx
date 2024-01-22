@@ -21,7 +21,14 @@ export default function App() {
   );
   const { updateAnchor } = useContext(AnchorContext);
   const { likeList } = useContext(LikeContext);
-  const [tagAndTools, setTagAndTools] = useState<TagWithTool[] | null>(null);
+  const [tagAndTools, setTagAndTools] = useState<TagWithTool[] | null>(
+    allTags.map((item) => {
+      return {
+        ...item,
+        tools: allTools.filter((tool) => tool.tags.includes(item.name)),
+      };
+    })
+  );
   const mainPageRef = useRef<any>(null);
 
   useEffect(() => {

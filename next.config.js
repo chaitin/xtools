@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const withPlugins = require('next-compose-plugins');
-const withTM = require('next-transpile-modules')(['react-syntax-highlighter', 'shrinkpng']);
+const withTM = require('next-transpile-modules')([
+  'react-syntax-highlighter',
+  'shrinkpng',
+]);
 
 const nextConfig = withPlugins([withTM], {
   reactStrictMode: false,
@@ -8,16 +11,16 @@ const nextConfig = withPlugins([withTM], {
   images: {
     unoptimized: true,
   },
-  basePath: '/tools',
-  async redirects() {
+  basePath: process.env.NODE_ENV === 'production' ? '/tools' : '',
+  redirects: process.env.NODE_ENV === 'development' ? async () => {
     return [
       {
         source: '/',
-        destination: '/tools/home',
+        destination: '/home',
         permanent: true,
       },
     ];
-  },
+  }: undefined,
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
     return config;
