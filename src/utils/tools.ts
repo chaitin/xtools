@@ -521,4 +521,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '倒计时小工具',
   },
+  {
+    label: '随机邮箱生成',
+    tags: [Tags.OTHER],
+    path: '/random_email',
+    key: [],
+    subTitle: '随机邮箱生成小工具',
+  },
 ];
