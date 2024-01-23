@@ -528,4 +528,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '随机邮箱生成小工具',
   },
+  {
+    label: '人生格子',
+    tags: [Tags.OTHER],
+    path: '/lifecount',
+    key: [],
+    subTitle: '人生格子小工具',
+  },
 ];
