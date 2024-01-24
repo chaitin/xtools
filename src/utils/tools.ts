@@ -521,4 +521,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '倒计时小工具',
   },
+  {
+    label: '文件树生成',
+    tags: [Tags.DEV],
+    path: '/dir_tree',
+    key: [],
+    subTitle: '生成文件夹目录树的小工具',
+  },
 ];
