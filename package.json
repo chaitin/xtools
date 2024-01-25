@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@chaitin_rivers/multi_river": "^0.0.20",
+    "@chaitin_rivers/multi_river": "^0.0.23",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
@@ -36,6 +36,7 @@
     "@mui/lab": "^5.0.0-alpha.155",
     "@mui/material": "^5.13.0",
     "@tanstack/react-query": "^4.29.7",
+    "@types/figlet": "^1.5.8",
     "@types/react-virtualized-auto-sizer": "^1.0.4",
     "@types/react-window": "^1.8.8",
     "ace-builds": "^1.32.2",
@@ -53,6 +54,7 @@
     "dompurify": "^3.0.6",
     "echarts": "^5.4.3",
     "eslint-config-next": "^14.0.4",
+    "figlet": "^1.7.0",
     "file-saver": "^2.0.5",
     "html-entities": "^2.4.0",
     "ip": "^1.1.8",

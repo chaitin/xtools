@@ -3,6 +3,7 @@ const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules')([
   'react-syntax-highlighter',
   'shrinkpng',
+  'figlet',
 ]);
 
 const nextConfig = withPlugins([withTM], {

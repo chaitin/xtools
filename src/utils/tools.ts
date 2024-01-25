@@ -521,4 +521,12 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '倒计时小工具',
   },
+  {
+    label: 'Figlet',
+    tags: [Tags.TEXT],
+    path: '/figlet',
+    key: [],
+    subTitle:
+      '将字符转换为大型艺术字， 常用于浏览器控制台和终端',
+  },
 ];

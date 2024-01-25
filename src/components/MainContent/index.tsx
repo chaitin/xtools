@@ -10,7 +10,7 @@ const MainContent: React.FC<{
   children: React.ReactElement;
   sx?: SxProps<Theme>;
   fullScreen?: boolean;
-}> = ({ children, sx, fullScreen = false }) => {
+}> = ({ children, sx, fullScreen = true }) => {
   const { path } = usePath();
 
   const [tool] = React.useState<Tool | undefined>(
@@ -39,6 +39,7 @@ const MainContent: React.FC<{
         dom.style.position = 'fixed';
         dom.style.inset = '0';
         dom.style.maxWidth = '100vw';
+        dom.style.background = '#fff';
         if (riverHeader) riverHeader.style.display = 'none';
       }
     });
