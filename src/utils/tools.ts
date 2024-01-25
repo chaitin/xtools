@@ -528,4 +528,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '生成文件夹目录树的小工具',
   },
+  {
+    label: 'CSS 压缩',
+    tags: [Tags.DEV],
+    path: '/css_minifier',
+    key: [],
+    subTitle: 'CSS 压缩小工具',
+  },
 ];
