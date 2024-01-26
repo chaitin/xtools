@@ -75,12 +75,12 @@
 - [JSON 转 yaml](https://rivers.chaitin.cn/tools/json2yaml)
 
 ### 格式化
-- [💡 HTML 格式化](https://rivers.chaitin.cn/tools/htmlfmt)
-- [💡 XML 格式化](https://rivers.chaitin.cn/tools/xmlfmt)
-- [💡 CSS 格式化](https://rivers.chaitin.cn/tools/cssfmt)
-- [💡 YAML 格式化](https://rivers.chaitin.cn/tools/yamlfmt)
-- [💡 JavaScript 格式化](https://rivers.chaitin.cn/tools/jsfmt)
-- [💡 TypeScript 格式化](https://rivers.chaitin.cn/tools/tsfmt)
+- [HTML 格式化](https://rivers.chaitin.cn/tools/htmlfmt)
+- [XML 格式化](https://rivers.chaitin.cn/tools/xmlfmt)
+- [CSS 格式化](https://rivers.chaitin.cn/tools/cssfmt)
+- [YAML 格式化](https://rivers.chaitin.cn/tools/yamlfmt)
+- [JavaScript 格式化](https://rivers.chaitin.cn/tools/jsfmt)
+- [TypeScript 格式化](https://rivers.chaitin.cn/tools/tsfmt)
 - [JSON 格式化](https://rivers.chaitin.cn/tools/jsonfmt)
 
 ### 文字处理
@@ -92,10 +92,16 @@
 - [文本对比 diff](https://rivers.chaitin.cn/tools/diff)
 
 ### 视频音频
-- [💡 视频提取音频](https://rivers.chaitin.cn/tools/getvideoaudio)
+- [视频提取音频](https://rivers.chaitin.cn/tools/getvideoaudio)
+- 💡 [视频格式转换](https://rivers.chaitin.cn/tools/videofmt)
+- 💡 [视频帧截图](https://rivers.chaitin.cn/tools/videoframe)
+- 💡 [视频转 gif](https://rivers.chaitin.cn/tools/video2gif)
 
 ### 办公工具
 - [手绘白板](https://rivers.chaitin.cn/tools/excalidraw)
+- 💡 [南丁格尔玫瑰图](https://rivers.chaitin.cn/tools/chart_nightingale)
+- 💡 [雷达图](https://rivers.chaitin.cn/tools/chart_radar)
+- 💡 [折线图](https://rivers.chaitin.cn/tools/chart_line)
 
 ### 其他
 - [颜色吸取器](https://rivers.chaitin.cn/tools/color_picker)
@@ -111,8 +117,13 @@
 - [早中晚吃啥呢](https://rivers.chaitin.cn/tools/eatwhat)
 - [随机 USER-AGENT](https://rivers.chaitin.cn/tools/random_ua)
 - [文本对比 diff](https://rivers.chaitin.cn/tools/diff)
-- [💡 二维码生成器](https://rivers.chaitin.cn/tools/generate_qrcode)
-- [💡 二维码解析器](https://rivers.chaitin.cn/tools/de_qrcode)
+- [二维码生成器](https://rivers.chaitin.cn/tools/generate_qrcode)
+- [二维码解析器](https://rivers.chaitin.cn/tools/de_qrcode)
+- 💡 [南丁格尔玫瑰图](https://rivers.chaitin.cn/tools/chart_nightingale)
+- 💡 [雷达图](https://rivers.chaitin.cn/tools/chart_radar)
+- 💡 [折线图](https://rivers.chaitin.cn/tools/chart_line)
+- 💡 [倒计时](https://rivers.chaitin.cn/tools/countdown)
+
 
 *💡 代表最新上线的工具*
 
