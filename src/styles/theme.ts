@@ -106,6 +106,10 @@ const theme = createTheme({
       body{
         padding-top: ${process.env.NODE_ENV === 'production' ? '64px' : '0'}
       }
+      #fullscreen-element{
+        padding: 14px;
+        overflow: auto;
+      }
       `,
     },
     MuiFormHelperText: {
