@@ -522,6 +522,20 @@ export const allTools: Tool[] = [
     subTitle: '倒计时小工具',
   },
   {
+    label: '文件树生成',
+    tags: [Tags.DEV],
+    path: '/dir_tree',
+    key: [],
+    subTitle: '生成文件夹目录树的小工具',
+  },
+  {
+    label: 'CSS 压缩',
+    tags: [Tags.DEV],
+    path: '/css_minifier',
+    key: [],
+    subTitle: 'CSS 压缩小工具',
+  },
+  {
     label: '随机邮箱生成',
     tags: [Tags.OTHER],
     path: '/random_email',
