@@ -535,4 +535,26 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'CSS 压缩小工具',
   },
+  {
+    label: '随机邮箱生成',
+    tags: [Tags.OTHER],
+    path: '/random_email',
+    key: [],
+    subTitle: '随机邮箱生成小工具',
+  },
+  {
+    label: '人生格子',
+    tags: [Tags.OTHER],
+    path: '/lifecount',
+    key: [],
+    subTitle: '人生格子小工具',
+  },
+  {
+    label: 'Figlet',
+    tags: [Tags.TEXT],
+    path: '/figlet',
+    key: [],
+    subTitle:
+      '将字符转换为大型艺术字， 常用于浏览器控制台和终端',
+  },
 ];
