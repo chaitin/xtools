@@ -62,7 +62,6 @@ const _C = () => {
       },
       series: chartData.map((it) => ({
         ...it,
-        stack: 'Total',
         type: 'line',
         smooth,
         label: {
