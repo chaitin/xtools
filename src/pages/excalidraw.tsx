@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 const Board: React.FC = () => {
   const [Excalidraw, setExcalidraw] = useState<any>(null);
   useEffect(() => {
-    import('@excalidraw/excalidraw').then((comp: any) =>
+    import('@chaitin_rivers/excalidraw').then((comp: any) =>
       setExcalidraw(comp.Excalidraw)
     );
   }, []);
@@ -35,7 +35,7 @@ const Board: React.FC = () => {
           },
         }}
       >
-        {Excalidraw && <Excalidraw />}
+        {Excalidraw && <Excalidraw langCode='zh-CN' />}
       </Box>
     </MainContent>
   );

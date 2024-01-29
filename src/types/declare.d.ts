@@ -55,7 +55,7 @@ type SocketClient = {
 };
 
 declare module 'nextPage/nextpage';
-declare module '@excalidraw/excalidraw';
+declare module '@chaitin_rivers/excalidraw';
 declare module 'gofmt.js';
 declare module 'uuid';
 declare module 'apache-crypt';
