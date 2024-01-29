@@ -21,12 +21,12 @@
     }
   },
   "dependencies": {
+    "@chaitin_rivers/excalidraw": "^0.17.1",
     "@chaitin_rivers/multi_river": "^0.0.23",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
-    "@excalidraw/excalidraw": "^0.17.2",
     "@ffmpeg/ffmpeg": "^0.12.6",
     "@ffmpeg/types": "^0.12.2",
     "@ffmpeg/util": "^0.12.1",

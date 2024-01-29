@@ -62,7 +62,10 @@ const MainContent: React.FC<{
           dom.style.position = 'unset';
           dom.style.inset = '0';
           dom.style.maxWidth = 'unset';
-          if (riverHeader) riverHeader.style.display = 'block';
+          if (riverHeader) {
+            dom.style.paddingTop = '64px';
+            riverHeader.style.display = 'block';
+          }
         }
       }
     };

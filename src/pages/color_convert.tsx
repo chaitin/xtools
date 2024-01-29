@@ -185,6 +185,19 @@ function convertColor(colorString: string): ColorConversionResult | string {
       hex: rgbaToHex(rgbaValues),
     };
   }
+  if (colorString.startsWith('rgb')) {
+    const rgbaValues = colorString
+      .substring(4, colorString.length - 1)
+      .split(',')
+      .map((value) => parseFloat(value));
+    const rgba = `rgba(${rgbaValues[0]}, ${rgbaValues[1]}, ${rgbaValues[2]}, 1)`;
+    return {
+      rgb: rgbaTrans(rgba),
+      rgba,
+      hsl: rgbaToHsl(rgbaValues),
+      hex: rgbaToHex(rgbaValues),
+    };
+  }
 
   if (colorString.startsWith('hsl')) {
     const hslValues = colorString
@@ -246,7 +259,7 @@ const ColorConvert: React.FC = () => {
               size='small'
               sx={{
                 fontSize: '14px',
-                maxWidth: '100px',
+                width: '100px',
                 borderRadius: '4px',
                 ml: 'auto',
                 height: '28px',
