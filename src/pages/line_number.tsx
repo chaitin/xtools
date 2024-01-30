@@ -2,6 +2,7 @@ import alert from '@/components/Alert';
 import MainContent from '@/components/MainContent';
 import TextFieldWithClean from '@/components/TextFieldWithClean';
 import { ToolsForm } from '@/components/Tools';
+import { saveFile } from '@/utils/download';
 import {
   Button,
   OutlinedInput,
@@ -30,16 +31,7 @@ const LineNumber: React.FC = () => {
     setOutText(_outText);
   };
   const handleSaveFile = (event: React.MouseEvent<HTMLElement>) => {
-    const url = URL.createObjectURL(
-      new Blob([outText], { type: 'application/octet-stream' })
-    );
-    const aTag = document.createElement('a');
-    aTag.style.display = 'none';
-    aTag.href = url;
-    aTag.download = '添加行号.txt';
-    document.body.appendChild(aTag);
-    aTag.click();
-    URL.revokeObjectURL(url);
+    saveFile(outText, '添加行号.txt');
   };
   return (
     <MainContent>

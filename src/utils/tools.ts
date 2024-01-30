@@ -563,4 +563,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '在线批量有序添加行号',
   },
+  {
+    label: 'Docker run 命令转 Docker compose',
+    tags: [Tags.DEV],
+    path: '/docker_run_to_docker_compose',
+    key: [],
+    subTitle: 'docker run 命令转 docker compose',
+  },
 ];
