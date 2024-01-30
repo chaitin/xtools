@@ -122,6 +122,13 @@ const theme = createTheme({
       defaultProps: {
         variant: 'standard',
       },
+      styleOverrides: {
+        root: {
+          '& .MuiInputBase-multiline': {
+            paddingTop: '10px',
+          },
+        },
+      },
     },
     MuiInput: {
       styleOverrides: {

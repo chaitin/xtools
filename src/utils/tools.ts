@@ -554,7 +554,13 @@ export const allTools: Tool[] = [
     tags: [Tags.TEXT],
     path: '/figlet',
     key: [],
-    subTitle:
-      '将字符转换为大型艺术字， 常用于浏览器控制台和终端',
+    subTitle: '将字符转换为大型艺术字， 常用于浏览器控制台和终端',
+  },
+  {
+    label: '在线添加行号',
+    tags: [Tags.TEXT],
+    path: '/line_number',
+    key: [],
+    subTitle: '在线批量有序添加行号',
   },
 ];
