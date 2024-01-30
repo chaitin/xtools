@@ -40,6 +40,7 @@ const MainContent: React.FC<{
         dom.style.inset = '0';
         dom.style.maxWidth = '100vw';
         dom.style.background = '#fff';
+        dom.style.padding = '84px 14px 14px 14px';
         if (riverHeader) riverHeader.style.display = 'none';
       }
     });
@@ -62,8 +63,8 @@ const MainContent: React.FC<{
           dom.style.position = 'unset';
           dom.style.inset = '0';
           dom.style.maxWidth = 'unset';
+          dom.style.padding = '0';
           if (riverHeader) {
-            dom.style.paddingTop = '64px';
             riverHeader.style.display = 'block';
           }
         }
