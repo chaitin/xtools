@@ -584,4 +584,11 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '在线社会主义核心价值观加解密工具。',
   },
+  {
+    label: '乱序文字生成器',
+    tags: [Tags.TEXT],
+    path: '/shuffle_text_generator',
+    key: [],
+    subTitle: '乱序文字生成器可以打乱文字和段落顺序，保持数量和出现次数不变。',
+  },
 ];
