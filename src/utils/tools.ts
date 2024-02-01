@@ -557,6 +557,20 @@ export const allTools: Tool[] = [
     subTitle: '将字符转换为大型艺术字， 常用于浏览器控制台和终端',
   },
   {
+    label: '在线添加行号',
+    tags: [Tags.TEXT],
+    path: '/line_number',
+    key: [],
+    subTitle: '在线批量有序添加行号',
+  },
+  {
+    label: 'Docker run 命令转 Docker compose',
+    tags: [Tags.DEV],
+    path: '/docker_run_to_docker_compose',
+    key: [],
+    subTitle: 'docker run 命令转 docker compose',
+  },
+  {
     label: '多格切图',
     tags: [Tags.IMAGE],
     path: '/img_split',

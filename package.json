@@ -49,6 +49,7 @@
     "big-integer": "^1.6.52",
     "change-case": "^5.3.0",
     "clean-css": "^5.3.3",
+    "composerize-ts": "^0.6.2",
     "compressorjs": "^1.2.1",
     "crypto-js": "^4.2.0",
     "css2less": "^0.1.4",
