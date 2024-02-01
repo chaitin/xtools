@@ -3,6 +3,9 @@ declare module 'clean-css' {
   export type Options = any;
   export default any;
 }
+declare module 'composerize' {
+  export default any;
+}
 declare module 'figlet/importable-fonts/Standard.js';
 declare module 'figlet/importable-fonts/1Row.js';
 declare module 'figlet/importable-fonts/3D-ASCII';
