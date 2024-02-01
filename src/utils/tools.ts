@@ -570,4 +570,18 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: 'docker run 命令转 docker compose',
   },
+  {
+    label: '多格切图',
+    tags: [Tags.IMAGE],
+    path: '/img_split',
+    key: [],
+    subTitle: '支持将任意图片进行九宫格切图或多格切图',
+  },
+  {
+    label: '社会主义核心价值观加解密',
+    tags: [Tags.ENCRYPT],
+    path: '/cvencode',
+    key: [],
+    subTitle: '在线社会主义核心价值观加解密工具。',
+  },
 ];

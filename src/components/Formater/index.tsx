@@ -1,32 +1,32 @@
 import alert from '@/components/Alert';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Box, Grid, Button } from '@mui/material';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import MenuItem from '@mui/material/MenuItem';
+import { Box, Button, Grid } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import AceEditor from 'react-ace';
-import xmlFormat from 'xml-formatter';
-import * as prettier from 'prettier/standalone';
 import babelPlugin from 'prettier/plugins/babel';
-import yamlPlugin from 'prettier/plugins/yaml';
+import estree from 'prettier/plugins/estree';
 import htmlPlugin from 'prettier/plugins/html';
 import cssPlugin from 'prettier/plugins/postcss';
 import tsPlugin from 'prettier/plugins/typescript';
-import estree from 'prettier/plugins/estree';
+import yamlPlugin from 'prettier/plugins/yaml';
+import * as prettier from 'prettier/standalone';
+import React, { useCallback, useEffect, useState } from 'react';
+import AceEditor from 'react-ace';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import xmlFormat from 'xml-formatter';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
-import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-css';
-import 'ace-builds/src-noconflict/mode-typescript';
 import 'ace-builds/src-noconflict/mode-html';
-import 'ace-builds/src-noconflict/mode-yaml';
-import 'ace-builds/src-noconflict/mode-xml';
+import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/mode-typescript';
+import 'ace-builds/src-noconflict/mode-xml';
+import 'ace-builds/src-noconflict/mode-yaml';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 export enum Mode {
@@ -176,21 +176,7 @@ const Formater: React.FC<FormaterProps> = ({ mock, mode, accept }) => {
   }, []);
 
   return (
-    <Grid
-      sx={{
-        mt: '24px',
-        maxWidth: '1020px',
-        height: '100%',
-        '#input *': {
-          fontFamily: 'Mono',
-        },
-        '#output *': {
-          fontFamily: 'Mono',
-        },
-      }}
-      container
-      spacing={2}
-    >
+    <>
       <Grid item xs={6}>
         <Box
           sx={{
@@ -298,7 +284,7 @@ const Formater: React.FC<FormaterProps> = ({ mock, mode, accept }) => {
           editorProps={{ $blockScrolling: true }}
         />
       </Grid>
-    </Grid>
+    </>
   );
 };
 
