@@ -28,6 +28,7 @@
 - [图片去色](https://rivers.chaitin.cn/tools/uncolor)
 - [图片添加水印](https://rivers.chaitin.cn/tools/watermark)
 - [图片压缩](https://rivers.chaitin.cn/tools/img_sharp)
+- 💡 [多格切图](https://rivers.chaitin.cn/tools/img_split)
 
 ### 二进制处理
 - [Pyc 转 Py](https://rivers.chaitin.cn/tools/pyc2py)
@@ -54,6 +55,7 @@
 - [AES 加解密](https://rivers.chaitin.cn/tools/aes)
 - [DES 加解密](https://rivers.chaitin.cn/tools/des)
 - [3DES 加解密](https://rivers.chaitin.cn/tools/3des)
+- 💡 [社会主义核心价值观加解密](https://rivers.chaitin.cn/tools/cvencode)
 
 ### 辅助开发
 - [SQLite 在线浏览](https://rivers.chaitin.cn/tools/sqlite)
@@ -65,6 +67,9 @@
 - [SQL 格式化](https://rivers.chaitin.cn/tools/sqlfmt)
 - [Hex 编解码](https://rivers.chaitin.cn/tools/hex)
 - [UUID 生成](https://rivers.chaitin.cn/tools/uuid_gen)
+- 💡 [文件树生成](https://rivers.chaitin.cn/tools/dir_tree)
+- 💡 [CSS 压缩](https://rivers.chaitin.cn/tools/css_minifier)
+- 💡 [Docker run 命令转 Docker compose](https://rivers.chaitin.cn/tools/docker_run_to_docker_compose)
 
 ### JSON 加工
 - [JSON XML 互转](https://rivers.chaitin.cn/tools/json2xml)
@@ -90,18 +95,20 @@
 - [下划线驼峰互转](https://rivers.chaitin.cn/tools/camelcase)
 - [中英文加空格](https://rivers.chaitin.cn/tools/cn_space_en)
 - [文本对比 diff](https://rivers.chaitin.cn/tools/diff)
+- 💡 [Figlet](https://rivers.chaitin.cn/tools/figlet)
+- 💡 [在线添加行号](https://rivers.chaitin.cn/tools/line_number)
 
 ### 视频音频
 - [视频提取音频](https://rivers.chaitin.cn/tools/getvideoaudio)
-- 💡 [视频格式转换](https://rivers.chaitin.cn/tools/videofmt)
-- 💡 [视频帧截图](https://rivers.chaitin.cn/tools/videoframe)
-- 💡 [视频转 gif](https://rivers.chaitin.cn/tools/video2gif)
+- [视频格式转换](https://rivers.chaitin.cn/tools/videofmt)
+- [视频帧截图](https://rivers.chaitin.cn/tools/videoframe)
+- [视频转 gif](https://rivers.chaitin.cn/tools/video2gif)
 
 ### 办公工具
 - [手绘白板](https://rivers.chaitin.cn/tools/excalidraw)
-- 💡 [南丁格尔玫瑰图](https://rivers.chaitin.cn/tools/chart_nightingale)
-- 💡 [雷达图](https://rivers.chaitin.cn/tools/chart_radar)
-- 💡 [折线图](https://rivers.chaitin.cn/tools/chart_line)
+- [南丁格尔玫瑰图](https://rivers.chaitin.cn/tools/chart_nightingale)
+- [雷达图](https://rivers.chaitin.cn/tools/chart_radar)
+- [折线图](https://rivers.chaitin.cn/tools/chart_line)
 
 ### 其他
 - [颜色吸取器](https://rivers.chaitin.cn/tools/color_picker)
@@ -119,10 +126,12 @@
 - [文本对比 diff](https://rivers.chaitin.cn/tools/diff)
 - [二维码生成器](https://rivers.chaitin.cn/tools/generate_qrcode)
 - [二维码解析器](https://rivers.chaitin.cn/tools/de_qrcode)
-- 💡 [南丁格尔玫瑰图](https://rivers.chaitin.cn/tools/chart_nightingale)
-- 💡 [雷达图](https://rivers.chaitin.cn/tools/chart_radar)
-- 💡 [折线图](https://rivers.chaitin.cn/tools/chart_line)
-- 💡 [倒计时](https://rivers.chaitin.cn/tools/countdown)
+- [南丁格尔玫瑰图](https://rivers.chaitin.cn/tools/chart_nightingale)
+- [雷达图](https://rivers.chaitin.cn/tools/chart_radar)
+- [折线图](https://rivers.chaitin.cn/tools/chart_line)
+- [倒计时](https://rivers.chaitin.cn/tools/countdown)
+- 💡 [随机邮箱生成](https://rivers.chaitin.cn/tools/random_email)
+- 💡 [人生格子](https://rivers.chaitin.cn/tools/lifecount)
 
 
 *💡 代表最新上线的工具*
