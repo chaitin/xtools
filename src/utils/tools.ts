@@ -410,6 +410,13 @@ export const allTools: Tool[] = [
     subTitle: '支持识别中文、英语、俄语、德语、法语、日语、韩语',
   },
   {
+    label: '音频格式转换',
+    tags: [Tags.MEDIA],
+    path: '/audiofmt',
+    key: [],
+    subTitle: '音频格式转换小工具',
+  },
+  {
     label: '视频格式转换',
     tags: [Tags.MEDIA],
     path: '/videofmt',
