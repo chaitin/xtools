@@ -147,6 +147,7 @@ const MainContent: React.FC<{
         direction='row'
         alignItems='center'
         justifyContent='space-between'
+        spacing={1}
         sx={{
           position: 'relative',
           width: '100%',
@@ -175,6 +176,7 @@ const MainContent: React.FC<{
             sx={{
               borderRadius: '4px',
               height: '24px',
+              minWidth: '80px',
             }}
             variant='outlined'
             startIcon={<FullscreenIcon />}
