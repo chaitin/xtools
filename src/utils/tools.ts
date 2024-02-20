@@ -600,10 +600,18 @@ export const allTools: Tool[] = [
   },
   {
     label: '凯撒密码在线加密解密',
-    tags: [Tags.SECURITY],
+    tags: [Tags.ENCRYPT],
     path: '/caesar',
     key: [],
     subTitle:
       '凯撒密码最早由古罗马军事统帅盖乌斯·尤利乌斯·凯撒在军队中用来传递加密信息，故称凯撒密码。此为一种位移加密手段，只对26个（大小写）字母进行位移加密，规则相当简单，容易被破解',
+  },
+  {
+    label: '栅栏密码在线加密解密',
+    tags: [Tags.ENCRYPT],
+    path: '/rail_fence_cipher',
+    key: [],
+    subTitle:
+      '所谓栅栏密码，就是把要加密的明文分成N个一组，然后把每组的第1个字连起来，形成一段无规律的话。 不过栅栏密码本身有一个潜规则，就是组成栅栏的字母一般不会太多。（一般不超过30个，也就是一、两句话）',
   },
 ];

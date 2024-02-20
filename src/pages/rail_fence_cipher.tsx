@@ -5,40 +5,70 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import MainContent from '@/components/MainContent';
 import alertActions from '@/components/Alert';
 
-const encode = (text: string, pwdOffest: number) => {
-  if (pwdOffest >= 26) pwdOffest %= 26;
-  return Array.from(text)
-    .map((item) => {
-      const count = item.charCodeAt(0);
-      if ((count >= 97 && count <= 122) || (count >= 65 && count <= 90)) {
-        if (
-          count + pwdOffest > 122 ||
-          (count <= 90 && count + pwdOffest > 90)
-        ) {
-          return String.fromCharCode(count + pwdOffest - 26);
-        }
-        return String.fromCharCode(count + pwdOffest);
-      }
-      return item;
-    })
-    .join('');
+const encode = (text: string, rails: number) => {
+  // 创建栅栏矩阵
+  const fence: string[][] = Array.from({ length: rails }, () => []);
+
+  // 将字符按照"W"字形排列到栅栏矩阵中
+  let rail = 0;
+  let direction = 1;
+  for (let i of text) {
+    fence[rail].push(i);
+    rail += direction;
+    if (rail === 0 || rail === rails - 1) {
+      direction = -direction;
+    }
+  }
+
+  // 按照特定顺序读取字符并拼接成密文
+  let pwd = '';
+  for (let i = 0; i < rails; i++) {
+    pwd += fence[i].join('');
+  }
+
+  return pwd;
 };
-const decode = (pwd: string, pwdOffest: number) => {
-  if (pwdOffest >= 26) pwdOffest %= 26;
-  return Array.from(pwd)
-    .map((item) => {
-      const count = item.charCodeAt(0);
-      if ((count >= 97 && count <= 122) || (count >= 65 && count <= 90)) {
-        if (count - pwdOffest < 65 || (count >= 97 && count - pwdOffest < 97)) {
-          return String.fromCharCode(count - pwdOffest + 26);
-        }
-        return String.fromCharCode(count - pwdOffest);
-      }
-      return item;
-    })
-    .join('');
+
+const decode = (pwd: string, rails: number) => {
+  // 创建栅栏矩阵
+  const fence: string[][] = Array.from({ length: rails }, () => []);
+
+  // 计算栅栏中每行的字符数
+  const railCounts = Array.from({ length: rails }, () => 0);
+  let rail = 0;
+  let direction = 1;
+  for (let i = 0; i < pwd.length; i++) {
+    railCounts[rail]++;
+    rail += direction;
+    if (rail === 0 || rail === rails - 1) {
+      direction = -direction;
+    }
+  }
+
+  // 将密文中的字符填充到栅栏矩阵中
+  let index = 0;
+  for (let i = 0; i < rails; i++) {
+    for (let j = 0; j < railCounts[i]; j++) {
+      fence[i].push(pwd[index]);
+      index++;
+    }
+  }
+
+  // 按照"山"字形顺序读取字符并拼接成明文
+  let plaintext = '';
+  rail = 0;
+  direction = 1;
+  for (let i = 0; i < pwd.length; i++) {
+    plaintext += fence[rail].shift();
+    rail += direction;
+    if (rail === 0 || rail === rails - 1) {
+      direction = -direction;
+    }
+  }
+
+  return plaintext;
 };
-const CaesarCodeTranslator = () => {
+const RailFenceCipher = () => {
   const [text, setText] = useState('');
   const [pwd, setPwd] = useState('');
   const [pwdOffest, setPwdOffest] = useState(3);
@@ -78,8 +108,8 @@ const CaesarCodeTranslator = () => {
       <>
         <TextField
           fullWidth
-          label='密码位移数'
-          placeholder='请输入密码位移的数值'
+          label='栏目数'
+          placeholder='请输入栏目数'
           value={pwdOffest}
           type='number'
           onChange={(e) => {
@@ -136,7 +166,7 @@ const CaesarCodeTranslator = () => {
               <Grid item xs={12} md={5}>
                 <TextField
                   fullWidth
-                  label='凯撒密码'
+                  label='栅栏密码'
                   placeholder='请输入要解密的凯撒密码'
                   value={pwd}
                   onChange={onPwdChange}
@@ -156,4 +186,4 @@ const CaesarCodeTranslator = () => {
   );
 };
 
-export default CaesarCodeTranslator;
+export default RailFenceCipher;
