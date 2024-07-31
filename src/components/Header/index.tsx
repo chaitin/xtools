@@ -57,7 +57,7 @@ const Header = () => {
         <Stack direction='row' alignItems='center'>
           <Box
             component='img'
-            src='/logo.svg'
+            src='/tools/logo.svg'
             onClick={() => {
               window.open('/', '_self');
             }}

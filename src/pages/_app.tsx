@@ -70,7 +70,6 @@ export default function App({
                     width: '1180px',
                     mx: 'auto',
                     height: '100%',
-                    mt: isProduction ? '64px' : 0,
                   }}
                 >
                   <Header />
