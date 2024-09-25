@@ -8,6 +8,9 @@ import {
   UnixStartBtn,
 } from '@/components/Tools';
 import { primary } from '@/constant';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone'; // 导入时区插件
+import utc from 'dayjs/plugin/utc'; // 导入 UTC 插件
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -18,7 +21,10 @@ import {
   Divider,
   Grid,
   InputAdornment,
+  InputLabel,
+  MenuItem,
   OutlinedInput,
+  Select,
   Stack,
   Typography,
 } from '@mui/material';
@@ -28,8 +34,71 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { anOldHope } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+// 使用时区和 UTC 插件
+dayjs.extend(timezone);
+dayjs.extend(utc);
+
 const initUnix = (isSecond = true) =>
   parseInt('' + Number(new Date()) / (isSecond ? 1000 : 1));
+
+const allTimeZones = [
+  { name: '[亚洲] 日本/东京 - Asia/Tokyo', value: 'Asia/Tokyo' },
+  { name: '[亚洲] 中国/上海 - Asia/Shanghai', value: 'Asia/Shanghai' },
+  { name: '[亚洲] 新加坡 - Asia/Singapore', value: 'Asia/Singapore' },
+  { name: '[亚洲] 泰国/曼谷 - Asia/Bangkok', value: 'Asia/Bangkok' },
+  { name: '[亚洲] 印度/斯里兰卡/科伦坡 - Asia/Colombo', value: 'Asia/Colombo' },
+  { name: '[亚洲] 阿富汗/喀布尔 - Asia/Kabul', value: 'Asia/Kabul' },
+  { name: '[亚洲] 阿联/迪拜 - Asia/Dubai', value: 'Asia/Dubai' },
+  { name: '[亚洲] 伊拉克/巴格达 - Asia/Baghdad', value: 'Asia/Baghdad' },
+  { name: '[非洲] 肯尼亚/内罗毕 - Africa/Nairobi', value: 'Africa/Nairobi' },
+  { name: '[非洲] 埃及/开罗 - Africa/Cairo', value: 'Africa/Cairo' },
+  { name: '[非洲] 尼日利亚/拉各斯 - Africa/Lagos', value: 'Africa/Lagos' },
+  { name: '[欧洲] 俄罗斯/莫斯科 - Europe/Moscow', value: 'Europe/Moscow' },
+  {
+    name: '[欧洲] 土耳其/伊斯坦布尔 - Europe/Istanbul',
+    value: 'Europe/Istanbul',
+  },
+  {
+    name: '[欧洲] 罗马尼亚/布加勒斯 - Europe/Bucharest',
+    value: 'Europe/Bucharest',
+  },
+  { name: '[欧洲] 法国/巴黎 - Europe/Paris', value: 'Europe/Paris' },
+  { name: '[欧洲] 德国/柏林 - Europe/Berlin', value: 'Europe/Berlin' },
+  { name: '[欧洲] 英国/伦敦 - Europe/London', value: 'Europe/London' },
+  { name: '[欧洲] 爱尔兰/都柏林 - Europe/Dublin', value: 'Europe/Dublin' },
+  { name: '[美洲] 美国/纽约 - America/New_York', value: 'America/New_York' },
+  { name: '[美洲] 美国/盐湖城 - America/Boise', value: 'America/Boise' },
+  {
+    name: '[美洲] 美国/洛杉矶 - America/Los_Angeles',
+    value: 'America/Los_Angeles',
+  },
+  {
+    name: '[美洲] 加拿大/温哥华 - America/Vancouver',
+    value: 'America/Vancouver',
+  },
+  {
+    name: '[美洲] 加拿大/温尼伯 - America/Winnipeg',
+    value: 'America/Winnipeg',
+  },
+  { name: '[美洲] 加拿大/多伦多 - America/Toronto', value: 'America/Toronto' },
+  {
+    name: '[美洲] 巴西/圣保罗 - America/Sao_Paulo',
+    value: 'America/Sao_Paulo',
+  },
+  { name: '[美洲] 秘鲁/利马 - America/Lima', value: 'America/Lima' },
+  {
+    name: '[美洲] 墨西哥/墨西哥城 - America/Mexico_City',
+    value: 'America/Mexico_City',
+  },
+  {
+    name: '[大洋洲] 新西兰/奥克兰 - Pacific/Auckland',
+    value: 'Pacific/Auckland',
+  },
+  {
+    name: '[大洋洲] 澳大利亚/悉尼 - Australia/Sydney',
+    value: 'Australia/Sydney',
+  },
+];
 const lang = [
   {
     lang: 'rust',
@@ -138,6 +207,7 @@ const Unix: React.FC = () => {
   );
   const [outUnix, setOutUnix] = useState<number>();
   const [code, setCode] = useState<string>('Rust');
+  const [timeZone, setTimeZone] = useState<string>('Asia/Shanghai');
 
   const clearTime = () => {
     clearTimeout(intervalCode);
@@ -164,12 +234,18 @@ const Unix: React.FC = () => {
     []
   );
   const handelTransUnixInput = useCallback(() => {
+    console.log(
+      'timeZone',
+      timeZone,
+      'inputUnix',
+      inputUnix * (inputUnit === Unit.second ? 1000 : 1)
+    );
     setOutTime(
       new Date(inputUnix * (inputUnit === Unit.second ? 1000 : 1))
-        .toLocaleString()
+        .toLocaleString('chinese', { timeZone: timeZone })
         .replace(/,/g, '')
     );
-  }, [inputUnit, inputUnix]);
+  }, [inputUnit, inputUnix, timeZone]);
   const handelSetOutTime = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setOutTime(event.target.value);
@@ -192,10 +268,11 @@ const Unix: React.FC = () => {
     []
   );
   const handelTransTimeInput = useCallback(() => {
+    const zonedDateTime = dayjs.tz(inputTime, timeZone);
     const unix =
-      Number(new Date(inputTime)) / (outUnit === 'second' ? 1000 : 1);
+      Number(zonedDateTime.valueOf()) / (outUnit === 'second' ? 1000 : 1);
     setOutUnix(unix);
-  }, [outUnit, inputTime]);
+  }, [outUnit, inputTime, timeZone]);
   const handelSetOutUnix = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setOutUnix(event.target.valueAsNumber);
@@ -244,6 +321,31 @@ const Unix: React.FC = () => {
               fontFamily: 'PingFangSC',
             }}
           >
+            <Stack
+              direction='row'
+              alignItems='center'
+              spacing={1}
+              sx={{
+                '& .MuiOutlinedInput-root': { width: '415px', flexGrow: 0 },
+              }}
+            >
+              <InputLabel sx={{ width: '200px!important' }}>
+                请选择时区
+              </InputLabel>
+              <Select
+                value={timeZone}
+                label='时区'
+                onChange={(event) => {
+                  setTimeZone(event.target.value);
+                }}
+              >
+                {allTimeZones.map((item) => (
+                  <MenuItem value={item.value} key={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Stack>
             <Stack direction={'row'} sx={{ alignItems: 'center', pb: 1 }}>
               <Typography
                 onClick={synchUnix}
@@ -322,7 +424,7 @@ const Unix: React.FC = () => {
                   margin='dense'
                   sx={{ width: '300px' }}
                   endAdornment={
-                    <InputAdornment position='end'>北京时间</InputAdornment>
+                    <InputAdornment position='end'>{timeZone}</InputAdornment>
                   }
                 />
               </Stack>
@@ -335,7 +437,7 @@ const Unix: React.FC = () => {
                   margin='dense'
                   sx={{ width: '300px' }}
                   endAdornment={
-                    <InputAdornment position='end'>北京时间</InputAdornment>
+                    <InputAdornment position='end'>{timeZone}</InputAdornment>
                   }
                 />
                 <Button

@@ -53,7 +53,7 @@
     "compressorjs": "^1.2.1",
     "crypto-js": "^4.2.0",
     "css2less": "^0.1.4",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.11",
     "dompurify": "^3.0.6",
     "echarts": "^5.4.3",
     "eslint-config-next": "^14.0.4",
