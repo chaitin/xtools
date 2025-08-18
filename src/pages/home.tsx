@@ -109,7 +109,7 @@ export default function App() {
         overflow: 'auto',
         boxShadow: {
           xs: 'none',
-          md: '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)'
+          md: '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
         },
       }}
       elevation={0}
@@ -119,15 +119,22 @@ export default function App() {
           <Typography variant='subtitle2' sx={{ mb: 2 }}>
             {tag.label}
           </Typography>
-          <Stack direction='row' flexWrap='wrap' sx={{ mx: -1 }}>
+          <Stack
+            direction='row'
+            flexWrap='wrap'
+            sx={{
+              mx: -1,
+              justifyContent: { xs: 'center', md: 'flex-start' },
+            }}
+          >
             {tag.tools.length ? (
               tag.tools.map((tool: Tool) => (
                 <Card
                   key={tool.path}
                   sx={{
                     background: tag.bg_color,
-                    width: '296px',
-                    mx: 1,
+                    width: { xs: '100%', sm: '45%', md: '296px' },
+                    mx: { xs: 0, md: 1 },
                     mb: 2,
                     pb: 1,
                     borderRadius: '8px',
