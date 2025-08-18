@@ -3,14 +3,7 @@ import { AnchorContext } from '@/hooks/useAnchor';
 import { allTags } from '@/utils/tags';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  Drawer,
-  IconButton,
-  Stack,
-  Typography,
-  Button,
-  Box,
-} from '@mui/material';
+import { Drawer, IconButton, Stack, Typography, Button } from '@mui/material';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -116,7 +109,9 @@ const MobileNavigation: React.FC<{}> = () => {
                 >
                   <Image
                     alt={item.label}
-                    src={checkAnchor === item.name ? item.icon_check : item.icon}
+                    src={
+                      checkAnchor === item.name ? item.icon_check : item.icon
+                    }
                   />
                   <Typography
                     variant='subtitle2'
