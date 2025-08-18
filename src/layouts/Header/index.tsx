@@ -69,21 +69,21 @@ const Header: React.FC<{}> = () => {
     <Stack
       direction='row'
       alignItems='center'
-      sx={{ 
-        width: '100%', 
-        height: '84px', 
+      sx={{
+        width: '100%',
+        height: '84px',
         flexShrink: 0,
         flexWrap: { xs: 'wrap', md: 'nowrap' },
-        gap: { xs: 1, md: 0 }
+        gap: { xs: 1, md: 0 },
       }}
     >
       <Typography
         variant='subtitle1'
         fontWeight={600}
-        sx={{ 
-          mr: { xs: 1, md: 2 }, 
+        sx={{
+          mr: { xs: 1, md: 2 },
           color: 'rgba(11, 37, 98, 1)',
-          fontSize: { xs: '14px', md: '16px' }
+          fontSize: { xs: '14px', md: '16px' },
         }}
       >
         <Link className='custom-link' href='/home'>
@@ -208,6 +208,7 @@ const Header: React.FC<{}> = () => {
         <Paper
           sx={{
             flex: 1,
+            mr: '64px',
             borderRadius: '4px',
             height: '36px',
             ml: 1,

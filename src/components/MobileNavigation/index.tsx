@@ -34,7 +34,7 @@ const MobileNavigation: React.FC<{}> = () => {
         sx={{
           display: isOpen ? 'none' : 'inline-flex',
           position: 'fixed',
-          top: 16,
+          top: 'calc(84px / 2 - 20px)',
           right: 16,
           zIndex: 1300,
           backgroundColor: 'white',
