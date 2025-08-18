@@ -32,6 +32,7 @@ const MobileNavigation: React.FC<{}> = () => {
       <IconButton
         onClick={handleToggle}
         sx={{
+          display: isOpen ? 'none' : 'inline-flex',
           position: 'fixed',
           top: 16,
           right: 16,
@@ -42,6 +43,7 @@ const MobileNavigation: React.FC<{}> = () => {
             backgroundColor: 'rgba(0,0,0,0.04)',
           },
         }}
+        aria-label={isOpen ? 'menu-hidden' : 'open-menu'}
       >
         <MenuIcon />
       </IconButton>
