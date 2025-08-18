@@ -688,6 +688,10 @@ export const ALL_TOOLKIT_LIST = [
         name: '\u56fe\u7247\u683c\u5f0f\u8f6c\u6362',
         url: '/tools/img_conversion',
       },
+      {
+        name: '\u56fe\u7247\u62fc\u63a5',
+        url: '/tools/img_joints',
+      },
     ],
   },
   {

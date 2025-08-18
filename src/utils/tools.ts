@@ -605,4 +605,12 @@ export const allTools: Tool[] = [
     key: [],
     subTitle: '乱序文字生成器可以打乱文字和段落顺序，保持数量和出现次数不变。',
   },
+  {
+    label: '图片拼接',
+    tags: [Tags.IMAGE],
+    path: '/img_joints',
+    key: [],
+    subTitle:
+      '图片拼接工具，可以将多张图片拼接成一张图片，支持横向和纵向拼接。',
+  },
 ];
