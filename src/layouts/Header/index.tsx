@@ -1,5 +1,5 @@
 import { ToolCard } from '@/components/ToolCard';
-import { usePath } from '@/hooks';
+import { usePath, useMobileView } from '@/hooks';
 import { Tags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -22,6 +22,7 @@ const ifChecked = (currentPath: string, itemPath: string) => {
 
 const Header: React.FC<{}> = () => {
   const { path } = usePath();
+  const isMobile = useMobileView();
   const [tags, setTags] = React.useState<Tags[]>([]);
   const [tools, setTools] = React.useState<Tool[]>(allTools);
   const [openSearch, setOpenSearch] = React.useState<boolean>(false);
@@ -68,15 +69,25 @@ const Header: React.FC<{}> = () => {
     <Stack
       direction='row'
       alignItems='center'
-      sx={{ width: '100%', height: '84px', flexShrink: 0 }}
+      sx={{ 
+        width: '100%', 
+        height: '84px', 
+        flexShrink: 0,
+        flexWrap: { xs: 'wrap', md: 'nowrap' },
+        gap: { xs: 1, md: 0 }
+      }}
     >
       <Typography
         variant='subtitle1'
         fontWeight={600}
-        sx={{ mr: 2, color: 'rgba(11, 37, 98, 1)' }}
+        sx={{ 
+          mr: { xs: 1, md: 2 }, 
+          color: 'rgba(11, 37, 98, 1)',
+          fontSize: { xs: '14px', md: '16px' }
+        }}
       >
         <Link className='custom-link' href='/home'>
-          百川在线工具箱
+          {isMobile ? '百川工具箱' : '百川在线工具箱'}
         </Link>
       </Typography>
       <Link className='custom-link' href='https://github.com/chaitin/xtools'>
@@ -91,104 +102,190 @@ const Header: React.FC<{}> = () => {
           }}
         />
       </Link>
-      <Typography
-        variant='body2'
-        sx={{
-          ml: 'auto',
-          color: 'rgba(255,110,103, 0.5)!important',
-          '&:hover': {
-            color: '#FF6E67!important',
-          },
-        }}
-      >
-        <Link
-          href='https://github.com/chaitin/xtools/issues'
-          className='custom-link'
-          target='_blank'
-        >
-          工具不够？提个需求
-        </Link>
-      </Typography>
-      <Paper
-        sx={{
-          width: '381px',
-          borderRadius: '4px',
-          height: '36px',
-          ml: 4,
-          '& .MuiInput-underline': { height: '36px', borderBottom: 'none' },
-          '& .MuiAutocomplete-inputRoot:before': {
-            borderBottom: 'none!important',
-          },
-          boxShadow:
-            '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
-        }}
-      >
-        <Autocomplete
-          disablePortal
-          id='combo-box-demo'
-          open={openSearch}
-          autoComplete
-          onClose={() => setOpenSearch(false)}
-          onOpen={() => setOpenSearch(true)}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              // Prevent's default 'Enter' behavior.
-              event.defaultMuiPrevented = true;
-              const tool = allTools.find(
-                (item) => item.label === (event.target as any)?.value || ''
-              );
-              if (tool) {
-                setOpenSearch(false);
-                router.push(tool.path);
+      {!isMobile && (
+        <>
+          <Typography
+            variant='body2'
+            sx={{
+              ml: 'auto',
+              color: 'rgba(255,110,103, 0.5)!important',
+              '&:hover': {
+                color: '#FF6E67!important',
+              },
+            }}
+          >
+            <Link
+              href='https://github.com/chaitin/xtools/issues'
+              className='custom-link'
+              target='_blank'
+            >
+              工具不够？提个需求
+            </Link>
+          </Typography>
+          <Paper
+            sx={{
+              width: '381px',
+              borderRadius: '4px',
+              height: '36px',
+              ml: 4,
+              '& .MuiInput-underline': { height: '36px', borderBottom: 'none' },
+              '& .MuiAutocomplete-inputRoot:before': {
+                borderBottom: 'none!important',
+              },
+              boxShadow:
+                '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              id='combo-box-demo'
+              open={openSearch}
+              autoComplete
+              onClose={() => setOpenSearch(false)}
+              onOpen={() => setOpenSearch(true)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  // Prevent's default 'Enter' behavior.
+                  event.defaultMuiPrevented = true;
+                  const tool = allTools.find(
+                    (item) => item.label === (event.target as any)?.value || ''
+                  );
+                  if (tool) {
+                    setOpenSearch(false);
+                    router.push(tool.path);
+                  }
+                  // your handler code
+                }
+              }}
+              filterOptions={(menu, state) =>
+                menu.filter((item) => {
+                  return (
+                    item.label
+                      .toUpperCase()
+                      .includes(state.inputValue?.toUpperCase()) ||
+                    item.subTitle
+                      .toUpperCase()
+                      .includes(state.inputValue?.toUpperCase())
+                  );
+                })
               }
-              // your handler code
+              options={allTools}
+              renderOption={(props: object, option: Tool, state) => {
+                return (
+                  <Box
+                    sx={{
+                      borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+                      '&:hover': {
+                        background: 'rgba(17, 35, 90, 0.05)',
+                      },
+                    }}
+                    onClick={() => setOpenSearch(false)}
+                    {...props}
+                  >
+                    <Link href={option.path} className='custom-link'>
+                      <ToolCard tool={option} showStar={false} />
+                    </Link>
+                  </Box>
+                );
+              }}
+              sx={{ height: '100%' }}
+              autoHighlight
+              renderInput={(params) => (
+                <Stack direction='row'>
+                  <SearchIcon sx={{ mt: 1, mx: 1 }} />
+                  <TextField
+                    {...params}
+                    placeholder='搜索'
+                    sx={{ height: '100%' }}
+                  />
+                </Stack>
+              )}
+            />
+          </Paper>
+        </>
+      )}
+      {isMobile && (
+        <Paper
+          sx={{
+            flex: 1,
+            borderRadius: '4px',
+            height: '36px',
+            ml: 1,
+            '& .MuiInput-underline': { height: '36px', borderBottom: 'none' },
+            '& .MuiAutocomplete-inputRoot:before': {
+              borderBottom: 'none!important',
+            },
+            boxShadow:
+              '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
+          }}
+        >
+          <Autocomplete
+            disablePortal
+            id='combo-box-demo-mobile'
+            open={openSearch}
+            autoComplete
+            onClose={() => setOpenSearch(false)}
+            onOpen={() => setOpenSearch(true)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                // Prevent's default 'Enter' behavior.
+                event.defaultMuiPrevented = true;
+                const tool = allTools.find(
+                  (item) => item.label === (event.target as any)?.value || ''
+                );
+                if (tool) {
+                  setOpenSearch(false);
+                  router.push(tool.path);
+                }
+                // your handler code
+              }
+            }}
+            filterOptions={(menu, state) =>
+              menu.filter((item) => {
+                return (
+                  item.label
+                    .toUpperCase()
+                    .includes(state.inputValue?.toUpperCase()) ||
+                  item.subTitle
+                    .toUpperCase()
+                    .includes(state.inputValue?.toUpperCase())
+                );
+              })
             }
-          }}
-          filterOptions={(menu, state) =>
-            menu.filter((item) => {
+            options={allTools}
+            renderOption={(props: object, option: Tool, state) => {
               return (
-                item.label
-                  .toUpperCase()
-                  .includes(state.inputValue?.toUpperCase()) ||
-                item.subTitle
-                  .toUpperCase()
-                  .includes(state.inputValue?.toUpperCase())
+                <Box
+                  sx={{
+                    borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+                    '&:hover': {
+                      background: 'rgba(17, 35, 90, 0.05)',
+                    },
+                  }}
+                  onClick={() => setOpenSearch(false)}
+                  {...props}
+                >
+                  <Link href={option.path} className='custom-link'>
+                    <ToolCard tool={option} showStar={false} />
+                  </Link>
+                </Box>
               );
-            })
-          }
-          options={allTools}
-          renderOption={(props: object, option: Tool, state) => {
-            return (
-              <Box
-                sx={{
-                  borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-                  '&:hover': {
-                    background: 'rgba(17, 35, 90, 0.05)',
-                  },
-                }}
-                onClick={() => setOpenSearch(false)}
-                {...props}
-              >
-                <Link href={option.path} className='custom-link'>
-                  <ToolCard tool={option} showStar={false} />
-                </Link>
-              </Box>
-            );
-          }}
-          sx={{ height: '100%' }}
-          autoHighlight
-          renderInput={(params) => (
-            <Stack direction='row'>
-              <SearchIcon sx={{ mt: 1, mx: 1 }} />
-              <TextField
-                {...params}
-                placeholder='搜索'
-                sx={{ height: '100%' }}
-              />
-            </Stack>
-          )}
-        />
-      </Paper>
+            }}
+            sx={{ height: '100%' }}
+            autoHighlight
+            renderInput={(params) => (
+              <Stack direction='row'>
+                <SearchIcon sx={{ mt: 1, mx: 1 }} />
+                <TextField
+                  {...params}
+                  placeholder='搜索工具'
+                  sx={{ height: '100%' }}
+                />
+              </Stack>
+            )}
+          />
+        </Paper>
+      )}
     </Stack>
   );
 };

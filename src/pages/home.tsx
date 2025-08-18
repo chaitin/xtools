@@ -1,6 +1,7 @@
 import { Box, Card, Paper, Stack, Typography } from '@mui/material';
 import { useLocalStorageState } from 'ahooks';
 import { LikeContext } from '@/hooks/useLikeList';
+import { useMobileView } from '@/hooks';
 import { Tag, Tags, allTags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
 import Image from 'next/image';
@@ -15,6 +16,7 @@ interface TagWithTool extends Tag {
   tools: Tool[];
 }
 export default function App() {
+  const isMobile = useMobileView();
   const [scrollTop, setScrollTop] = useLocalStorageState<number>(
     'home_scrollTop',
     { defaultValue: 0 }
@@ -100,13 +102,15 @@ export default function App() {
       id='tag_with_tools'
       ref={mainPageRef}
       sx={{
-        p: 3,
+        p: { xs: 2, md: 3 },
         pt: 0,
         width: '100%',
-        borderRadius: 2,
+        borderRadius: { xs: 0, md: 2 },
         overflow: 'auto',
-        boxShadow:
-          '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
+        boxShadow: {
+          xs: 'none',
+          md: '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)'
+        },
       }}
       elevation={0}
     >

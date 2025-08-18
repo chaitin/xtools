@@ -14,9 +14,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PropTypes from 'prop-types';
 import Header from '@/layouts/Header';
 import SideBar from '@/layouts/SideBar';
+import MobileNavigation from '@/components/MobileNavigation';
 import { LikeContextProvider } from '@/hooks/useLikeList';
 import { AnchorContextProvider } from '@/hooks/useAnchor';
-import { usePath } from '@/hooks';
+import { usePath, useMobileView } from '@/hooks';
 import { useMemo } from 'react';
 import { allTools } from '@/utils/tools';
 import Head from 'next/head';
@@ -34,6 +35,7 @@ export default function App({
   emotionCache = clientSideEmotionCache,
 }: any) {
   const { path } = usePath();
+  const isMobile = useMobileView();
   const isProduction = process.env.NODE_ENV === 'production';
   const currentItem = useMemo(() => {
     return allTools.find((item) => item.path === path);
@@ -67,20 +69,22 @@ export default function App({
                 {isProduction ? <RiverHeader /> : null}
                 <Stack
                   sx={{
-                    width: '1180px',
+                    width: { xs: '100%', md: '1180px' },
                     mx: 'auto',
                     height: '100%',
+                    px: { xs: 1, md: 0 },
                   }}
                 >
                   <Header />
                   <Stack
-                    direction='row'
+                    direction={{ xs: 'column', md: 'row' }}
                     spacing={2}
                     sx={{ pb: 1, flex: 1, overflow: 'auto' }}
                   >
-                    <SideBar />
+                    {!isMobile && <SideBar />}
                     <Component />
                   </Stack>
+                  {isMobile && path === '/home' && <MobileNavigation />}
                 </Stack>
               </QueryClientProvider>
             </LikeContextProvider>

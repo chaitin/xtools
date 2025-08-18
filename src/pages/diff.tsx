@@ -1,3 +1,4 @@
+import { useMobileView } from '@/hooks';
 import MainContent from '@/components/MainContent';
 import {
   Box,
@@ -11,6 +12,7 @@ import { useCallback, useState } from 'react';
 import ReactDiffViewer from 'react-diff-viewer-continued';
 
 const _C = () => {
+  const isMobile = useMobileView();
   const [raw, setRaw] = useState<any>();
   const [modified, setModified] = useState<any>();
   const [alignment, setAlignment] = useState<string>('1');
@@ -45,11 +47,11 @@ const _C = () => {
   return (
     <MainContent>
       <Box>
-        <Stack direction='row' spacing={1}>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={1}>
           <Typography width='100%'>原文本</Typography>
           <Typography width='100%'>对比文本</Typography>
         </Stack>
-        <Stack direction='row' spacing={1} my={1}>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} my={1}>
           <OutlinedInput
             sx={{ width: '100%', fontFamily: 'Mono' }}
             value={raw}
@@ -86,7 +88,7 @@ const _C = () => {
           styles={myStyle}
           oldValue={raw}
           newValue={modified}
-          splitView={!!+alignment}
+          splitView={isMobile ? false : !!+alignment}
           hideLineNumbers
         />
       </Box>

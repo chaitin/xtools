@@ -1,5 +1,5 @@
 import { grayText } from '@/constant';
-import { usePath } from '@/hooks';
+import { usePath, useMobileView } from '@/hooks';
 import { allTags } from '@/utils/tags';
 import { Tool, allTools } from '@/utils/tools';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
@@ -12,6 +12,7 @@ const MainContent: React.FC<{
   fullScreen?: boolean;
 }> = ({ children, sx, fullScreen = true }) => {
   const { path } = usePath();
+  const isMobile = useMobileView();
 
   const [tool] = React.useState<Tool | undefined>(
     allTools.find((item) => item.path === path)
@@ -94,14 +95,16 @@ const MainContent: React.FC<{
   return (
     <Stack
       sx={{
-        px: '50px',
+        px: { xs: 2, md: '50px' },
         py: 2,
         overflow: 'auto',
         flex: 1,
-        borderRadius: '8px',
+        borderRadius: { xs: 0, md: '8px' },
         background: '#fff',
-        boxShadow:
-          '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)',
+        boxShadow: {
+          xs: 'none',
+          md: '0px 0px 2px 0px rgba(145,158,171,0.2), 0px 12px 24px -4px rgba(145,158,171,0.12)'
+        },
         ...sx,
       }}
     >
