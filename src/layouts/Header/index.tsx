@@ -15,6 +15,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
+import MobileNavigation from '@/components/MobileNavigation';
 
 const ifChecked = (currentPath: string, itemPath: string) => {
   return currentPath === itemPath;
@@ -70,6 +71,7 @@ const Header: React.FC<{}> = () => {
       direction='row'
       alignItems='center'
       sx={{
+        position: 'relative',
         width: '100%',
         height: '84px',
         flexShrink: 0,
@@ -287,6 +289,8 @@ const Header: React.FC<{}> = () => {
           />
         </Paper>
       )}
+      {/* Render mobile navigation inside header so its absolute button is centered to this header */}
+      {isMobile && path === '/home' && <MobileNavigation />}
     </Stack>
   );
 };

@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Drawer, IconButton, Stack, Typography, Button } from '@mui/material';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
+import { useMobileView } from '@/hooks';
 import Link from 'next/link';
 import { useLocalStorageState } from 'ahooks';
 
@@ -14,6 +15,7 @@ const MobileNavigation: React.FC<{}> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [linkAnchor, setLinkAnchor] = useState(false);
   const [checkAnchor, setCheckAnchor] = useState('');
+  const isMobile = useMobileView();
   const [, setScrollTop] = useLocalStorageState<number>('home_scrollTop', {
     defaultValue: 0,
   });
@@ -29,24 +31,27 @@ const MobileNavigation: React.FC<{}> = () => {
 
   return (
     <>
-      <IconButton
-        onClick={handleToggle}
-        sx={{
-          display: isOpen ? 'none' : 'inline-flex',
-          position: 'fixed',
-          top: 'calc(84px / 2 - 20px)',
-          right: 16,
-          zIndex: 1300,
-          backgroundColor: 'white',
-          boxShadow: '0px 2px 8px rgba(0,0,0,0.15)',
-          '&:hover': {
-            backgroundColor: 'rgba(0,0,0,0.04)',
-          },
-        }}
-        aria-label={isOpen ? 'menu-hidden' : 'open-menu'}
-      >
-        <MenuIcon />
-      </IconButton>
+      {isMobile && (
+        <IconButton
+          onClick={handleToggle}
+          sx={{
+            display: isOpen ? 'none' : 'inline-flex',
+            position: 'absolute',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            right: 16,
+            zIndex: 1300,
+            backgroundColor: 'white',
+            boxShadow: '0px 2px 8px rgba(0,0,0,0.15)',
+            '&:hover': {
+              backgroundColor: 'rgba(0,0,0,0.04)',
+            },
+          }}
+          aria-label={isOpen ? 'menu-hidden' : 'open-menu'}
+        >
+          <MenuIcon />
+        </IconButton>
+      )}
 
       <Drawer
         anchor='right'

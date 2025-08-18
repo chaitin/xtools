@@ -14,7 +14,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PropTypes from 'prop-types';
 import Header from '@/layouts/Header';
 import SideBar from '@/layouts/SideBar';
-import MobileNavigation from '@/components/MobileNavigation';
 import { LikeContextProvider } from '@/hooks/useLikeList';
 import { AnchorContextProvider } from '@/hooks/useAnchor';
 import { usePath, useMobileView } from '@/hooks';
@@ -84,7 +83,7 @@ export default function App({
                     {!isMobile && <SideBar />}
                     <Component />
                   </Stack>
-                  {isMobile && path === '/home' && <MobileNavigation />}
+                  {/* MobileNavigation is rendered inside Header when needed */}
                 </Stack>
               </QueryClientProvider>
             </LikeContextProvider>
